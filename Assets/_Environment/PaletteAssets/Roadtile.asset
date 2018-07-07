@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8394a6642143d2458c5f7ad54c2ad70, type: 3}
+  m_Name: Roadtile
+  m_EditorClassIdentifier: 
+  m_Sprite: {fileID: 21300000, guid: e2415c4f7919ba14da09142b15d7c8f0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Transform:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  m_InstancedGameObject: {fileID: 0}
+  m_Flags: 1
+  m_ColliderType: 1
+  roadSprites:
+  - {fileID: 21300000, guid: da164aa1c1a18c3429e4548c9d6d6ee6, type: 3}
+  - {fileID: 21300000, guid: bb0915489fc1e094f8120638e6c65df4, type: 3}
+  - {fileID: 21300000, guid: 69e2138a40933f543ad3b1bb299fc69e, type: 3}
+  - {fileID: 21300000, guid: b538741703a4b524fb548e1ff0de4cac, type: 3}
+  - {fileID: 21300000, guid: dee85701516b50f48bcd0a4f48be76ed, type: 3}
+  - {fileID: 21300000, guid: e2415c4f7919ba14da09142b15d7c8f0, type: 3}
+  - {fileID: 21300000, guid: 01a31529bbf46af49b7c6b2be361ff72, type: 3}
+  - {fileID: 21300000, guid: 53c74b2bb6acd644cbca16d9d2899240, type: 3}
+  - {fileID: 21300000, guid: bafeea390cf5cf24ebf6b1679f07c6d2, type: 3}
+  - {fileID: 21300000, guid: c349540aadb230e40b917a45e1682a7c, type: 3}
+  - {fileID: 21300000, guid: fceb5ae56da1e8a4bad15987c4b426c0, type: 3}
