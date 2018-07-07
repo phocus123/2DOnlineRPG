@@ -1,21 +1,35 @@
 ﻿using UnityEngine;
+using RPG.Core;
 
 namespace RPG.Characters
 {
     public class PlayerControl : CharacterController
     {
+        [SerializeField] GameObject target;
+
+        GameManager gameManager;
         Vector2 direction;
         private Vector3 min, max;
+
+        private void Start()
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+
+        void Update()
+        {
+            GetInput();
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
+        }
+
+        public void SetTarget(GameObject target)
+        {
+            this.target = target;
+        }
 
         public override Vector2 GetDirection()
         {
             return direction;
-        }
-
-        private void Update()
-        {
-            GetInput();
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
         }
 
         public void GetInput()
@@ -41,6 +55,11 @@ namespace RPG.Characters
             {
                 //exitIndex = 1;
                 direction += Vector2.right;
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                var healthSystem = target.GetComponent<HealthSystem>();
+                healthSystem.TakeDamage(10f);
             }
         }
 

@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace RPG.Characters
 {
     public class Character : MonoBehaviour
     {
         [Header("Animator")]
+
         [SerializeField] RuntimeAnimatorController runtimeAnimatorController;
 
         [Header("Obstacle Collider")]
@@ -14,6 +16,10 @@ namespace RPG.Characters
         [Header("Movement")]
         [SerializeField] float moveSpeed;
         public float MoveSpeed { get { return moveSpeed; } }
+
+        [Header("General Character Data")]
+        [SerializeField] Text nameText;
+        [SerializeField] string characterName;
 
         Animator animator;
         Rigidbody2D rigidBody;
@@ -30,10 +36,11 @@ namespace RPG.Characters
 
         bool isAlive = true;
 
-
+         
         private void Awake()
         {
             AddRequiredComponents();
+            nameText.text = characterName; // TODO Is this the appropriate place to put this?
         }
 
         private void Update()
@@ -67,6 +74,10 @@ namespace RPG.Characters
             if (gameObject.GetComponent<PlayerControl>())
             {
                 characterController = GetComponent<PlayerControl>();
+            }
+            else if (gameObject.GetComponent<NPCControl>())
+            {
+                characterController = GetComponent<NPCControl>();
             }
             else
             {

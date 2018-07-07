@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using RPG.Characters;
 
-namespace RPG.Characters
+namespace RPG.Core
 {
     public class GameManager : MonoBehaviour
     {
-        //public delegate void OnMouseOverEnemy(EnemyControl enemy);
-        //public event OnMouseOverEnemy InvokeOnMouseOverEnemy;
-        //public delegate void OnMouseOverNormal();
-        //public event OnMouseOverNormal InvokeOnMouseOverNormal;
-        //public delegate void OnMouseOverInteractable(NPC npc);
-        //public event OnMouseOverInteractable InvokeOnMouseOverInteractable;
+        public delegate void OnEnemyClicked(GameObject enemy);
+        public event OnEnemyClicked InvokeOnEnemyClicked;
 
-        //[SerializeField] private Player player = null;
+        public delegate void OnNonEnemyClicked();
+        public event OnNonEnemyClicked InvokeOnNonEnemyClicked;
+
+        //public delegate void OnMouseOverInteractable(GameObject npc);
+        //public event OnMouseOverInteractable InvokeOnMouseOverInteractable;
 
         [SerializeField] private Texture2D enemyCursor = null;
         [SerializeField] private Texture2D interactableCursor = null;
@@ -20,13 +21,14 @@ namespace RPG.Characters
 
         Vector2 cursorHotspot = new Vector2(0, 0);
         const int INTERACTABLE_LAYER = 8;
+        GameObject currentEnemyTarget;
+        HealthSystem playerHealthSystem;
 
-        //private CharacterOld currentTarget;
+        const float HEALTH_REGEN_AMOUNT = 0.25f;
 
         private void Start()
         {
-            //InvokeOnMouseOverEnemy += new OnMouseOverEnemy(SelectTarget);
-            //InvokeOnMouseOverNormal += new OnMouseOverNormal(DeSelectTarget);
+            playerHealthSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthSystem>();
             //InvokeOnMouseOverInteractable += new OnMouseOverInteractable(TriggerDialogue);
         }
 
@@ -37,7 +39,7 @@ namespace RPG.Characters
                 PerformRaycasts();
             }
 
-            //RegenHealth(0.25f);
+            RegenHealth(HEALTH_REGEN_AMOUNT);
             //RegenEnergy(1);
         }
 
@@ -50,8 +52,12 @@ namespace RPG.Characters
         {
             if (RaycastForEnemy()) { return; }
             if (RaycastForInteractable()) { return; }
+            if (Input.GetMouseButtonDown(0))
+            {
+                currentEnemyTarget = null;
+                InvokeOnNonEnemyClicked();
+            }
             Cursor.SetCursor(mainCursor, cursorHotspot, CursorMode.Auto);
-            //InvokeOnMouseOverNormal();
         }
 
         private bool RaycastForInteractable()
@@ -77,40 +83,20 @@ namespace RPG.Characters
                 var enemyHit = hit.collider.gameObject.GetComponentInParent<EnemyControl>();
                 if (enemyHit)
                 {
-                    //InvokeOnMouseOverEnemy(enemyHit);
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        if (currentEnemyTarget != null)
+                        {
+                            InvokeOnNonEnemyClicked();
+                        }
+                        currentEnemyTarget = enemyHit.gameObject;
+                        InvokeOnEnemyClicked(enemyHit.gameObject);
+                    }
                     Cursor.SetCursor(enemyCursor, cursorHotspot, CursorMode.Auto);
                     return true;
                 }
             }
             return false;
-        }
-
-        private void SelectTarget(EnemyControl enemy)
-        {
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    if (currentTarget != null)
-            //    {
-            //        currentTarget.DeSelect();
-            //    }
-            //    currentTarget = enemy;
-
-            //    player.Target = currentTarget.Select();
-
-            //    UIManager.Instance.ShowTargetFrame(currentTarget);
-            //}
-        }
-
-        private void DeSelectTarget()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                //if (currentTarget != null)
-                //{
-                //    currentTarget.DeSelect();
-                //    UIManager.Instance.HideTargetFrame();
-                //}
-            }
         }
 
         private void TriggerDialogue(NPCControl npc)
@@ -125,10 +111,10 @@ namespace RPG.Characters
             //}
         }
 
-        //private void RegenHealth(float value)
-        //{
-        //    player.Health.CurrentValue += value * Time.deltaTime;
-        //}
+        void RegenHealth(float value)
+        {
+            playerHealthSystem.CurrentHealthPoints += value * Time.deltaTime;
+        }
 
         //private void RegenEnergy(float value)
         //{
