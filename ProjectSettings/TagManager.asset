@@ -14,7 +14,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Interactable
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
     locked: 0
   - name: TopLayer
     uniqueID: 265971279
+    locked: 0
+  - name: UI
+    uniqueID: 1977354545
     locked: 0

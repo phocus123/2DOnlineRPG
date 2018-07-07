@@ -59,13 +59,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_CameraUI\CameraFollow.cs" />
     <Compile Include="Assets\_Characters\Character.cs" />
-    <Compile Include="Assets\_Characters\PlayerControl.cs" />
+    <Compile Include="Assets\_Characters\CharacterController.cs" />
+    <Compile Include="Assets\_Characters\Enemies\EnemyControl.cs" />
+    <Compile Include="Assets\_Characters\NPC\NPCControl.cs" />
+    <Compile Include="Assets\_Characters\Player\PlayerControl.cs" />
     <Compile Include="Assets\_Environment\LayerSorter.cs" />
     <Compile Include="Assets\_Environment\Obstacle.cs" />
     <Compile Include="Assets\_Environment\Road\RoadTile.cs" />
     <Compile Include="Assets\_Environment\TreeTile.cs" />
     <Compile Include="Assets\_Environment\Water\WaterTile.cs" />
+    <Compile Include="Assets\_Managers\GameManager.cs" />
+    <Compile Include="Assets\HealthSystem.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Mark/Desktop/2DOnlineRPG/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
