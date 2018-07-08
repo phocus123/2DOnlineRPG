@@ -1,40 +1,30 @@
-﻿using UnityEngine;
-using RPG.Characters;
-using RPG.Core;
+﻿using RPG.Characters;
+using UnityEngine;
 
-namespace RPG.CameraUI
+namespace RPG.Core
 {
     public class UIManager : MonoBehaviour
     {
         [SerializeField] GameObject targetFrame;
-        [SerializeField] GameManager gameManager;
 
         HealthSystem currentTargetHealthSystem;
-
-        private void Start()
-        {
-             gameManager.InvokeOnEnemyClicked += new GameManager.OnEnemyClicked(ShowTargetFrame);
-             gameManager.InvokeOnNonEnemyClicked += new GameManager.OnNonEnemyClicked(HideTargetFrame);         
-        }
 
         public void ShowTargetFrame(GameObject enemy)
         {
             currentTargetHealthSystem = enemy.GetComponentInParent<HealthSystem>();
-            targetFrame.SetActive(true);
             currentTargetHealthSystem.ShowEnemyHealthBar();
-
+            targetFrame.SetActive(true);
+            RegisterForHealthEvents();
             currentTargetHealthSystem.Initialize(currentTargetHealthSystem.CurrentHealthPoints, currentTargetHealthSystem.MaxHealthPoints);
-            currentTargetHealthSystem.InvokeOnStatChange += new HealthSystem.OnStatChange(UpdateTargetFrame);
-
-            //target.InvokeOnCharacterRemoved += new CharacterOld.OnCharacterRemoved(HideTargetFrame);
         }
 
         public void HideTargetFrame()
         {
             if (currentTargetHealthSystem != null)
             {
-                targetFrame.SetActive(false);
                 currentTargetHealthSystem.HideEnemyHealthBar();
+                targetFrame.SetActive(false);
+                DeregisterForHealthEvents();
                 currentTargetHealthSystem = null;
             }
         }
@@ -43,6 +33,18 @@ namespace RPG.CameraUI
         {
             healthSystem.CurrentHealthPoints = value;
             healthSystem.UpdateTargetFrameHealthbar();
+        }
+
+        void RegisterForHealthEvents()
+        {
+            currentTargetHealthSystem.InvokeOnStatChange += UpdateTargetFrame;
+            currentTargetHealthSystem.InvokeOnCharacterDestroyed += HideTargetFrame;
+        }
+
+        void DeregisterForHealthEvents()
+        {
+            currentTargetHealthSystem.InvokeOnStatChange -= UpdateTargetFrame;
+            currentTargetHealthSystem.InvokeOnCharacterDestroyed -= HideTargetFrame;
         }
     }
 }

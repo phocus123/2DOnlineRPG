@@ -4,9 +4,10 @@ namespace RPG.Characters
 {
     public class NPCControl : CharacterController
     {
-        public override Vector2 GetDirection()
+        public override DirectionParams GetDirectionParams()
         {
-            return Vector2.zero;
+            DirectionParams directionParams = new DirectionParams(Vector2.zero);
+            return directionParams;
         }
 
         // Use this for initialization

@@ -8,12 +8,11 @@ namespace RPG.CameraUI
     {
         [SerializeField] private Tilemap tilemap = null;
 
-        private Transform target;
-        private float xMax, xMin, yMin, yMax;
+        Transform target;
+        float xMax, xMin, yMin, yMax;
 
-        private PlayerControl playerControl;
+        PlayerControl playerControl;
 
-        // Use this for initialization
         void Start()
         {
             target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -23,16 +22,11 @@ namespace RPG.CameraUI
             Vector3 maxTile = tilemap.CellToWorld(tilemap.cellBounds.max);
 
             SetLimits(minTile, maxTile);
-
             playerControl.SetLimits(minTile, maxTile);
         }
 
-        // Update is called once per frame
         void LateUpdate()
         {
-            //if (playerControl.IsAlive)
-            //{
-            //}
                 transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), -10f);
         }
 

@@ -14,9 +14,10 @@ namespace RPG.Characters
             character = GetComponent<Character>();
         }
 
-        public override Vector2 GetDirection()
+        public override DirectionParams GetDirectionParams()
         {
-            return direction;
+            DirectionParams directionParams = new DirectionParams(direction);
+            return directionParams;
         }
 
         public void Update()

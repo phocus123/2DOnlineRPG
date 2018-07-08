@@ -1,19 +1,29 @@
 ﻿using UnityEngine;
+using RPG.CameraUI;
 using RPG.Core;
 
 namespace RPG.Characters
 {
     public class PlayerControl : CharacterController
     {
-        [SerializeField] GameObject target;
+        GameObject target;
+        GameObject originalTarget; // Used to track original target before when a spell is cast and then the player clicks on a new target.
 
-        GameManager gameManager;
         Vector2 direction;
-        private Vector3 min, max;
+        int exitIndex;
+        Vector3 min, max;
 
-        private void Start()
+        CameraRaycaster cameraRaycaster;
+        UIManager uiManager;
+        AbilitySystem abilitySystem;
+
+        void Awake()
         {
-            gameManager = FindObjectOfType<GameManager>();
+            cameraRaycaster = FindObjectOfType<CameraRaycaster>();
+            uiManager = FindObjectOfType<UIManager>();
+            abilitySystem = GetComponent<AbilitySystem>();
+
+            RegisterForMouseEvents();
         }
 
         void Update()
@@ -27,9 +37,10 @@ namespace RPG.Characters
             this.target = target;
         }
 
-        public override Vector2 GetDirection()
+        public override DirectionParams GetDirectionParams()
         {
-            return direction;
+            DirectionParams directionParams = new DirectionParams(direction, exitIndex);
+            return directionParams;
         }
 
         public void GetInput()
@@ -38,28 +49,29 @@ namespace RPG.Characters
 
             if (Input.GetKey(KeyCode.W))
             {
-                //exitIndex = 0;
+                exitIndex = 0;
                 direction += Vector2.up;
             }
             if (Input.GetKey(KeyCode.A))
             {
-                //exitIndex = 3;
+                exitIndex = 3;
                 direction += Vector2.left;
             }
             if (Input.GetKey(KeyCode.S))
             {
-                //exitIndex = 2;
+                exitIndex = 2;
                 direction += Vector2.down;
             }
             if (Input.GetKey(KeyCode.D))
             {
-                //exitIndex = 1;
+                exitIndex = 1;
                 direction += Vector2.right;
             }
+            // TODO Remove when damage has been implemented.
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                var healthSystem = target.GetComponent<HealthSystem>();
-                healthSystem.TakeDamage(10f);
+                originalTarget = target;
+                abilitySystem.AttempAbility(1, originalTarget);
             }
         }
 
@@ -67,6 +79,35 @@ namespace RPG.Characters
         {
             this.min = min;
             this.max = max;
+        }
+
+        void RegisterForMouseEvents()
+        {
+            cameraRaycaster.InvokeOnMouseOverEnemy += OnMouseOverEnemy;
+            cameraRaycaster.InvokeOnMouseOverNonEnemy += OnMouseOverNonEnemy;
+        }
+
+        void OnMouseOverEnemy(GameObject enemy)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (target != null)
+                {
+                    target = null;
+                    uiManager.HideTargetFrame();
+                }
+                uiManager.ShowTargetFrame(enemy);
+                target = enemy;
+            }
+        }
+
+        void OnMouseOverNonEnemy()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                target = null;
+                uiManager.HideTargetFrame();
+            }
         }
     }
 }

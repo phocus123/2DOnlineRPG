@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cff78d92adfcb24abca339f99d4d36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114238730527879688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,6 +165,9 @@ MonoBehaviour:
   colliderSize: {x: 0.5, y: 0.1}
   colliderOffset: {x: -0.05, y: -0.4}
   moveSpeed: 3
+  nameText: {fileID: 114746929251921660}
+  characterName: Shrike
+  experienceWorth: 0
 --- !u!114 &114280941070216300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -213,8 +217,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealthPoints: 100
-  healthBar: {fileID: 0}
   currentHealthPoints: 0
+  healthBar: {fileID: 0}
+  targetFrameHealthbar: {fileID: 0}
+  enemyHealthCanvas: {fileID: 0}
+  targetHealthbarText: {fileID: 0}
 --- !u!114 &114746929251921660
 MonoBehaviour:
   m_ObjectHideFlags: 1

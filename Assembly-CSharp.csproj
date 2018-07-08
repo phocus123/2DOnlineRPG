@@ -59,11 +59,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_CameraUI\ActionButton.cs" />
     <Compile Include="Assets\_CameraUI\CameraFollow.cs" />
-    <Compile Include="Assets\_Characters\Character.cs" />
+    <Compile Include="Assets\_CameraUI\CameraRaycaster.cs" />
+    <Compile Include="Assets\_CameraUI\DragItem.cs" />
+    <Compile Include="Assets\_CameraUI\IMoveable.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Ability.cs" />
+    <Compile Include="Assets\_Characters\Abilities\AbilityBehaviour.cs" />
+    <Compile Include="Assets\_Characters\Abilities\AbilityStat.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Bow Shot\BowShotBehaviour.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Bow Shot\BowShotConfig.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Fireball\FireballBehaviour.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Fireball\FireballConfig.cs" />
+    <Compile Include="Assets\_Characters\Abilities\ImpactBehaviour.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Projectile.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Slash Attack\SlashAttackBehaviour.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Slash Attack\SlashAttackConfig.cs" />
+    <Compile Include="Assets\_Characters\Abilities\StatModifier.cs" />
+    <Compile Include="Assets\_Characters\Character Scripts\AbilitySystem.cs" />
+    <Compile Include="Assets\_Characters\Character Scripts\Character.cs" />
+    <Compile Include="Assets\_Characters\Character Scripts\HealthSystem.cs" />
     <Compile Include="Assets\_Characters\CharacterController.cs" />
+    <Compile Include="Assets\_Characters\DeathBehaviour.cs" />
     <Compile Include="Assets\_Characters\Enemies\EnemyControl.cs" />
-    <Compile Include="Assets\_Characters\HealthSystem.cs" />
     <Compile Include="Assets\_Characters\NPC\NPCControl.cs" />
     <Compile Include="Assets\_Characters\Player\PlayerControl.cs" />
     <Compile Include="Assets\_Environment\LayerSorter.cs" />
@@ -73,6 +91,7 @@
     <Compile Include="Assets\_Environment\Water\WaterTile.cs" />
     <Compile Include="Assets\_Managers\GameManager.cs" />
     <Compile Include="Assets\_Managers\UIManager.cs" />
+    <Compile Include="Assets\_Weapons\Weapon.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Mark/Desktop/2DOnlineRPG/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
