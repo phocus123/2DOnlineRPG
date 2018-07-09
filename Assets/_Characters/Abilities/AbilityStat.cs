@@ -6,10 +6,11 @@ namespace RPG.Characters
     [Serializable]
     public class AbilityStat
     {
+        public float BaseValue;
+
         bool isDirty = true;
         float value;
-
-        public float BaseValue;
+        readonly List<StatModifier> statModifiers;
 
         public float Value
         {
@@ -27,9 +28,6 @@ namespace RPG.Characters
                 return value;
             }
         }
-
-        readonly List<StatModifier> statModifiers;
-        
 
         public AbilityStat(float baseValue)
         {
@@ -49,7 +47,7 @@ namespace RPG.Characters
             return statModifiers.Remove(mod);
         }
 
-        private float CalculateFinalValue()
+        float CalculateFinalValue()
         {
             float finalValue = BaseValue;
 

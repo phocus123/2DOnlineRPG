@@ -31,9 +31,9 @@ namespace RPG.Characters
         bool isAttacking;
 
         public bool IsMoving{ get { return characterController.GetDirectionParams().direction.x != 0 || characterController.GetDirectionParams().direction.y != 0; } }
-
         public Transform[] ExitPoints { get { return exitPoints; } }
         public int ExitIndex { get { return characterController.GetDirectionParams().exitIndex; } }
+        public bool IsAttacking { get { return isAttacking; } }
 
         void Awake()
         {
@@ -51,22 +51,17 @@ namespace RPG.Characters
             Move();
         }
 
-        // TODO re-implement ability parameter.
-        public void StartAttackAnimation()
+        public void StartAttackAnimation(string animationName)
         {
             isAttacking = true;
-            //var currentAnimationName = ability.Weapon.AnimationName; // TODO get rid of string reference.
-            var currentAnimationName = "Cast";
-            animator.SetBool(currentAnimationName, isAttacking);
+            animator.SetBool(animationName, isAttacking);
         }
 
-        public void StopAttackAnimation()
+        public void StopAttackAnimation(string animationName)
         {
             isAttacking = false;
-            var currentAnimationName = "Cast";
-            animator.SetBool(currentAnimationName, isAttacking);
+            animator.SetBool(animationName, isAttacking);
         }
-
 
         public void KillCharacter()
         {
@@ -142,7 +137,6 @@ namespace RPG.Characters
             {
                 animator.SetLayerWeight(i, 0);
             }
-
             animator.SetLayerWeight(animator.GetLayerIndex(layerName), 1);
         }
     }

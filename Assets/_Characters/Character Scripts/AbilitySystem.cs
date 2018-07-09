@@ -1,19 +1,42 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace RPG.Characters
 {
     public class AbilitySystem : MonoBehaviour
     {
+        public delegate void OnEnergyChanged();
+        public event OnEnergyChanged InvokeOnEnergyChanged;
+
+        [Header("Abilities")]
         [SerializeField] Ability[] abilities;
+
+        [Header("Energy")]
+        [SerializeField] float maxEnergyPoints;
+        [SerializeField] Image energyBar;
+        [SerializeField] Text playerEnergybarText;
+
+        float currentEnergyPoints;
+
+        public float CurrentEnergyPoints
+        {
+            get { return currentEnergyPoints; }
+            set { currentEnergyPoints = Mathf.Clamp(value, 0, maxEnergyPoints); }
+        }
+
+        float EnergyAsPercent { get { return currentEnergyPoints / maxEnergyPoints; } }
 
         void Start()
         {
             AttachInitialAbilities();
+            currentEnergyPoints = maxEnergyPoints;
+            UpdateEnergyBar();
         }
 
-        void Update()
+        private void Update()
         {
-
+            UpdateEnergyBar();
         }
 
         void AttachInitialAbilities()
@@ -24,21 +47,40 @@ namespace RPG.Characters
             }
         }
 
-        public void AttempAbility(int abilityIndex, GameObject target = null)
+        public void AttemptAbility(int abilityIndex, GameObject target = null)
         {
-            abilities[abilityIndex].Use(target);
-            //var energyComponent = GetComponent<SpecialAbilities>();
-            //var energyCost = abilities[abilityIndex].GetEnergyCost();
+            var energyComponent = GetComponent<AbilitySystem>();
+            var energyCost = abilities[abilityIndex].Energy;
 
-            //if (energyCost <= currentEnergyPoints)
-            //{
-            //    ConsumeEnergy(energyCost);
-            //    abilities[abilityIndex].Use(target);
-            //}
-            //else
-            //{
-            //    audioSource.PlayOneShot(outOfEnergy);
-            //}
+            if (energyCost <= currentEnergyPoints)
+            {
+                ConsumeEnergy(energyCost);
+                abilities[abilityIndex].Use(target);
+            }
+        }
+
+        private void ConsumeEnergy(float energyCost)
+        {
+            if (InvokeOnEnergyChanged != null)
+            {
+                InvokeOnEnergyChanged();
+            }
+
+            float newEnergyamount = currentEnergyPoints - energyCost;
+            currentEnergyPoints = Mathf.Clamp(newEnergyamount, 0, maxEnergyPoints);
+            UpdateEnergyBar();
+        }
+
+        private void UpdateEnergyBar()
+        {
+            if (energyBar)
+            {
+                energyBar.fillAmount = EnergyAsPercent;
+            }
+            if (playerEnergybarText != null)
+            {
+                playerEnergybarText.text = Mathf.Round(currentEnergyPoints) + "/" + maxEnergyPoints;
+            }
         }
     }
 }

@@ -4,47 +4,25 @@ namespace RPG.Characters
 {
     public class SlashAttackBehaviour : AbilityBehaviour
     {
-        private Coroutine attackRoutine;
-
         public override void Use(GameObject target)
         {
-            //attackRoutine = StartCoroutine(Attack(useParams));
+            StartAttack(target);
         }
 
-        //private IEnumerator Attack(AbilityUseParams useParams)
-        //{
-        //    var damage = (config as SlashAttackConfig).Damage;
-        //    var source = useParams.source;
+        void StartAttack(GameObject target)
+        {
+            var useParams = GetUseParams(target);
+            attackRoutine = StartCoroutine(MeleeAttack(useParams));
+        }
 
-        //    if (useParams.target.GetType() == typeof(Enemy))
-        //    {
-        //        var target = (Enemy)useParams.target;
-        //        target.transform.GetChild(0).GetComponent<Animator>().SetTrigger("MeleeImpact");
-        //        target.TakeDamage(damage.TrueValue, gameObject.transform);
-        //    }
-        //    else
-        //    {
-        //        var target = (Player)useParams.target;
-        //        target.transform.GetChild(0).GetComponent<Animator>().SetTrigger("MeleeImpact");
-        //        target.TakeDamage(damage.TrueValue, gameObject.transform);
-        //    }
+        AbilityUseParams GetUseParams(GameObject target)
+        {
+            var damage = (ability as SlashAttackConfig).Damage.Value;
+            var animationName = (ability as SlashAttackConfig).Weapon.AnimationName;
 
-        //    source.StartAttack(useParams.ability);
-        //    source.Energy.CurrentValue -= config.Energy;
+            AbilityUseParams useParams = new AbilityUseParams(target, damage, null);
 
-
-        //    yield return new WaitForSeconds(config.AttackSpeed);
-        //    StopAttack(useParams);
-
-        //}
-
-        //private void StopAttack(AbilityUseParams useParams)
-        //{
-        //    if (attackRoutine != null)
-        //    {
-        //        StopCoroutine(attackRoutine);
-        //        useParams.source.StopAttack(useParams.ability);
-        //    }
-        //}
+            return useParams;
+        }
     }
 }

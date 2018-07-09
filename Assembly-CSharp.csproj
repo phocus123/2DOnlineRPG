@@ -62,6 +62,7 @@
     <Compile Include="Assets\_CameraUI\ActionButton.cs" />
     <Compile Include="Assets\_CameraUI\CameraFollow.cs" />
     <Compile Include="Assets\_CameraUI\CameraRaycaster.cs" />
+    <Compile Include="Assets\_CameraUI\Castbar.cs" />
     <Compile Include="Assets\_CameraUI\DragItem.cs" />
     <Compile Include="Assets\_CameraUI\IMoveable.cs" />
     <Compile Include="Assets\_Characters\Abilities\Ability.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Assets\_Characters\Abilities\Slash Attack\SlashAttackBehaviour.cs" />
     <Compile Include="Assets\_Characters\Abilities\Slash Attack\SlashAttackConfig.cs" />
     <Compile Include="Assets\_Characters\Abilities\StatModifier.cs" />
+    <Compile Include="Assets\_Characters\Block.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\AbilitySystem.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\Character.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\HealthSystem.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Assets\_Managers\GameManager.cs" />
     <Compile Include="Assets\_Managers\UIManager.cs" />
     <Compile Include="Assets\_Weapons\Weapon.cs" />
+    <Compile Include="Assets\WeaponSystem.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Mark/Desktop/2DOnlineRPG/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

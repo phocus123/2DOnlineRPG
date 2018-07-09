@@ -29,21 +29,20 @@ namespace RPG.Core
             }
         }
 
-        public void UpdateTargetFrame(float value, HealthSystem healthSystem)
+        public void UpdateTargetFrame(HealthSystem healthSystem)
         {
-            healthSystem.CurrentHealthPoints = value;
             healthSystem.UpdateTargetFrameHealthbar();
         }
 
         void RegisterForHealthEvents()
         {
-            currentTargetHealthSystem.InvokeOnStatChange += UpdateTargetFrame;
+            currentTargetHealthSystem.InvokeOnHealthChange += UpdateTargetFrame;
             currentTargetHealthSystem.InvokeOnCharacterDestroyed += HideTargetFrame;
         }
 
         void DeregisterForHealthEvents()
         {
-            currentTargetHealthSystem.InvokeOnStatChange -= UpdateTargetFrame;
+            currentTargetHealthSystem.InvokeOnHealthChange -= UpdateTargetFrame;
             currentTargetHealthSystem.InvokeOnCharacterDestroyed -= HideTargetFrame;
         }
     }

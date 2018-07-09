@@ -7,17 +7,20 @@ namespace RPG.Core
     public class GameManager : MonoBehaviour
     {
         HealthSystem playerHealthSystem;
+        AbilitySystem playerAbilitySystem;
         const float HEALTH_REGEN_AMOUNT = 0.25f;
+        const float ENERGY_REGEN_AMOUNT = 0.5f;
 
         private void Start()
         {
             playerHealthSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthSystem>();
+            playerAbilitySystem = GameObject.FindGameObjectWithTag("Player").GetComponent<AbilitySystem>();
         }
 
         private void Update()
         { 
             RegenHealth(HEALTH_REGEN_AMOUNT);
-            //RegenEnergy(1);
+            RegenEnergy(ENERGY_REGEN_AMOUNT);
         }
 
         public void ExitGame()
@@ -43,9 +46,9 @@ namespace RPG.Core
             playerHealthSystem.CurrentHealthPoints += value * Time.deltaTime;
         }
 
-        //private void RegenEnergy(float value)
-        //{
-        //    player.Energy.CurrentValue += value * Time.deltaTime;
-        //}
+        void RegenEnergy(float value)
+        {
+            playerAbilitySystem.CurrentEnergyPoints += value * Time.deltaTime;
+        }
     }
 }

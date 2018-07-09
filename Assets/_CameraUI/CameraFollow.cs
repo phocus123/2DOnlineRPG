@@ -30,7 +30,7 @@ namespace RPG.CameraUI
                 transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), -10f);
         }
 
-        private void SetLimits(Vector3 minTile, Vector3 maxTile)
+        void SetLimits(Vector3 minTile, Vector3 maxTile)
         {
             Camera cam = Camera.main;
 

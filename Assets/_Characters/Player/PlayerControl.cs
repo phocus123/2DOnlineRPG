@@ -6,6 +6,8 @@ namespace RPG.Characters
 {
     public class PlayerControl : CharacterController
     {
+        [SerializeField] Block[] blockArray;
+
         GameObject target;
         GameObject originalTarget; // Used to track original target before when a spell is cast and then the player clicks on a new target.
 
@@ -16,13 +18,12 @@ namespace RPG.Characters
         CameraRaycaster cameraRaycaster;
         UIManager uiManager;
         AbilitySystem abilitySystem;
+        WeaponSystem weaponSystem;
+        Character character;
 
         void Awake()
         {
-            cameraRaycaster = FindObjectOfType<CameraRaycaster>();
-            uiManager = FindObjectOfType<UIManager>();
-            abilitySystem = GetComponent<AbilitySystem>();
-
+            GetRequiredReferences();
             RegisterForMouseEvents();
         }
 
@@ -30,6 +31,11 @@ namespace RPG.Characters
         {
             GetInput();
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
+            if (target != null)
+            {
+
+            }
+                Debug.DrawRay(transform.position, direction * 10, Color.red);
         }
 
         public void SetTarget(GameObject target)
@@ -70,8 +76,13 @@ namespace RPG.Characters
             // TODO Remove when damage has been implemented.
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                originalTarget = target;
-                abilitySystem.AttempAbility(1, originalTarget);
+                Block();
+
+                if (target != null && IsTargetInRange(weaponSystem.GetWeaponAtIndex(0), target) && !character.IsAttacking && !character.IsMoving && InLineOfSight())
+                {
+                    originalTarget = target;
+                    abilitySystem.AttemptAbility(0, originalTarget);
+                }
             }
         }
 
@@ -79,6 +90,22 @@ namespace RPG.Characters
         {
             this.min = min;
             this.max = max;
+        }
+
+        // TODO Implement Weapon system
+        bool IsTargetInRange(Weapon weapon, GameObject target)
+        {
+            float distance = Vector2.Distance(target.transform.position, transform.position);
+            return distance <= weapon.AttackRange;
+        }
+
+        void GetRequiredReferences()
+        {
+            character = GetComponent<Character>();
+            cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
+            uiManager = FindObjectOfType<UIManager>();
+            abilitySystem = GetComponent<AbilitySystem>();
+            weaponSystem = GetComponent<WeaponSystem>();
         }
 
         void RegisterForMouseEvents()
@@ -108,6 +135,34 @@ namespace RPG.Characters
                 target = null;
                 uiManager.HideTargetFrame();
             }
+        }
+
+        // TODO Is there a better place to put these?
+        void Block()
+        {
+            foreach (Block b in blockArray)
+            {
+                b.Deactivate();
+            }
+
+            blockArray[exitIndex].Activate();
+        }
+
+        bool InLineOfSight()
+        {
+            if (target != null)
+            {
+                Vector3 targetDirection = (target.transform.position - transform.position);
+
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, target.transform.position), 256);
+
+                if (hit.collider == null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
