@@ -2,61 +2,65 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using RPG.Core;
+using RPG.Characters;
 
 namespace RPG.CameraUI
 {
     public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        //ublic IMoveable Moveable { get; set; }
+        GameManager gameManager;
+        GameObject draggingIcon;
 
-        private GameObject draggingIcon;
+        public IMoveable Moveable { get; set; }
 
-        /// <summary>
-        /// Will need to be re written to allow reusability for draggable items other than abilities.
-        /// </summary>
-        /// <param name="eventData"></param>
+        void Start()
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+
         public void OnBeginDrag(PointerEventData eventData)
         {
-            //draggingIcon = new GameObject("Icon");
-            //var parent = GameObject.FindGameObjectWithTag("UI Canvas").transform;
-            //var image = draggingIcon.AddComponent<Image>();
+            draggingIcon = new GameObject("Icon");
+            var parent = GameObject.FindGameObjectWithTag("DragIconCanvas").transform;
+            var image = draggingIcon.AddComponent<Image>();
 
-            //image.raycastTarget = false;
-            //image.sprite = GetComponent<Image>().sprite;
+            // TODO Change the dependency from the players ability system to a master ability list, most likely located in game manger.
+            var playerAbilitySystem = GameObject.FindGameObjectWithTag("Player").GetComponent<AbilitySystem>();
 
-            //// Will need to change this in the future, a universal icon size might be an idea
-            //image.rectTransform.sizeDelta = new Vector2(36.7f, 34.4f); ;
-            //draggingIcon.transform.SetParent(parent, false);
+            image.raycastTarget = false;
+            image.sprite = GetComponent<Image>().sprite;
 
-            //Abilities.Ability a = Array.Find(AbilityManager.Instance.Abilities, x => x.Icon == image.sprite);
-            //Moveable = a;
+            // Will need to change this in the future, a universal icon size might be an idea
+            image.rectTransform.sizeDelta = new Vector2(45f, 45f); ;
+            draggingIcon.transform.SetParent(parent, false);
+
+            Ability a = Array.Find(playerAbilitySystem.Abilities, x => x.Icon == image.sprite);
+            Moveable = a;
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-           // draggingIcon.transform.position = Input.mousePosition;
+            draggingIcon.transform.position = Input.mousePosition;
         }
 
-        /// <summary>
-        /// Remove the useable from the button, also remove from the saved abilities list in order to persist the correct abilities on the action bar.
-        /// </summary>
-        /// <param name="eventData"></param>
         public void OnEndDrag(PointerEventData eventData)
         {
-            //if (draggingIcon != null)
-            //{
-            //    for (int i = 0; i < UIManager.Instance.ActionButtons.Length; i++)
-            //    {
-            //        if (eventData.pointerDrag.transform.parent.name == UIManager.Instance.ActionButtons[i].name)
-            //        {
-            //            ActionButton button = UIManager.Instance.ActionButtons[i];
-            //            int index = Array.FindIndex(UIManager.Instance.ActionButtons, x => x.Button.name == button.name);
-            //            SaveGameManager.Instance.AbilityDict.Remove(index + 1);
-            //            button.RemoveUseable();
-            //        }
-            //    }
-            //    Destroy(draggingIcon);
-            //}
+            var uiManager = gameManager.uiManager;
+            if (draggingIcon != null)
+            {
+                for (int i = 0; i < uiManager.ActionButtons.Length; i++)
+                {
+                    if (eventData.pointerDrag.transform.parent.name == uiManager.ActionButtons[i].name)
+                    {
+                        ActionButton button = uiManager.ActionButtons[i];
+                        int index = Array.FindIndex(uiManager.ActionButtons, x => x.Button.name == button.name);
+                        //SaveGameManager.Instance.AbilityDict.Remove(index + 1);
+                        button.RemoveAbility();
+                    }
+                }
+                Destroy(draggingIcon);
+            }
         }
     }
 }

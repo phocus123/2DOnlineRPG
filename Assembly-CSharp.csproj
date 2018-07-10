@@ -59,12 +59,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_CameraUI\AbilityUI.cs" />
     <Compile Include="Assets\_CameraUI\ActionButton.cs" />
     <Compile Include="Assets\_CameraUI\CameraFollow.cs" />
     <Compile Include="Assets\_CameraUI\CameraRaycaster.cs" />
     <Compile Include="Assets\_CameraUI\Castbar.cs" />
     <Compile Include="Assets\_CameraUI\DragItem.cs" />
     <Compile Include="Assets\_CameraUI\IMoveable.cs" />
+    <Compile Include="Assets\_CameraUI\PageButton.cs" />
     <Compile Include="Assets\_Characters\Abilities\Ability.cs" />
     <Compile Include="Assets\_Characters\Abilities\AbilityBehaviour.cs" />
     <Compile Include="Assets\_Characters\Abilities\AbilityStat.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Assets\_Environment\TreeTile.cs" />
     <Compile Include="Assets\_Environment\Water\WaterTile.cs" />
     <Compile Include="Assets\_Managers\GameManager.cs" />
+    <Compile Include="Assets\_Managers\KeybindManager.cs" />
     <Compile Include="Assets\_Managers\UIManager.cs" />
     <Compile Include="Assets\_Weapons\Weapon.cs" />
     <Compile Include="Assets\WeaponSystem.cs" />

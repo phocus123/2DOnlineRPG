@@ -1,11 +1,13 @@
-﻿using UnityEngine;
-using UnityEngine.EventSystems;
-using RPG.Characters;
+﻿using RPG.Characters;
+using UnityEngine;
 
 namespace RPG.Core
 {
     public class GameManager : MonoBehaviour
     {
+        public UIManager uiManager;
+        public KeybindManager keybindManager;
+
         HealthSystem playerHealthSystem;
         AbilitySystem playerAbilitySystem;
         const float HEALTH_REGEN_AMOUNT = 0.25f;

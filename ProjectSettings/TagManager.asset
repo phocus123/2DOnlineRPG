@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Obstacle
   - ProjectileHitbox
+  - Keybind
+  - DragIconCanvas
   layers:
   - Default
   - TransparentFX

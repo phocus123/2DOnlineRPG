@@ -19,6 +19,8 @@ namespace RPG.Characters
 
         float currentEnergyPoints;
 
+        public Ability[] Abilities { get { return abilities; } }
+
         public float CurrentEnergyPoints
         {
             get { return currentEnergyPoints; }
@@ -47,15 +49,15 @@ namespace RPG.Characters
             }
         }
 
-        public void AttemptAbility(int abilityIndex, GameObject target = null)
+        public void AttemptAbility(Ability ability, GameObject target = null)
         {
             var energyComponent = GetComponent<AbilitySystem>();
-            var energyCost = abilities[abilityIndex].Energy;
+            var energyCost = ability.Energy;
 
             if (energyCost <= currentEnergyPoints)
             {
                 ConsumeEnergy(energyCost);
-                abilities[abilityIndex].Use(target);
+                ability.Use(target);
             }
         }
 

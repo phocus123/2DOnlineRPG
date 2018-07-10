@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using RPG.CameraUI;
 using RPG.Core;
+using System;
 
 namespace RPG.Characters
 {
     public class PlayerControl : CharacterController
     {
+        public GameManager gameManager;
         [SerializeField] Block[] blockArray;
 
         GameObject target;
@@ -25,17 +27,13 @@ namespace RPG.Characters
         {
             GetRequiredReferences();
             RegisterForMouseEvents();
+            RegisterForActionButtonClicks();
         }
 
         void Update()
         {
             GetInput();
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
-            if (target != null)
-            {
-
-            }
-                Debug.DrawRay(transform.position, direction * 10, Color.red);
         }
 
         public void SetTarget(GameObject target)
@@ -51,37 +49,41 @@ namespace RPG.Characters
 
         public void GetInput()
         {
+            var keybindManager = gameManager.keybindManager;
             direction = Vector2.zero;
 
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(keybindManager.Keybinds["UP"]))
             {
                 exitIndex = 0;
                 direction += Vector2.up;
             }
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(keybindManager.Keybinds["LEFT"]))
             {
                 exitIndex = 3;
                 direction += Vector2.left;
             }
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(keybindManager.Keybinds["DOWN"]))
             {
                 exitIndex = 2;
                 direction += Vector2.down;
             }
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(keybindManager.Keybinds["RIGHT"]))
             {
                 exitIndex = 1;
                 direction += Vector2.right;
             }
-            // TODO Remove when damage has been implemented.
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Block();
 
-                if (target != null && IsTargetInRange(weaponSystem.GetWeaponAtIndex(0), target) && !character.IsAttacking && !character.IsMoving && InLineOfSight())
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                uiManager.ToggleInGameMenu();
+                uiManager.CloseCanvases();
+            }
+
+            foreach (string action in keybindManager.Actionbinds.Keys)
+            {
+                if (Input.GetKeyDown(keybindManager.Actionbinds[action]))
                 {
-                    originalTarget = target;
-                    abilitySystem.AttemptAbility(0, originalTarget);
+                    uiManager.ClickActionButton(action);
                 }
             }
         }
@@ -103,7 +105,7 @@ namespace RPG.Characters
         {
             character = GetComponent<Character>();
             cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
-            uiManager = FindObjectOfType<UIManager>();
+            uiManager = gameManager.uiManager;
             abilitySystem = GetComponent<AbilitySystem>();
             weaponSystem = GetComponent<WeaponSystem>();
         }
@@ -112,6 +114,26 @@ namespace RPG.Characters
         {
             cameraRaycaster.InvokeOnMouseOverEnemy += OnMouseOverEnemy;
             cameraRaycaster.InvokeOnMouseOverNonEnemy += OnMouseOverNonEnemy;
+        }
+
+        void RegisterForActionButtonClicks()
+        {
+            foreach (ActionButton actionButton in uiManager.ActionButtons)
+            {
+                actionButton.InvokeOnActionButtonClicked += ActivateAttack;
+            }
+        }
+
+        // TODO Move to a more appropriate script.
+        void ActivateAttack(Ability ability)
+        {
+            Block();
+
+            if (target != null && IsTargetInRange(ability.Weapon, target) && !character.IsAttacking && !character.IsMoving && InLineOfSight())
+            {
+                originalTarget = target;
+                abilitySystem.AttemptAbility(ability, originalTarget);
+            }
         }
 
         void OnMouseOverEnemy(GameObject enemy)
