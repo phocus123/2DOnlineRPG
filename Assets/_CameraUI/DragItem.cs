@@ -25,9 +25,6 @@ namespace RPG.CameraUI
             var parent = GameObject.FindGameObjectWithTag("DragIconCanvas").transform;
             var image = draggingIcon.AddComponent<Image>();
 
-            // TODO Change the dependency from the players ability system to a master ability list, most likely located in game manger.
-            var playerAbilitySystem = GameObject.FindGameObjectWithTag("Player").GetComponent<AbilitySystem>();
-
             image.raycastTarget = false;
             image.sprite = GetComponent<Image>().sprite;
 
@@ -35,7 +32,7 @@ namespace RPG.CameraUI
             image.rectTransform.sizeDelta = new Vector2(45f, 45f); ;
             draggingIcon.transform.SetParent(parent, false);
 
-            Ability a = Array.Find(playerAbilitySystem.Abilities, x => x.Icon == image.sprite);
+            Ability a = Array.Find(gameManager.MasterAbilityList, x => x.Icon == image.sprite);
             Moveable = a;
         }
 

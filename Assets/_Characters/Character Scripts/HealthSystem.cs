@@ -10,8 +10,8 @@ namespace RPG.Characters
         public delegate void OnHealthChange(HealthSystem healthSystem);
         public event OnHealthChange InvokeOnHealthChange;
 
-        public delegate void OnCharacterDestroyed();
-        public event OnCharacterDestroyed InvokeOnCharacterDestroyed;
+        public delegate void OnCharacterDeath();
+        public event OnCharacterDeath InvokeOnCharacterDeath;
 
         [Header("Health")]
         [SerializeField] float maxHealthPoints;
@@ -25,14 +25,21 @@ namespace RPG.Characters
 
         Animator animator;
         Character character;
-        float currentHealthPoints;
+        [SerializeField] float currentHealthPoints;
 
         public float MaxHealthPoints { get { return maxHealthPoints; } }
         public float HealthAsPercentage { get { return currentHealthPoints / maxHealthPoints; } }
         public float CurrentHealthPoints
         {
             get { return currentHealthPoints; }
-            set { currentHealthPoints = Mathf.Clamp(value, 0, maxHealthPoints); }
+            set
+            {
+                currentHealthPoints = Mathf.Clamp(value, 0, maxHealthPoints);
+                if (InvokeOnHealthChange != null)
+                {
+                    InvokeOnHealthChange(this);
+                }
+            }
         }
 
         void Start()
@@ -77,12 +84,7 @@ namespace RPG.Characters
         public void TakeDamage(float damage)
         {
             bool characterDies = (currentHealthPoints - damage <= 0);
-            currentHealthPoints = Mathf.Clamp(currentHealthPoints - damage, 0f, maxHealthPoints);
-
-            if (InvokeOnHealthChange != null)
-            {
-                InvokeOnHealthChange(this);
-            }
+            CurrentHealthPoints = Mathf.Clamp(currentHealthPoints - damage, 0f, maxHealthPoints);
 
             if (characterDies)
             {
@@ -94,8 +96,7 @@ namespace RPG.Characters
         {
             character.KillCharacter();
             animator.SetTrigger("Die");
-            InvokeOnCharacterDestroyed();
-            // TODO Award experience
+            InvokeOnCharacterDeath();
         }
 
         void UpdateHealthBar()
@@ -107,6 +108,10 @@ namespace RPG.Characters
             if (playerHealthbarText)
             {
                 playerHealthbarText.text = Mathf.Round(currentHealthPoints) + "/" + maxHealthPoints;
+            }
+            if (InvokeOnHealthChange != null)
+            {
+                InvokeOnHealthChange(this);
             }
         }
     }

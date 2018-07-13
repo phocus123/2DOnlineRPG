@@ -59,7 +59,7 @@ namespace RPG.CameraUI
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null)
             {
-                var enemyHit = hit.collider.gameObject.GetComponentInParent<EnemyControl>();
+                var enemyHit = hit.collider.gameObject.GetComponentInParent<EnemyAI>();
                 if (enemyHit)
                 {
                     InvokeOnMouseOverEnemy(enemyHit.gameObject);

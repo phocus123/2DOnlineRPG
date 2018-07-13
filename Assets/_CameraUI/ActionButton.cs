@@ -9,7 +9,7 @@ namespace RPG.CameraUI
 {
     public class ActionButton : MonoBehaviour, IDropHandler
     {
-        public delegate void OnActionButtonClicked(Ability ability);
+        public delegate void OnActionButtonClicked(AbilityBehaviour abilityBehaviour);
         public event OnActionButtonClicked InvokeOnActionButtonClicked;
 
         [SerializeField] Image icon;
@@ -18,15 +18,12 @@ namespace RPG.CameraUI
         GameManager gameManager;
 
         public Ability Ability { get; set; }
-
-        // TODO change to private member variable, does not seem to need a property.
+        public Button Button { get { return button; } }
         public Image Icon
         {
             get { return icon; }
             set { icon = value; }
         }
-
-        public Button Button { get { return button; } }
 
         private void Start()
         {
@@ -39,7 +36,7 @@ namespace RPG.CameraUI
         {
             if (Ability != null)
             {
-                InvokeOnActionButtonClicked(Ability);
+                InvokeOnActionButtonClicked(Ability.Behaviour);
             }
         }
 
@@ -62,16 +59,13 @@ namespace RPG.CameraUI
             DragItem item = eventData.pointerDrag.GetComponent<DragItem>();
             var uiManager = gameManager.uiManager;
 
-            // TODO Change the dependency from the players ability system to a master ability list, most likely located in game manager.
-            var playerAbilitySystem = GameObject.FindGameObjectWithTag("Player").GetComponent<AbilitySystem>();
-
             if (item.Moveable != null && item.Moveable is Ability)
             {
                 SetAbility(item.Moveable as Ability, item);
 
-                Ability a = Array.Find(playerAbilitySystem.Abilities, x => x.Icon.name == item.Moveable.Icon.name);
+                Ability a = Array.Find(gameManager.MasterAbilityList, x => x.Icon.name == item.Moveable.Icon.name);
                 int index = Array.FindIndex(uiManager.ActionButtons, x => x.Button.name == Button.name);
-                //SaveGameManager.Instance.AbilityDict.Add(index + 1, a.name);
+                gameManager.savegameManager.AbilityDict.Add(index + 1, a.name);
             }
         }
     }

@@ -21,18 +21,26 @@ namespace RPG.Core
         [Header("Ability UI")]
         [SerializeField] AbilityUI abilityUI;
 
+        [Header("Experience")]
+        [SerializeField] Text playerExperienceText;
+
+        GameManager gameManager;
         HealthSystem currentTargetHealthSystem;
+        AbilitySystem currentTargetAbilitySystem;
 
         public ActionButton[] ActionButtons { get { return actionButtons; } }
 
         void Awake()
         {
+            gameManager = FindObjectOfType<GameManager>();
             keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
             var playerAbilitySystem = GameObject.FindGameObjectWithTag("Player").GetComponent<AbilitySystem>();
 
+            UpdateExperienceText();
             abilityUI.Initialize(playerAbilitySystem);
         }
 
+        // TODO break down all UI functionality into smaller classes like AbilityUI.
         public void ToggleInGameMenu()
         {
             inGameMenu.alpha = inGameMenu.alpha > 0 ? 0 : 1;
@@ -42,10 +50,12 @@ namespace RPG.Core
         public void ShowTargetFrame(GameObject enemy)
         {
             currentTargetHealthSystem = enemy.GetComponentInParent<HealthSystem>();
+            currentTargetAbilitySystem = enemy.GetComponentInParent<AbilitySystem>();
             currentTargetHealthSystem.ShowEnemyHealthBar();
             targetFrame.SetActive(true);
             RegisterForHealthEvents();
             currentTargetHealthSystem.Initialize(currentTargetHealthSystem.CurrentHealthPoints, currentTargetHealthSystem.MaxHealthPoints);
+            currentTargetAbilitySystem.Initialize(currentTargetAbilitySystem.CurrentEnergyPoints, currentTargetAbilitySystem.MaxEnergyPoints);
         }
 
         public void CloseCanvases()
@@ -86,21 +96,33 @@ namespace RPG.Core
             }
         }
 
-        public void UpdateTargetFrame(HealthSystem healthSystem)
+        public void UpdateExperienceText()
+        {
+            playerExperienceText.text = "Experience: " + gameManager.PlayerExperience.ToString();
+        }
+
+        void UpdateTargetFrameHealth(HealthSystem healthSystem)
         {
             healthSystem.UpdateTargetFrameHealthbar();
         }
 
+        void UpdateTargetFrameEnergy(AbilitySystem abilitySystem)
+        {
+            abilitySystem.UpdateTargetFrameEnergybar();
+        }
+
         void RegisterForHealthEvents()
         {
-            currentTargetHealthSystem.InvokeOnHealthChange += UpdateTargetFrame;
-            currentTargetHealthSystem.InvokeOnCharacterDestroyed += HideTargetFrame;
+            currentTargetHealthSystem.InvokeOnHealthChange += UpdateTargetFrameHealth;
+            currentTargetAbilitySystem.InvokeOnEnergyChanged += UpdateTargetFrameEnergy;
+            currentTargetHealthSystem.InvokeOnCharacterDeath += HideTargetFrame;
         }
 
         void DeregisterForHealthEvents()
         {
-            currentTargetHealthSystem.InvokeOnHealthChange -= UpdateTargetFrame;
-            currentTargetHealthSystem.InvokeOnCharacterDestroyed -= HideTargetFrame;
+            currentTargetHealthSystem.InvokeOnHealthChange -= UpdateTargetFrameHealth;
+            currentTargetAbilitySystem.InvokeOnEnergyChanged -= UpdateTargetFrameEnergy;
+            currentTargetHealthSystem.InvokeOnCharacterDeath -= HideTargetFrame;
         }
     }
 }

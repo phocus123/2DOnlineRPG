@@ -11,6 +11,7 @@ namespace RPG.Characters
         Rigidbody2D rigidBody;
         Ability currentAbility;
         float damage;
+        const string ARROW_IMPACT = "ArrowImpact";
 
         void Start()
         {
@@ -38,7 +39,7 @@ namespace RPG.Characters
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.tag == "ProjectileHitbox" && collision.transform.parent == Target)
+            if (collision.tag == "Hitbox" && collision.transform.parent == Target)
             {
                 if (currentAbility.Weapon.name == "Bow")
                 {

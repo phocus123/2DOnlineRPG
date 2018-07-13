@@ -65,6 +65,13 @@ namespace RPG.Characters
 
         public void KillCharacter()
         {
+            var enemy = GetComponent<EnemyAI>();
+
+            if (enemy && isAlive)
+            {
+                var target = enemy.Target;
+                enemy.AwardExperience(target);
+            }
             isAlive = false;
         }
 
@@ -96,7 +103,7 @@ namespace RPG.Characters
             }
             else
             {
-                characterController = GetComponent<EnemyControl>();
+                characterController = GetComponent<EnemyAI>();
             }
         }
 

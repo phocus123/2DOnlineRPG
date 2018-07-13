@@ -125,14 +125,14 @@ namespace RPG.Characters
         }
 
         // TODO Move to a more appropriate script.
-        void ActivateAttack(Ability ability)
+        void ActivateAttack(AbilityBehaviour abilityBehaviour)
         {
             Block();
 
-            if (target != null && IsTargetInRange(ability.Weapon, target) && !character.IsAttacking && !character.IsMoving && InLineOfSight())
+            if (target != null && IsTargetInRange(abilityBehaviour.Ability.Weapon, target) && !character.IsAttacking && !character.IsMoving && InLineOfSight())
             {
                 originalTarget = target;
-                abilitySystem.AttemptAbility(ability, originalTarget);
+                abilitySystem.AttemptAbility(abilityBehaviour, originalTarget);
             }
         }
 

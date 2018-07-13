@@ -5,21 +5,43 @@ namespace RPG.Core
 {
     public class GameManager : MonoBehaviour
     {
+        public delegate void OnExperienceAwarded();
+        public event OnExperienceAwarded InvokeOnExperienceAwarded;
+
+        [Header("Managers")]
         public UIManager uiManager;
         public KeybindManager keybindManager;
+        public SaveGameManager savegameManager;
+
+        [Header("Abilities")]
+        [SerializeField] Ability[] masterAbilityList;
 
         HealthSystem playerHealthSystem;
         AbilitySystem playerAbilitySystem;
         const float HEALTH_REGEN_AMOUNT = 0.25f;
         const float ENERGY_REGEN_AMOUNT = 0.5f;
+        private int playerExperience;
 
-        private void Start()
+        public Ability[] MasterAbilityList { get { return masterAbilityList; } }
+        public int PlayerExperience
         {
+            get { return playerExperience; }
+            set
+            {
+                playerExperience = value;
+                InvokeExperienceEvent();
+                savegameManager.PlayerXP = playerExperience;
+            }
+        }
+
+        void Start()
+        {
+            LoadExperienceAmount();
             playerHealthSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthSystem>();
             playerAbilitySystem = GameObject.FindGameObjectWithTag("Player").GetComponent<AbilitySystem>();
         }
 
-        private void Update()
+        void Update()
         { 
             RegenHealth(HEALTH_REGEN_AMOUNT);
             RegenEnergy(ENERGY_REGEN_AMOUNT);
@@ -51,6 +73,27 @@ namespace RPG.Core
         void RegenEnergy(float value)
         {
             playerAbilitySystem.CurrentEnergyPoints += value * Time.deltaTime;
+        }
+
+        void InvokeExperienceEvent()
+        {
+            InvokeOnExperienceAwarded += uiManager.UpdateExperienceText;
+            InvokeOnExperienceAwarded();
+            InvokeOnExperienceAwarded -= uiManager.UpdateExperienceText;
+        }
+
+        void LoadExperienceAmount()
+        {
+            if (savegameManager.PlayerXP > 0)
+            {
+                playerExperience = savegameManager.PlayerXP;
+                uiManager.UpdateExperienceText();
+            }
+            else
+            {
+                playerExperience = 0;
+                uiManager.UpdateExperienceText();
+            }
         }
     }
 }

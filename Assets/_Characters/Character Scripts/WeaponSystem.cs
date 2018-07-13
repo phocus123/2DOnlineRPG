@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public class WeaponSystem : MonoBehaviour
 {
     [SerializeField] Weapon[] characterWeapons;

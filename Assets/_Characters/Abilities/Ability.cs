@@ -17,6 +17,11 @@ namespace RPG.Characters
 
         protected AbilityBehaviour behaviour;
 
+        public AbilityBehaviour Behaviour
+        {
+            get { return behaviour; }
+        }
+
         public float AttackSpeed
         {
             get { return attackSpeed.Value; }

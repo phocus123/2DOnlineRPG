@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ namespace RPG.Characters
 {
     public class AbilitySystem : MonoBehaviour
     {
-        public delegate void OnEnergyChanged();
+        public delegate void OnEnergyChanged(AbilitySystem abilitySystem);
         public event OnEnergyChanged InvokeOnEnergyChanged;
 
         [Header("Abilities")]
@@ -17,9 +18,16 @@ namespace RPG.Characters
         [SerializeField] Image energyBar;
         [SerializeField] Text playerEnergybarText;
 
+        [Header("Enemy Target Frame")]
+        [SerializeField] Image targetFrameEnergybar;
+        [SerializeField] Text targetEnergybarText;
+
+        List<AbilityBehaviour> equippedAbilityBehaviours = new List<AbilityBehaviour>();
         float currentEnergyPoints;
 
         public Ability[] Abilities { get { return abilities; } }
+        public List<AbilityBehaviour> EquippedAbilityBehaviours { get { return equippedAbilityBehaviours; } }
+        public float MaxEnergyPoints { get { return maxEnergyPoints; } }
 
         public float CurrentEnergyPoints
         {
@@ -41,31 +49,49 @@ namespace RPG.Characters
             UpdateEnergyBar();
         }
 
+        public void Initialize(float currentValue, float maxValue)
+        {
+            maxEnergyPoints = maxValue;
+            currentEnergyPoints = currentValue;
+            targetEnergybarText.text = Mathf.Round(currentEnergyPoints) + "/" + maxEnergyPoints;
+            UpdateTargetFrameEnergybar();
+        }
+
+        public void AttemptAbility(AbilityBehaviour abilityBehaviour, GameObject target = null)
+        {
+            var energyComponent = GetComponent<AbilitySystem>();
+            var energyCost = abilityBehaviour.Ability.Energy;
+
+            if (energyCost <= currentEnergyPoints)
+            {
+                ConsumeEnergy(energyCost);
+                abilityBehaviour.Use(target);
+            }
+        }
+
+        public void UpdateTargetFrameEnergybar()
+        {
+            if (targetFrameEnergybar)
+            {
+                targetFrameEnergybar.fillAmount = EnergyAsPercent;
+                targetEnergybarText.text = Mathf.Round(currentEnergyPoints) + "/" + maxEnergyPoints;
+            }
+        }
+
         void AttachInitialAbilities()
         {
             for (int abilityIndex = 0; abilityIndex < abilities.Length; abilityIndex++)
             {
                 abilities[abilityIndex].AttachAbilityTo(gameObject);
+                equippedAbilityBehaviours.Add(abilities[abilityIndex].Behaviour);            
             }
         }
 
-        public void AttemptAbility(Ability ability, GameObject target = null)
-        {
-            var energyComponent = GetComponent<AbilitySystem>();
-            var energyCost = ability.Energy;
-
-            if (energyCost <= currentEnergyPoints)
-            {
-                ConsumeEnergy(energyCost);
-                ability.Use(target);
-            }
-        }
-
-        private void ConsumeEnergy(float energyCost)
+        void ConsumeEnergy(float energyCost)
         {
             if (InvokeOnEnergyChanged != null)
             {
-                InvokeOnEnergyChanged();
+                InvokeOnEnergyChanged(this);
             }
 
             float newEnergyamount = currentEnergyPoints - energyCost;
@@ -73,7 +99,7 @@ namespace RPG.Characters
             UpdateEnergyBar();
         }
 
-        private void UpdateEnergyBar()
+        void UpdateEnergyBar()
         {
             if (energyBar)
             {
@@ -82,6 +108,10 @@ namespace RPG.Characters
             if (playerEnergybarText != null)
             {
                 playerEnergybarText.text = Mathf.Round(currentEnergyPoints) + "/" + maxEnergyPoints;
+            }
+            if (InvokeOnEnergyChanged != null)
+            {
+                InvokeOnEnergyChanged(this);
             }
         }
     }

@@ -82,10 +82,11 @@
     <Compile Include="Assets\_Characters\Block.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\AbilitySystem.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\Character.cs" />
+    <Compile Include="Assets\_Characters\Character Scripts\CharacterController.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\HealthSystem.cs" />
-    <Compile Include="Assets\_Characters\CharacterController.cs" />
+    <Compile Include="Assets\_Characters\Character Scripts\WeaponSystem.cs" />
     <Compile Include="Assets\_Characters\DeathBehaviour.cs" />
-    <Compile Include="Assets\_Characters\Enemies\EnemyControl.cs" />
+    <Compile Include="Assets\_Characters\Enemies\EnemyAI.cs" />
     <Compile Include="Assets\_Characters\NPC\NPCControl.cs" />
     <Compile Include="Assets\_Characters\Player\PlayerControl.cs" />
     <Compile Include="Assets\_Environment\LayerSorter.cs" />
@@ -95,9 +96,11 @@
     <Compile Include="Assets\_Environment\Water\WaterTile.cs" />
     <Compile Include="Assets\_Managers\GameManager.cs" />
     <Compile Include="Assets\_Managers\KeybindManager.cs" />
+    <Compile Include="Assets\_Managers\PlayerData.cs" />
+    <Compile Include="Assets\_Managers\SaveGameManager.cs" />
     <Compile Include="Assets\_Managers\UIManager.cs" />
     <Compile Include="Assets\_Weapons\Weapon.cs" />
-    <Compile Include="Assets\WeaponSystem.cs" />
+    <Compile Include="Assets\EnemyRange.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Mark/Desktop/2DOnlineRPG/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

@@ -18,7 +18,7 @@ namespace RPG.Characters
         }
     }
 
-    public abstract class AbilityBehaviour : MonoBehaviour
+    public class AbilityBehaviour : MonoBehaviour
     {
         protected Coroutine attackRoutine;
         protected Ability ability;
@@ -29,10 +29,14 @@ namespace RPG.Characters
         const float MELEE_ANIMATION_DELAY = 0.25f;
         Coroutine animationDelayRoutine;
 
-        public abstract void Use(GameObject target);
+        public virtual void Use(GameObject target)
+        {
+
+        }
 
         public Ability Ability
         {
+            get { return ability; }
             set { ability = value; }
         }
 
@@ -45,9 +49,14 @@ namespace RPG.Characters
         {
             character = GetComponent<Character>();
             castbar = FindObjectOfType<Castbar>();
+            var enemyAI = GetComponent<EnemyAI>();
 
             character.StartAttackAnimation(ability.Weapon.AnimationName);
-            castbar.TriggerCastBar(ability);
+
+            if (!enemyAI)
+            {
+                castbar.TriggerCastBar(ability);
+            }
 
             yield return new WaitForSeconds(ability.AttackSpeed);
 
@@ -92,7 +101,9 @@ namespace RPG.Characters
             {
                 StopCoroutine(attackRoutine);
                 character.StopAttackAnimation(animationName);
-                if (castbar != null)
+                var playerCharacter = character.GetComponent<PlayerControl>();
+
+                if (castbar != null && playerCharacter)
                 {
                     castbar.StopCasting();
                 }
