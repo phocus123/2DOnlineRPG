@@ -34,11 +34,12 @@ namespace RPG.Characters
         public Transform[] ExitPoints { get { return exitPoints; } }
         public int ExitIndex { get { return characterController.GetDirectionParams().exitIndex; } }
         public bool IsAttacking { get { return isAttacking; } }
+        public string CharacterName { get { return characterName; } }
 
         void Awake()
         {
             AddRequiredComponents();
-            nameText.text = characterName; // TODO Is this the appropriate place to put this?
+            nameText.text = characterName; 
         }
 
         void Update()
@@ -83,6 +84,11 @@ namespace RPG.Characters
             rigidBody = gameObject.AddComponent<Rigidbody2D>();
             rigidBody.gravityScale = 0;
             rigidBody.freezeRotation = true;
+
+            if (GetComponent<EnemyAI>() || GetComponent<NPCControl>())
+            {
+                rigidBody.isKinematic = true;
+            }
 
             obstacleCollider = gameObject.AddComponent<BoxCollider2D>();
             obstacleCollider.size = colliderSize;

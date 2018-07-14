@@ -55,6 +55,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4207001183960518}
   - component: {fileID: 212746608396690288}
+  - component: {fileID: 114846581202855178}
+  - component: {fileID: 114183157276658056}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -149,6 +151,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114183157276658056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1670407485967150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b407c59d250c34d8fe12ccd277cc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRange: 1.2
+  npcDialogue: {fileID: 11400000, guid: 90a81c2dfbf137f408d382796e83235a, type: 2}
+  test: 0
 --- !u!114 &114314184977470018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -217,6 +233,26 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
+--- !u!114 &114846581202855178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1670407485967150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b3bd3c14d23994a9eafd093ce47c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runtimeAnimatorController: {fileID: 9100000, guid: 191605c979ea1cd408ae59e9bf959fbb,
+    type: 2}
+  colliderSize: {x: 0.5, y: 0.1}
+  colliderOffset: {x: -0.05, y: -0.4}
+  moveSpeed: 1
+  nameText: {fileID: 114686956715532660}
+  characterName: Magnus
+  experienceWorth: 0
+  exitPoints: []
 --- !u!212 &212746608396690288
 SpriteRenderer:
   m_ObjectHideFlags: 1

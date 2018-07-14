@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace RPG.Characters
@@ -96,7 +94,11 @@ namespace RPG.Characters
         {
             character.KillCharacter();
             animator.SetTrigger("Die");
-            InvokeOnCharacterDeath();
+
+            if (InvokeOnCharacterDeath != null)
+            {
+                InvokeOnCharacterDeath();
+            }
         }
 
         void UpdateHealthBar()

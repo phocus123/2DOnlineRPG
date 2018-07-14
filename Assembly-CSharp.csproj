@@ -64,9 +64,12 @@
     <Compile Include="Assets\_CameraUI\CameraFollow.cs" />
     <Compile Include="Assets\_CameraUI\CameraRaycaster.cs" />
     <Compile Include="Assets\_CameraUI\Castbar.cs" />
+    <Compile Include="Assets\_CameraUI\DialogueUI.cs" />
     <Compile Include="Assets\_CameraUI\DragItem.cs" />
     <Compile Include="Assets\_CameraUI\IMoveable.cs" />
+    <Compile Include="Assets\_CameraUI\MainMenuUI.cs" />
     <Compile Include="Assets\_CameraUI\PageButton.cs" />
+    <Compile Include="Assets\_CameraUI\TargetFrameUI.cs" />
     <Compile Include="Assets\_Characters\Abilities\Ability.cs" />
     <Compile Include="Assets\_Characters\Abilities\AbilityBehaviour.cs" />
     <Compile Include="Assets\_Characters\Abilities\AbilityStat.cs" />
@@ -87,8 +90,11 @@
     <Compile Include="Assets\_Characters\Character Scripts\WeaponSystem.cs" />
     <Compile Include="Assets\_Characters\DeathBehaviour.cs" />
     <Compile Include="Assets\_Characters\Enemies\EnemyAI.cs" />
+    <Compile Include="Assets\_Characters\Enemies\EnemyRange.cs" />
+    <Compile Include="Assets\_Characters\NPC\Dialogue.cs" />
     <Compile Include="Assets\_Characters\NPC\NPCControl.cs" />
     <Compile Include="Assets\_Characters\Player\PlayerControl.cs" />
+    <Compile Include="Assets\_Characters\Weapons\Weapon.cs" />
     <Compile Include="Assets\_Environment\LayerSorter.cs" />
     <Compile Include="Assets\_Environment\Obstacle.cs" />
     <Compile Include="Assets\_Environment\Road\RoadTile.cs" />
@@ -99,8 +105,6 @@
     <Compile Include="Assets\_Managers\PlayerData.cs" />
     <Compile Include="Assets\_Managers\SaveGameManager.cs" />
     <Compile Include="Assets\_Managers\UIManager.cs" />
-    <Compile Include="Assets\_Weapons\Weapon.cs" />
-    <Compile Include="Assets\EnemyRange.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Mark/Desktop/2DOnlineRPG/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

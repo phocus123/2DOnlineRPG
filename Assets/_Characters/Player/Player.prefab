@@ -304,7 +304,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1964901055311198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.39, y: 0, z: 0}
+  m_LocalPosition: {x: -3.47, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4805440350438940}
@@ -619,16 +619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cff78d92adfcb24abca339f99d4d36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
-  blockArray:
-  - block1: {fileID: 1594867395804668}
-    block2: {fileID: 1044641114127794}
-  - block1: {fileID: 1928796864498084}
-    block2: {fileID: 1594867395804668}
-  - block1: {fileID: 1983082597937802}
-    block2: {fileID: 1928796864498084}
-  - block1: {fileID: 1044641114127794}
-    block2: {fileID: 1983082597937802}
 --- !u!114 &114158886910737690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -647,6 +637,8 @@ MonoBehaviour:
   maxEnergyPoints: 100
   energyBar: {fileID: 0}
   playerEnergybarText: {fileID: 0}
+  targetFrameEnergybar: {fileID: 0}
+  targetEnergybarText: {fileID: 0}
 --- !u!114 &114238730527879688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -703,6 +695,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 993002a840b767646b1d00412a2b54c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockArray:
+  - block1: {fileID: 1594867395804668}
+    block2: {fileID: 1044641114127794}
+  - block1: {fileID: 1928796864498084}
+    block2: {fileID: 1594867395804668}
+  - block1: {fileID: 1983082597937802}
+    block2: {fileID: 1928796864498084}
+  - block1: {fileID: 1044641114127794}
+    block2: {fileID: 1983082597937802}
   characterWeapons:
   - {fileID: 11400000, guid: e1f7b52107e00584e8cccca5eae6140e, type: 2}
   - {fileID: 11400000, guid: 7ee5ce0f3232fb04f93236605d7f62c4, type: 2}
@@ -734,7 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 868ed0af361e6cf41b9978e193fb200d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 100
+  maxHealthPoints: 10000
   healthBar: {fileID: 0}
   playerHealthbarText: {fileID: 0}
   targetFrameHealthbar: {fileID: 0}
@@ -831,8 +832,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 265971279
-  m_SortingLayer: 1
+  m_SortingLayerID: 1977354545
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -878,7 +879,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 265971279
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ab873dc6318a1f44d93a89ad1909cad0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

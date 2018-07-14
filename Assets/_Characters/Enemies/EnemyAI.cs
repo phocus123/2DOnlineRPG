@@ -1,40 +1,40 @@
-﻿using UnityEngine;
-using RPG.Core;
+﻿using RPG.Core;
 using System.Collections;
-using System;
+using UnityEngine;
 
 namespace RPG.Characters
 {
     [RequireComponent(typeof(HealthSystem))]
     [RequireComponent(typeof(Character))]
     [RequireComponent(typeof(WeaponSystem))]
+    [RequireComponent(typeof(AbilitySystem))]
     public class EnemyAI : CharacterController
     {
-        [SerializeField] float aggroRange;
         [SerializeField] int experienceWorth;
         [SerializeField] EnemyRange enemyRange;
-
-        enum State { Idle, Attack, Follow, Retreat}
-        State state = State.Idle;
+        [SerializeField] float aggroRange;
 
         GameObject target;
         Character character;
+        GameManager gameManager;
         HealthSystem healthSystem;
         WeaponSystem weaponSystem;
-        GameManager gameManager;
         AbilitySystem abilitySystem;
-
-        Weapon currentWeapon;
-        Vector2 direction;
         Vector3 startPosition;
+        Vector2 direction;
+
+        int exitIndex;
+        Weapon currentWeapon;
         float distanceToPlayer;
         float currentWeaponRange;
         float distanceToStartPos;
         float lastHitTime;
-        int exitIndex;
         bool inWeaponRange;
         bool inAggroRange;
         bool outsideAggroRange;
+
+        enum State { Idle, Attack, Follow, Retreat }
+        State state = State.Idle;
 
         public GameObject Target { get { return target; } }
 
@@ -56,22 +56,36 @@ namespace RPG.Characters
             return directionParams;
         }
 
-        public void Update()
+        void Update()
         {
+            direction = Vector2.zero;
             SetExitIndex();
+            OnUpdateGetWeapon();
+            OnUpdateGetRanges();
+            OnUpdateQueryStates();
+        }
+
+        void OnUpdateGetWeapon()
+        {
             weaponSystem = GetComponent<WeaponSystem>();
             currentWeapon = weaponSystem.GetWeaponAtIndex(0);
             currentWeaponRange = weaponSystem.GetWeaponAtIndex(0).AttackRange;
-            direction = Vector2.zero;
+        }
 
+        void OnUpdateGetRanges()
+        {
             if (target != null)
             {
+                // TODO Implement always face target when attacking.
                 distanceToPlayer = Vector2.Distance(transform.position, target.transform.position);
                 inWeaponRange = distanceToPlayer <= currentWeaponRange;
                 inAggroRange = distanceToPlayer > currentWeaponRange && distanceToPlayer <= aggroRange;
                 outsideAggroRange = distanceToPlayer > aggroRange;
             }
+        }
 
+        void OnUpdateQueryStates()
+        {
             if (inAggroRange)
             {
                 ExecuteFollowState();
@@ -91,12 +105,6 @@ namespace RPG.Characters
                     ExecuteIdleState();
                 }
             }
-        }
-
-        // TODO Is this the appropriate place to put this?
-        public void AwardExperience(GameObject awardTarget)
-        {
-            gameManager.PlayerExperience += experienceWorth;
         }
 
         void ExecuteIdleState()
@@ -138,26 +146,6 @@ namespace RPG.Characters
             }
         }
 
-        void SetExitIndex()
-        {
-            if (direction == Vector2.up)
-            {
-                exitIndex = 0;
-            }
-            else if (direction == Vector2.up)
-            {
-                exitIndex = 3;
-            }
-            else if (direction == Vector2.down)
-            {
-                exitIndex = 2;
-            }
-            else
-            {
-                exitIndex = 1;
-            }
-        }
-
         IEnumerator Retreat()
         {
             distanceToStartPos = Vector2.Distance(startPosition, transform.position);
@@ -168,17 +156,6 @@ namespace RPG.Characters
                 transform.position = Vector2.MoveTowards(transform.position, startPosition, 0);
                 yield return new WaitForEndOfFrame();
             }
-        }
-
-        void SetTarget(GameObject collisionObject)
-        {
-            target = collisionObject;
-        }
-
-        void SetAggroRangeCollider()
-        {
-            var rangeCollider = enemyRange.GetComponent<CircleCollider2D>();
-            rangeCollider.radius = aggroRange;
         }
 
         void Reset()
@@ -205,6 +182,42 @@ namespace RPG.Characters
                 }
                 yield return new WaitForSeconds(timeToWait);
             }
+        }
+
+        public void AwardExperience(GameObject awardTarget)
+        {
+            gameManager.PlayerExperience += experienceWorth;
+        }
+
+        void SetExitIndex()
+        {
+            if (direction == Vector2.up)
+            {
+                exitIndex = 0;
+            }
+            else if (direction == Vector2.up)
+            {
+                exitIndex = 3;
+            }
+            else if (direction == Vector2.down)
+            {
+                exitIndex = 2;
+            }
+            else
+            {
+                exitIndex = 1;
+            }
+        }
+
+        void SetTarget(GameObject collisionObject)
+        {
+            target = collisionObject;
+        }
+
+        void SetAggroRangeCollider()
+        {
+            var rangeCollider = enemyRange.GetComponent<CircleCollider2D>();
+            rangeCollider.radius = aggroRange;
         }
 
         void OnDrawGizmos()

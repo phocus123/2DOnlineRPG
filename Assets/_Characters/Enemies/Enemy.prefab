@@ -354,7 +354,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1413827027513410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0.64, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4090422928481902}
@@ -579,10 +579,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilities:
-  - {fileID: 11400000, guid: 36a381e5ea7a25a499b98cb389f4eab1, type: 2}
+  - {fileID: 11400000, guid: 561a6e2555a336744a84c6e569bd6159, type: 2}
   maxEnergyPoints: 100
   energyBar: {fileID: 114004481871223114}
   playerEnergybarText: {fileID: 0}
+  targetFrameEnergybar: {fileID: 0}
+  targetEnergybarText: {fileID: 0}
 --- !u!114 &114238680761063756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -610,9 +612,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340390cbd718fdc4cb01990cf0c8a024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aggroRange: 3
   experienceWorth: 100
   enemyRange: {fileID: 114372150833215334}
+  aggroRange: 3
 --- !u!114 &114372150833215334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -668,7 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterWeapons:
-  - {fileID: 11400000, guid: d55ac9975f32c8b41a2b9114a9b3f09e, type: 2}
+  - {fileID: 11400000, guid: 7ee5ce0f3232fb04f93236605d7f62c4, type: 2}
 --- !u!114 &114673530450797262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -849,8 +851,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 265971279
-  m_SortingLayer: 1
+  m_SortingLayerID: 1977354545
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

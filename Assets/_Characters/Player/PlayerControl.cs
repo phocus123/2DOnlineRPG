@@ -7,9 +7,6 @@ namespace RPG.Characters
 {
     public class PlayerControl : CharacterController
     {
-        public GameManager gameManager;
-        [SerializeField] Block[] blockArray;
-
         GameObject target;
         GameObject originalTarget; // Used to track original target before when a spell is cast and then the player clicks on a new target.
 
@@ -17,15 +14,11 @@ namespace RPG.Characters
         int exitIndex;
         Vector3 min, max;
 
-        CameraRaycaster cameraRaycaster;
         UIManager uiManager;
-        AbilitySystem abilitySystem;
-        WeaponSystem weaponSystem;
-        Character character;
 
         void Awake()
         {
-            GetRequiredReferences();
+            uiManager = FindObjectOfType<UIManager>();
             RegisterForMouseEvents();
             RegisterForActionButtonClicks();
         }
@@ -49,7 +42,7 @@ namespace RPG.Characters
 
         public void GetInput()
         {
-            var keybindManager = gameManager.keybindManager;
+            var keybindManager = FindObjectOfType<KeybindManager>();
             direction = Vector2.zero;
 
             if (Input.GetKey(keybindManager.Keybinds["UP"]))
@@ -94,24 +87,9 @@ namespace RPG.Characters
             this.max = max;
         }
 
-        // TODO Implement Weapon system
-        bool IsTargetInRange(Weapon weapon, GameObject target)
-        {
-            float distance = Vector2.Distance(target.transform.position, transform.position);
-            return distance <= weapon.AttackRange;
-        }
-
-        void GetRequiredReferences()
-        {
-            character = GetComponent<Character>();
-            cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
-            uiManager = gameManager.uiManager;
-            abilitySystem = GetComponent<AbilitySystem>();
-            weaponSystem = GetComponent<WeaponSystem>();
-        }
-
         void RegisterForMouseEvents()
         {
+            var cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
             cameraRaycaster.InvokeOnMouseOverEnemy += OnMouseOverEnemy;
             cameraRaycaster.InvokeOnMouseOverNonEnemy += OnMouseOverNonEnemy;
         }
@@ -124,12 +102,15 @@ namespace RPG.Characters
             }
         }
 
-        // TODO Move to a more appropriate script.
         void ActivateAttack(AbilityBehaviour abilityBehaviour)
         {
-            Block();
+            var abilitySystem = GetComponent<AbilitySystem>();
+            var character = GetComponent<Character>();
+            var weaponSystem = GetComponent<WeaponSystem>();
 
-            if (target != null && IsTargetInRange(abilityBehaviour.Ability.Weapon, target) && !character.IsAttacking && !character.IsMoving && InLineOfSight())
+            weaponSystem.Block(exitIndex);
+
+            if (target != null && weaponSystem.IsTargetInRange(abilityBehaviour.Ability.Weapon, target) && !character.IsAttacking && !character.IsMoving && weaponSystem.InLineOfSight(target))
             {
                 originalTarget = target;
                 abilitySystem.AttemptAbility(abilityBehaviour, originalTarget);
@@ -157,34 +138,6 @@ namespace RPG.Characters
                 target = null;
                 uiManager.HideTargetFrame();
             }
-        }
-
-        // TODO Is there a better place to put these?
-        void Block()
-        {
-            foreach (Block b in blockArray)
-            {
-                b.Deactivate();
-            }
-
-            blockArray[exitIndex].Activate();
-        }
-
-        bool InLineOfSight()
-        {
-            if (target != null)
-            {
-                Vector3 targetDirection = (target.transform.position - transform.position);
-
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, target.transform.position), 256);
-
-                if (hit.collider == null)
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }

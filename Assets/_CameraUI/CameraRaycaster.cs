@@ -12,8 +12,8 @@ namespace RPG.CameraUI
         public delegate void OnMouseOverNonEnemy();
         public event OnMouseOverNonEnemy InvokeOnMouseOverNonEnemy;
 
-        //public delegate void OnMouseOverInteractable(GameObject npc);
-        //public event OnMouseOverInteractable InvokeOnMouseOverInteractable;
+        public delegate void OnMouseOverInteractable(NPCControl npc);
+        public event OnMouseOverInteractable InvokeOnMouseOverInteractable;
 
         [SerializeField] private Texture2D enemyCursor = null;
         [SerializeField] private Texture2D interactableCursor = null;
@@ -42,12 +42,13 @@ namespace RPG.CameraUI
         {
             LayerMask interactableLayer = 1 << INTERACTABLE_LAYER;
 
-            bool interactableHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, interactableLayer);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, interactableLayer);
+            bool interactableHit = hit;
+
             if (interactableHit)
             {
-                // TODO re-implement mouse over interactable.
-
-                //InvokeOnMouseOverInteractable(interactableHit);
+                var npc = hit.collider.gameObject.GetComponentInParent<NPCControl>();
+                InvokeOnMouseOverInteractable(npc);
                 Cursor.SetCursor(interactableCursor, cursorHotspot, CursorMode.Auto);
                 return true;
             }
