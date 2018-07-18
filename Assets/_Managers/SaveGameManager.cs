@@ -12,6 +12,9 @@ namespace RPG.Core
         GameManager gameManager;
         Dictionary<int, string> abilityDict = new Dictionary<int, string>();
         int playerXP;
+        string gameDataProjectFilePath = "/StreamingAssets/PlayerGuild.json";
+        [SerializeField] bool hasGuild;
+        [SerializeField] Guild playerGuild;
 
         public Dictionary<int, string> AbilityDict
         {
@@ -25,7 +28,19 @@ namespace RPG.Core
             set { playerXP = value; }
         }
 
-        private void Start()
+        public bool HasGuild
+        {
+            get { return hasGuild; }
+            set { hasGuild = value; }
+        }
+
+        public Guild PlayerGuild
+        {
+            get { return playerGuild; }
+            set { playerGuild = value; }
+        }
+
+        private void Awake()
         {
             gameManager = FindObjectOfType<GameManager>();
 
@@ -52,8 +67,14 @@ namespace RPG.Core
             }
 
             PlayerData data = new PlayerData();
+
             data.AbilityDict = abilityDict;
-            data.PlayerExperience = PlayerXP;
+            data.PlayerExperience = playerXP;
+            data.HasGuild = hasGuild;
+            if (playerGuild != null)
+            {
+                data.GuildInstanceId = playerGuild.GetInstanceID();
+            }
 
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(file, data);
@@ -79,8 +100,20 @@ namespace RPG.Core
             file.Close();
 
             abilityDict = data.AbilityDict;
-            PlayerXP = data.PlayerExperience;
+            playerXP = data.PlayerExperience;
+            hasGuild = data.HasGuild;
 
+            if (data.GuildInstanceId != 0)
+            {
+                Guild guild = Array.Find(gameManager.MasterGuildList, x => x.GetInstanceID() == data.GuildInstanceId);
+                playerGuild = guild;
+            }
+
+            LoadActionButtons();
+        }
+
+        void LoadActionButtons()
+        {
             if (abilityDict != null)
             {
                 var uiManager = gameManager.uiManager;

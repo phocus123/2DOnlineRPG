@@ -27,6 +27,7 @@ namespace RPG.CameraUI
             targetFrame.SetActive(true);
             currentTargetHealthSystem.Initialize(currentTargetHealthSystem.CurrentHealthPoints, currentTargetHealthSystem.MaxHealthPoints);
             currentTargetAbilitySystem.Initialize(currentTargetAbilitySystem.CurrentEnergyPoints, currentTargetAbilitySystem.MaxEnergyPoints);
+            RegisterForHealthEvents();
         }
 
         public void HideTargetFrame()

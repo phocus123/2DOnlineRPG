@@ -52,7 +52,7 @@ namespace RPG.CameraUI
                     {
                         ActionButton button = uiManager.ActionButtons[i];
                         int index = Array.FindIndex(uiManager.ActionButtons, x => x.Button.name == button.name);
-                        //SaveGameManager.Instance.AbilityDict.Remove(index + 1);
+                        gameManager.savegameManager.AbilityDict.Remove(index + 1);
                         button.RemoveAbility();
                     }
                 }

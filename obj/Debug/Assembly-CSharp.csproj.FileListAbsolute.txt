@@ -165,3 +165,4 @@ C:\Users\Mark\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.csproj.CoreCompileIn
 C:\Users\Mark\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Mark\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.dll
 C:\Users\Mark\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Mark\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

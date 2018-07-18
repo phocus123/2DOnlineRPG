@@ -1,22 +1,16 @@
 ﻿using System.Collections.Generic;
 using System;
+using RPG.Characters;
+using UnityEngine;
 
-[Serializable]
-public class PlayerData
+namespace RPG.Core
 {
-    private static PlayerData instance;
-    public static PlayerData Instance
+    [Serializable]
+    public class PlayerData 
     {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new PlayerData();
-            }
-            return instance;
-        }
+        public Dictionary<int, string> AbilityDict { get; set; }
+        public int PlayerExperience { get; set; }
+        public bool HasGuild { get; set; }
+        public int GuildInstanceId { get; set; }
     }
-
-    public Dictionary<int, string> AbilityDict { get; set; }
-    public int PlayerExperience { get; set; }
 }

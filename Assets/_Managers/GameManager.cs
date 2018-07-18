@@ -13,16 +13,18 @@ namespace RPG.Core
         public KeybindManager keybindManager;
         public SaveGameManager savegameManager;
 
-        [Header("Abilities")]
+        [Header("Master Lists")]
         [SerializeField] Ability[] masterAbilityList;
+        [SerializeField] Guild[] masterGuildList;
 
         HealthSystem playerHealthSystem;
         AbilitySystem playerAbilitySystem;
         const float HEALTH_REGEN_AMOUNT = 0.25f;
         const float ENERGY_REGEN_AMOUNT = 0.5f;
-        private int playerExperience;
+        int playerExperience;
 
         public Ability[] MasterAbilityList { get { return masterAbilityList; } }
+        public Guild[] MasterGuildList { get { return masterGuildList; } }
         public int PlayerExperience
         {
             get { return playerExperience; }
@@ -50,19 +52,6 @@ namespace RPG.Core
         public void ExitGame()
         {
             Application.Quit();
-        }
-
-        // TODO Move to PlayerControl.
-        void TriggerDialogue(NPCControl npc)
-        {
-            //if (Input.GetMouseButtonDown(1))
-            //{
-            //    if (npc.TalkRange)
-            //    {
-            //        DialogueManager.Instance.CurrentNpc = npc;
-            //        DialogueManager.Instance.OpenDialogue(player);
-            //    }
-            //}
         }
 
         void RegenHealth(float value)

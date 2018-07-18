@@ -25,6 +25,7 @@ namespace RPG.Core
         GameManager gameManager;
 
         public ActionButton[] ActionButtons { get { return actionButtons; } }
+        public DialogueUI DialogueUI { get { return dialogueUI; } }
 
         void Awake()
         {
@@ -34,6 +35,7 @@ namespace RPG.Core
 
             UpdateExperienceText();
             abilityUI.Initialize(playerAbilitySystem);
+            //RegisterDialogueClickListeners();
         }
 
         public void ToggleInGameMenu()
@@ -74,11 +76,11 @@ namespace RPG.Core
             Array.Find(ActionButtons, x => x.gameObject.name == buttonName).Button.onClick.Invoke();
         }
 
-        public void OpenDialogue(DialogueParams dialogueParams)
+        public void OpenDialogue(NPCControl npc)
         {
             StartCoroutine(dialogueUI.FadeBox());
             dialogueUI.dialogueBox.blocksRaycasts = true;
-            dialogueUI.Initialize(dialogueParams);
+            dialogueUI.Initialize(npc);
         }
 
         public void UpdateExperienceText()

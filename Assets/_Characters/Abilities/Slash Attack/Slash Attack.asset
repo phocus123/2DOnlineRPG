@@ -19,7 +19,7 @@ MonoBehaviour:
   description: A basic slash attack. Requires a slashing weapon.
   icon: {fileID: 21300000, guid: 69c7ad9ba7beb5346a493448f38f1a86, type: 3}
   weapon: {fileID: 11400000, guid: d55ac9975f32c8b41a2b9114a9b3f09e, type: 2}
-  guildMaterial: {fileID: 2100000, guid: 9988b8a13063e2148b282bf28afaed98, type: 2}
+  guild: {fileID: 11400000, guid: 00331adeb6c93c545a2fc9eb1cb8d534, type: 2}
   damage:
     BaseValue: 10
   critChance: 5

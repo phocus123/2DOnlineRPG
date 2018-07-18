@@ -18,8 +18,11 @@ namespace RPG.Characters
         }
     }
 
-    public class AbilityBehaviour : MonoBehaviour
+    public abstract class AbilityBehaviour : MonoBehaviour
     {
+        public delegate void OnAttackInitiated();
+        public event OnAttackInitiated InvokeOnAttackInitiated;
+
         protected Coroutine attackRoutine;
         protected Ability ability;
 
@@ -29,10 +32,7 @@ namespace RPG.Characters
         const float MELEE_ANIMATION_DELAY = 0.25f;
         Coroutine animationDelayRoutine;
 
-        public virtual void Use(GameObject target)
-        {
-
-        }
+        public abstract void Use(GameObject target);
 
         public Ability Ability
         {
@@ -62,6 +62,12 @@ namespace RPG.Characters
 
             Projectile attack = Instantiate(useParams.projectilePrefab, character.ExitPoints[character.ExitIndex].position, Quaternion.identity).GetComponent<Projectile>();
             attack.Initialize(useParams.target.transform, useParams.damageToDeal, ability);
+
+            if (InvokeOnAttackInitiated != null)
+            {
+                InvokeOnAttackInitiated();
+            }
+
             StopAttack(character, ability.Weapon.AnimationName);
         }
 
@@ -76,6 +82,11 @@ namespace RPG.Characters
             enemyHealthSystem.TakeDamage(useParams.damageToDeal);
 
             yield return new WaitForSeconds(ability.AttackSpeed);
+
+            if (InvokeOnAttackInitiated != null)
+            {
+                InvokeOnAttackInitiated();
+            }
 
             StopAttack(character, ability.Weapon.AnimationName);
         }

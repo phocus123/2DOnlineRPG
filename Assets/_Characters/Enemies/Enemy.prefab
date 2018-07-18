@@ -54,7 +54,6 @@ GameObject:
   - component: {fileID: 223051356775907284}
   - component: {fileID: 114072693127125656}
   - component: {fileID: 114238680761063756}
-  - component: {fileID: 225567333492044882}
   m_Layer: 9
   m_Name: Name
   m_TagString: Untagged
@@ -669,6 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 993002a840b767646b1d00412a2b54c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockArray: []
   characterWeapons:
   - {fileID: 11400000, guid: 7ee5ce0f3232fb04f93236605d7f62c4, type: 2}
 --- !u!114 &114673530450797262
@@ -1110,17 +1110,6 @@ RectTransform:
   m_AnchoredPosition: {x: -248.1, y: -164.82272}
   m_SizeDelta: {x: 1.4, y: 0.15}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &225567333492044882
-CanvasGroup:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1069551726302188}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!225 &225921506642903628
 CanvasGroup:
   m_ObjectHideFlags: 1

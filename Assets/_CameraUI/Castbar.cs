@@ -28,7 +28,7 @@ namespace RPG.CameraUI
         public void SetupCastbar(Ability ability)
         {
             castingBar.fillAmount = 0;
-            castingBar.color = ability.GuildMaterial.color;
+            castingBar.color = ability.Guild.GuildMaterial.color;
             skillName.text = ability.name;
             icon.sprite = ability.Icon;
         }

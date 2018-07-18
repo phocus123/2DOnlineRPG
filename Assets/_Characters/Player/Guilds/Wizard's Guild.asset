@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf92f211b7375f428a3f0318fce2a59, type: 3}
+  m_Name: Wizard's Guild
+  m_EditorClassIdentifier: 
+  guildAbilities:
+  - {fileID: 11400000, guid: 02e5d9118cf31dd4e90103b9712c0bb0, type: 2}
+  guildLeader: {fileID: 114369460877393916, guid: fa7f357979cc1934a9f0008e6abe818b,
+    type: 2}
+  guildMaterial: {fileID: 2100000, guid: 41ab69b04fd27584da196e3c66ac425f, type: 2}

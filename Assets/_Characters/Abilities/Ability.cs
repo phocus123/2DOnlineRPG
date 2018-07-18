@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace RPG.Characters
 {
-    [Serializable]
     public abstract class Ability : ScriptableObject, IMoveable
     {
         [Header("General Ability Data")]
@@ -13,7 +12,7 @@ namespace RPG.Characters
         [TextArea(3, 5)] [SerializeField] private string description = string.Empty;
         [SerializeField] private Sprite icon = null;
         [SerializeField] private Weapon weapon = null;
-        [SerializeField] private Material guildMaterial;
+        [SerializeField] private Guild guild;
 
         protected AbilityBehaviour behaviour;
 
@@ -53,10 +52,10 @@ namespace RPG.Characters
             get { return weapon; }
         }
 
-        public Material GuildMaterial
+        public Guild Guild
         {
-            get { return guildMaterial; }
-            set { guildMaterial = value; }
+            get { return guild; }
+            set { guild = value; }
         }
 
         public abstract AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo);

@@ -13,12 +13,12 @@ namespace RPG.Characters
         Vector2 direction;
         int exitIndex;
         Vector3 min, max;
-
         UIManager uiManager;
 
         void Awake()
         {
             uiManager = FindObjectOfType<UIManager>();
+            FindObjectOfType<CameraRaycaster>().InvokeOnMouseOverInteractable += OnMouseOverInteractable;
             RegisterForMouseEvents();
             RegisterForActionButtonClicks();
         }
@@ -137,6 +137,14 @@ namespace RPG.Characters
             {
                 target = null;
                 uiManager.HideTargetFrame();
+            }
+        }
+
+        void OnMouseOverInteractable(NPCControl npc)
+        {
+            if (Input.GetMouseButtonDown(1) && npc.IsPlayerInRange)
+            {
+                uiManager.OpenDialogue(npc);
             }
         }
     }

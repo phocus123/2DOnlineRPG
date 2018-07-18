@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using RPG.Characters;
 using System;
 using RPG.Core;
+using System.Collections;
 
 namespace RPG.CameraUI
 {
@@ -13,6 +14,7 @@ namespace RPG.CameraUI
         public event OnActionButtonClicked InvokeOnActionButtonClicked;
 
         [SerializeField] Image icon;
+        [SerializeField] Image darkMask;
 
         Button button;
         GameManager gameManager;
@@ -36,8 +38,33 @@ namespace RPG.CameraUI
         {
             if (Ability != null)
             {
+                Ability.Behaviour.InvokeOnAttackInitiated += TriggerCooldownMask;
                 InvokeOnActionButtonClicked(Ability.Behaviour);
             }
+        }
+
+        private void TriggerCooldownMask()
+        {
+            StartCoroutine(StartCooldownTimer(1f));
+        }
+
+        IEnumerator StartCooldownTimer(float time)
+        {
+            float timer = 0;
+            while (time > timer)
+            {
+                timer += Time.deltaTime;
+                darkMask.color = new Color(.5f, .5f, .5f, .5f);
+                darkMask.fillAmount = timer / time;
+                yield return new WaitForEndOfFrame();
+            }
+            ResetCooldown();
+        }
+
+        void ResetCooldown()
+        {
+            darkMask.color = new Color(.5f, .5f, .5f, 0);
+            darkMask.fillAmount = 0;
         }
 
         public void SetAbility(Ability ability, DragItem item)

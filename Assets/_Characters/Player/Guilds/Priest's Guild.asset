@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf92f211b7375f428a3f0318fce2a59, type: 3}
+  m_Name: Priest's Guild
+  m_EditorClassIdentifier: 
+  guildAbilities: []
+  guildLeader: {fileID: 114740145379598244, guid: 58064b438d8b9074db8c7311eb8ecdec,
+    type: 2}
+  guildMaterial: {fileID: 2100000, guid: 25703dfcc2893bd43aacf9bcaa034024, type: 2}

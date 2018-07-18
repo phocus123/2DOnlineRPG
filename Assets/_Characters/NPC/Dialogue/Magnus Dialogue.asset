@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2384860f2b16a084d9380c1381515d19, type: 3}
+  m_Name: Magnus Dialogue
+  m_EditorClassIdentifier: 
+  npcIntroduction: Hi there adventurer, My name is Magnus and I am the guild leader
+    of the Warriors Guild. Feel free to ask me questions.
+  dialogueLines:
+    dialogueOptions:
+    - dialogueLines:
+      - There are 4 different guilds an adventurer may join. They are the Warriors
+        guild, the Wizard's guild, the Archer's guild and the Priest's guild. Each
+        guild has different abilities to learn.
+      - If an adventurer joins a guild, they will get an experience discount to any
+        abilities they learn from that guild. Only one guild can be joined but that
+        does not mean you can't learn all the abilities from all the guilds.
+    - dialogueLines:
+      - Warrior's specialise in being at the front line of battle, often taking all
+        the hits, because of this they are taught defensive abilities, helping them
+        to take less damage and stay alive longer.
+      - They are also taught abilities that ensure they are the target of all attacks
+        to help keep their party alive.
+    - dialogueLines:
+      - You are now an honorary member of the warriors guild.
+    - dialogueLines:
+      - Of course, here you go.
+    - dialogueLines:
+      - Goodbye.
+  dialogueButtons:
+    buttonOptions:
+    - optionText: Tell me about guilds.
+      dialogueEvent: {fileID: 0}
+    - optionText: Tell me about warriors.
+      dialogueEvent: {fileID: 0}
+    - optionText: Can I join the warrior's guild?
+      dialogueEvent: {fileID: 11400000, guid: 8cbf6ec05f936c14bb6b4f1f6b5e1360, type: 2}
+    - optionText: Can I see the warrior abilities?
+      dialogueEvent: {fileID: 0}
+    - optionText: End conversation.
+      dialogueEvent: {fileID: 0}
