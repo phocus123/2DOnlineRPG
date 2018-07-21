@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using RPG.Core;
+using System;
 
 namespace RPG.Characters
 {
@@ -7,12 +9,16 @@ namespace RPG.Characters
     {
         public override void PerformEventAction(NPCControl npc)
         {
-            Debug.Log("show guild skills");
+            string characterName = npc.GetComponent<Character>().CharacterName;
+            Guild[] guildList = FindObjectOfType<GameManager>().MasterGuildList;
+            Guild guildToOpen = Array.Find(guildList, x => x.GuildLeader.CharacterName == characterName);
+
+            FindObjectOfType<UIManager>().ShowGuildAbilities(guildToOpen);
         }
 
         public override bool QueryEvent()
         {
-            throw new System.NotImplementedException();
+            return true;
         }
     }
 }

@@ -13,8 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSpeed:
     BaseValue: 2
+    abilityName: Attack Speed
   cooldown:
     BaseValue: 0
+    abilityName: 
   energy: 8
   description: A basic bow attack. Requires a bow.
   icon: {fileID: 21300000, guid: da889fe38a98d3f43b4826b15926c76f, type: 3}
@@ -22,7 +24,12 @@ MonoBehaviour:
   guild: {fileID: 11400000, guid: d353d0b6fe96c734891d27eab6f034d3, type: 2}
   damage:
     BaseValue: 12
-  critChance: 5
-  critEffect: 0.25
+    abilityName: Damage
+  critChance:
+    BaseValue: 5
+    abilityName: Crit Chance
+  critEffect:
+    BaseValue: 0.25
+    abilityName: Crit Effect
   projectilePrefab: {fileID: 1341953783385292, guid: fe7ee932bdee3c4479267f2ce8f0e729,
     type: 2}

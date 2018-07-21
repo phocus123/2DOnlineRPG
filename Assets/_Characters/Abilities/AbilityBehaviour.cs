@@ -10,7 +10,7 @@ namespace RPG.Characters
         public float damageToDeal;
         public GameObject projectilePrefab;
 
-        public AbilityUseParams(GameObject target,  float damageToDeal, GameObject projectilePrefab)
+        public AbilityUseParams(GameObject target, float damageToDeal, GameObject projectilePrefab)
         {
             this.target = target;
             this.damageToDeal = damageToDeal;
@@ -58,7 +58,7 @@ namespace RPG.Characters
                 castbar.TriggerCastBar(ability);
             }
 
-            yield return new WaitForSeconds(ability.AttackSpeed);
+            yield return new WaitForSeconds(ability.AttackSpeed.Value);
 
             Projectile attack = Instantiate(useParams.projectilePrefab, character.ExitPoints[character.ExitIndex].position, Quaternion.identity).GetComponent<Projectile>();
             attack.Initialize(useParams.target.transform, useParams.damageToDeal, ability);
@@ -81,7 +81,7 @@ namespace RPG.Characters
             animationDelayRoutine = StartCoroutine(AnimationDelay(enemyHitboxAnimator));
             enemyHealthSystem.TakeDamage(useParams.damageToDeal);
 
-            yield return new WaitForSeconds(ability.AttackSpeed);
+            yield return new WaitForSeconds(ability.AttackSpeed.Value);
 
             if (InvokeOnAttackInitiated != null)
             {

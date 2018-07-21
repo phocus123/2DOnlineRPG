@@ -16,7 +16,7 @@ namespace RPG.CameraUI
             inGameMenu.blocksRaycasts = inGameMenu.blocksRaycasts == true ? false : true;
         }
 
-        public void CloseCanvases(AbilityUI abilityUI)
+        public void CloseCanvases(AbilityBookUI abilityUI)
         {
             keybindMenu.alpha = 0;
             keybindMenu.blocksRaycasts = false;

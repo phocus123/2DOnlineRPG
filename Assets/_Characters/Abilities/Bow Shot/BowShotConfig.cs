@@ -8,8 +8,8 @@ namespace RPG.Characters
     {
         [Header("Bow Shot data.")]
         [SerializeField] AbilityStat damage;
-        [SerializeField] float critChance;
-        [SerializeField] float critEffect;
+        [SerializeField] AbilityStat critChance;
+        [SerializeField] AbilityStat critEffect;
         [SerializeField] GameObject projectilePrefab = null;
 
         public AbilityStat Damage
@@ -18,13 +18,13 @@ namespace RPG.Characters
             set { damage = value; }
         }
 
-        public float CritChance
+        public AbilityStat CritChance
         {
             get { return critChance; }
             set { critChance = value; }
         }
 
-        public float CritEffect
+        public AbilityStat CritEffect
         {
             get { return critEffect; }
             set { critEffect = value; }
@@ -38,6 +38,11 @@ namespace RPG.Characters
         public override AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo)
         {
             return objectToAttachTo.AddComponent<BowShotBehaviour>();
+        }
+
+        public override AbilityUI GetUIComponent(GameObject objectToAttachTo)
+        {
+            return objectToAttachTo.AddComponent<BowShotUI>();
         }
     }
 }

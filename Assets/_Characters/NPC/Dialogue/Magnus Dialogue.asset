@@ -43,6 +43,6 @@ MonoBehaviour:
     - optionText: Can I join the warrior's guild?
       dialogueEvent: {fileID: 11400000, guid: 8cbf6ec05f936c14bb6b4f1f6b5e1360, type: 2}
     - optionText: Can I see the warrior abilities?
-      dialogueEvent: {fileID: 0}
+      dialogueEvent: {fileID: 11400000, guid: aff170218de7e72438532465320cb12e, type: 2}
     - optionText: End conversation.
-      dialogueEvent: {fileID: 0}
+      dialogueEvent: {fileID: 11400000, guid: 9cd9b3cc4747f7e4b9a4737e6467e0ca, type: 2}

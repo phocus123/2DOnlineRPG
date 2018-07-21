@@ -59,13 +59,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_CameraUI\AbilityUI.cs" />
+    <Compile Include="Assets\_CameraUI\AbilityBookUI.cs" />
     <Compile Include="Assets\_CameraUI\ActionButton.cs" />
     <Compile Include="Assets\_CameraUI\CameraFollow.cs" />
     <Compile Include="Assets\_CameraUI\CameraRaycaster.cs" />
     <Compile Include="Assets\_CameraUI\Castbar.cs" />
     <Compile Include="Assets\_CameraUI\DialogueUI.cs" />
     <Compile Include="Assets\_CameraUI\DragItem.cs" />
+    <Compile Include="Assets\_CameraUI\GuildAbilityButton.cs" />
+    <Compile Include="Assets\_CameraUI\GuildAbilityUI.cs" />
     <Compile Include="Assets\_CameraUI\IMoveable.cs" />
     <Compile Include="Assets\_CameraUI\MainMenuUI.cs" />
     <Compile Include="Assets\_CameraUI\PageButton.cs" />
@@ -73,14 +75,18 @@
     <Compile Include="Assets\_Characters\Abilities\Ability.cs" />
     <Compile Include="Assets\_Characters\Abilities\AbilityBehaviour.cs" />
     <Compile Include="Assets\_Characters\Abilities\AbilityStat.cs" />
+    <Compile Include="Assets\_Characters\Abilities\AbilityUI.cs" />
     <Compile Include="Assets\_Characters\Abilities\Bow Shot\BowShotBehaviour.cs" />
     <Compile Include="Assets\_Characters\Abilities\Bow Shot\BowShotConfig.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Bow Shot\BowShotUI.cs" />
     <Compile Include="Assets\_Characters\Abilities\Fireball\FireballBehaviour.cs" />
     <Compile Include="Assets\_Characters\Abilities\Fireball\FireballConfig.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Fireball\FireballUI.cs" />
     <Compile Include="Assets\_Characters\Abilities\ImpactBehaviour.cs" />
     <Compile Include="Assets\_Characters\Abilities\Projectile.cs" />
     <Compile Include="Assets\_Characters\Abilities\Slash Attack\SlashAttackBehaviour.cs" />
     <Compile Include="Assets\_Characters\Abilities\Slash Attack\SlashAttackConfig.cs" />
+    <Compile Include="Assets\_Characters\Abilities\Slash Attack\SlashAttackUI.cs" />
     <Compile Include="Assets\_Characters\Abilities\StatModifier.cs" />
     <Compile Include="Assets\_Characters\Block.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\AbilitySystem.cs" />
@@ -91,6 +97,7 @@
     <Compile Include="Assets\_Characters\DeathBehaviour.cs" />
     <Compile Include="Assets\_Characters\Enemies\EnemyAI.cs" />
     <Compile Include="Assets\_Characters\Enemies\EnemyRange.cs" />
+    <Compile Include="Assets\_Characters\NPC\Dialogue\CloseUICanvas.cs" />
     <Compile Include="Assets\_Characters\NPC\Dialogue\Dialogue.cs" />
     <Compile Include="Assets\_Characters\NPC\Dialogue\DialogueButtons.cs" />
     <Compile Include="Assets\_Characters\NPC\Dialogue\DialogueEvent.cs" />
@@ -101,16 +108,17 @@
     <Compile Include="Assets\_Characters\Player\Guilds\Guild.cs" />
     <Compile Include="Assets\_Characters\Player\PlayerControl.cs" />
     <Compile Include="Assets\_Characters\Weapons\Weapon.cs" />
+    <Compile Include="Assets\_Core\GameManager.cs" />
+    <Compile Include="Assets\_Core\KeybindManager.cs" />
+    <Compile Include="Assets\_Core\PlayerData.cs" />
+    <Compile Include="Assets\_Core\SaveGameManager.cs" />
+    <Compile Include="Assets\_Core\UIHelper.cs" />
+    <Compile Include="Assets\_Core\UIManager.cs" />
     <Compile Include="Assets\_Environment\LayerSorter.cs" />
     <Compile Include="Assets\_Environment\Obstacle.cs" />
     <Compile Include="Assets\_Environment\Road\RoadTile.cs" />
     <Compile Include="Assets\_Environment\TreeTile.cs" />
     <Compile Include="Assets\_Environment\Water\WaterTile.cs" />
-    <Compile Include="Assets\_Managers\GameManager.cs" />
-    <Compile Include="Assets\_Managers\KeybindManager.cs" />
-    <Compile Include="Assets\_Managers\PlayerData.cs" />
-    <Compile Include="Assets\_Managers\SaveGameManager.cs" />
-    <Compile Include="Assets\_Managers\UIManager.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Mark/Desktop/2DOnlineRPG/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

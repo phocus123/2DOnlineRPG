@@ -7,11 +7,7 @@ namespace RPG.Characters
     [CreateAssetMenu(menuName = "RPG/Dialogue/Events/Guild Invite")]
     public class GuildInvite : DialogueEvent
     {
-        [SerializeField] int eventButtonIndex;
-
         SaveGameManager savegameManager;
-
-        public int EventButtonIndex { get { return eventButtonIndex; } }
 
         public override void PerformEventAction(NPCControl npc)
         {
@@ -25,7 +21,7 @@ namespace RPG.Characters
         public override bool QueryEvent()
         {
             savegameManager = FindObjectOfType<SaveGameManager>();
-            return !savegameManager.HasGuild; // return true if player does not have a guild.
+            return savegameManager.HasGuild; // return true if player does not have a guild.
         }
 
         void InviteToGuild(Guild guild)

@@ -1,18 +1,19 @@
-﻿using RPG.Characters;
+﻿using RPG.CameraUI;
+using RPG.Characters;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using RPG.CameraUI;
 
 namespace RPG.Core
 {
     public class UIManager : MonoBehaviour
     {
         [Header("User Interface")]
-        [SerializeField] AbilityUI abilityUI;
+        [SerializeField] AbilityBookUI abilityUI;
         [SerializeField] DialogueUI dialogueUI;
         [SerializeField] TargetFrameUI targetFrameUI;
         [SerializeField] MainMenuUI mainMenuUI;
+        [SerializeField] GuildAbilityUI guildAbilityUI;
 
         [Header("Experience")]
         [SerializeField] Text playerExperienceText;
@@ -21,11 +22,11 @@ namespace RPG.Core
         [SerializeField] ActionButton[] actionButtons;
         [SerializeField ]GameObject[] keybindButtons;
 
-
         GameManager gameManager;
 
         public ActionButton[] ActionButtons { get { return actionButtons; } }
         public DialogueUI DialogueUI { get { return dialogueUI; } }
+        public GuildAbilityUI GuildAbilityUI { get { return guildAbilityUI; } }
 
         void Awake()
         {
@@ -35,7 +36,6 @@ namespace RPG.Core
 
             UpdateExperienceText();
             abilityUI.Initialize(playerAbilitySystem);
-            //RegisterDialogueClickListeners();
         }
 
         public void ToggleInGameMenu()
@@ -58,11 +58,9 @@ namespace RPG.Core
             targetFrameUI.HideTargetFrame();
         }
 
-        public void ToggleCanvasGroup(CanvasGroup canvasGroup)
+        public void ShowGuildAbilities(Guild guild)
         {
-            canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
-            canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
-            ToggleInGameMenu();
+            guildAbilityUI.OpenGuildAbilities(guild);
         }
 
         public void UpdateKeyText(string key, KeyCode code)
@@ -78,7 +76,7 @@ namespace RPG.Core
 
         public void OpenDialogue(NPCControl npc)
         {
-            StartCoroutine(dialogueUI.FadeBox());
+            StartCoroutine(UIHelper.FadeCanvasGroup(dialogueUI.dialogueBox));
             dialogueUI.dialogueBox.blocksRaycasts = true;
             dialogueUI.Initialize(npc);
         }
@@ -86,6 +84,13 @@ namespace RPG.Core
         public void UpdateExperienceText()
         {
             playerExperienceText.text = "Experience: " + gameManager.PlayerExperience.ToString();
+        }
+
+        public void ToggleCanvasGroup(CanvasGroup canvasGroup)
+        {
+            canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
+            canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
+            ToggleInGameMenu();
         }
     }
 }

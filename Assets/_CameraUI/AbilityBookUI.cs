@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RPG.CameraUI
 {
     [Serializable]
-    public class AbilityUI
+    public class AbilityBookUI
     {
         [Header("Ability UI")]
         public Image abilityIcon;
@@ -82,7 +82,7 @@ namespace RPG.CameraUI
             title.text = ability.name;
             description.text = ability.Description;
             Range.text = ability.Weapon.AttackRange.ToString() + "m";
-            attackSpeed.text = ability.AttackSpeed.ToString("F2") + " seconds";
+            attackSpeed.text = ability.AttackSpeed.Value.ToString("F2") + " seconds";
 
             energy.text = ability.Energy.ToString("F2");
             cooldown.text = ability.Cooldown.ToString("F2") + " seconds";

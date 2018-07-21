@@ -13,8 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSpeed:
     BaseValue: 1.6
+    abilityName: Attack Speed
   cooldown:
     BaseValue: 0
+    abilityName: 
   energy: 5
   description: A basic slash attack. Requires a slashing weapon.
   icon: {fileID: 21300000, guid: 69c7ad9ba7beb5346a493448f38f1a86, type: 3}
@@ -22,5 +24,10 @@ MonoBehaviour:
   guild: {fileID: 11400000, guid: 00331adeb6c93c545a2fc9eb1cb8d534, type: 2}
   damage:
     BaseValue: 10
-  critChance: 5
-  critEffect: 0.25
+    abilityName: Damage
+  critChance:
+    BaseValue: 5
+    abilityName: Crit Chance
+  critEffect:
+    BaseValue: 0.25
+    abilityName: Crit Effect

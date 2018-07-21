@@ -7,6 +7,7 @@ namespace RPG.Characters
     public class AbilityStat
     {
         public float BaseValue;
+        public string abilityName;
 
         bool isDirty = true;
         float value;

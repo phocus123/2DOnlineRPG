@@ -6,12 +6,6 @@ namespace RPG.Characters
     [Serializable]
     public class DialogueLines
     {
-        [Serializable]
-        public class DialogueRow
-        {
-            [TextArea(5, 5)] public string[] dialogueLines;
-        }
-
         public DialogueRow[] dialogueOptions;
 
         public string this[int rowIndex, int colIndex]
@@ -22,6 +16,12 @@ namespace RPG.Characters
         public string[] this[int rowindex]
         {
             get { return dialogueOptions[rowindex].dialogueLines; }
+        }
+
+        [Serializable]
+        public class DialogueRow
+        {
+            [TextArea(5, 5)] public string[] dialogueLines;
         }
     }
 }

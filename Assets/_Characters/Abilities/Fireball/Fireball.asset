@@ -13,8 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSpeed:
     BaseValue: 3
+    abilityName: Attack Speed
   cooldown:
     BaseValue: 0
+    abilityName: 
   energy: 10
   description: A basic magic attack. Requires the knowledge of harnessing magic as
     a weapon.
@@ -23,7 +25,12 @@ MonoBehaviour:
   guild: {fileID: 11400000, guid: d4a0426d23676b2448523016a05b3e0f, type: 2}
   damage:
     BaseValue: 15
-  critChance: 5
-  critEffect: 0.25
+    abilityName: Damage
+  critChance:
+    BaseValue: 5
+    abilityName: Crit Chance
+  critEffect:
+    BaseValue: 0.25
+    abilityName: Crit Effect
   projectilePrefab: {fileID: 1516577970113520, guid: 3551c4cef90f4a74eafafd5f4dfb6b24,
     type: 2}

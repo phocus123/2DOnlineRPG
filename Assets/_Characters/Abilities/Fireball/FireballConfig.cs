@@ -7,28 +7,29 @@ namespace RPG.Characters
     public class FireballConfig : Ability
     {
         [Header("Fireball data.")]
-        [SerializeField] private AbilityStat damage;
+        [SerializeField] AbilityStat damage;
+        [SerializeField] AbilityStat critChance;
+        [SerializeField] private AbilityStat critEffect;
+        [SerializeField] private GameObject projectilePrefab = null;
+
         public AbilityStat Damage
         {
             get { return damage; }
             set { damage = value; }
         }
 
-        [SerializeField] private float critChance;
-        public float CritChance
+        public AbilityStat CritChance
         {
             get { return critChance; }
             set { critChance = value; }
         }
 
-        [SerializeField] private float critEffect;
-        public float CritEffect
+        public AbilityStat CritEffect
         {
             get { return critEffect; }
             set { critEffect = value; }
         }
 
-        [SerializeField] private GameObject projectilePrefab = null;
         public GameObject ProjectilePrefab
         {
             get { return projectilePrefab; }
@@ -37,6 +38,11 @@ namespace RPG.Characters
         public override AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo)
         {
             return objectToAttachTo.AddComponent<FireballBehaviour>();
+        }
+
+        public override AbilityUI GetUIComponent(GameObject objectToAttachTo)
+        {
+            return objectToAttachTo.AddComponent<FireballUI>();
         }
     }
 }

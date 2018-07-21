@@ -14,51 +14,21 @@ namespace RPG.Characters
         [SerializeField] private Weapon weapon = null;
         [SerializeField] private Guild guild;
 
-        protected AbilityBehaviour behaviour;
+        AbilityBehaviour behaviour;
+        AbilityUI abilityUI;
 
-        public AbilityBehaviour Behaviour
-        {
-            get { return behaviour; }
-        }
-
-        public float AttackSpeed
-        {
-            get { return attackSpeed.Value; }
-        }
-
-        public float Cooldown
-        {
-            get { return cooldown.Value; }
-        }
-
-        public float Energy
-        {
-            get { return energy; }
-            set { energy = value; }
-        }
-
-        public string Description
-        {
-            get { return description; }
-        }
-
-        public Sprite Icon
-        {
-            get { return icon; }
-        }
-
-        public Weapon Weapon
-        {
-            get { return weapon; }
-        }
-
-        public Guild Guild
-        {
-            get { return guild; }
-            set { guild = value; }
-        }
+        public AbilityBehaviour Behaviour { get { return behaviour; } }
+        public AbilityUI AbilityUI { get { return abilityUI; } }
+        public AbilityStat AttackSpeed { get { return attackSpeed; } }
+        public float Cooldown {get { return cooldown.Value; } }
+        public string Description { get { return description; } }
+        public Sprite Icon { get { return icon; } }
+        public Weapon Weapon { get { return weapon; } }
+        public Guild Guild { get { return guild; } }
+        public float Energy { get { return energy; } }
 
         public abstract AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo);
+        public abstract AbilityUI GetUIComponent(GameObject objectToAttachTo);
 
         public void Use(GameObject target)
         {
@@ -70,6 +40,14 @@ namespace RPG.Characters
             AbilityBehaviour behaviourComponent = GetBehaviourComponent(gameObjectToAttachTo);
             behaviourComponent.Ability = this;
             behaviour = behaviourComponent;
+        }
+
+        public void AttachAbilityUITo(GameObject gameObjectToAttachTo)
+        {
+            AbilityUI abilityUI = GetUIComponent(gameObjectToAttachTo);
+            abilityUI.Ability = this;
+            this.abilityUI = abilityUI;
+            this.abilityUI.SetParams();
         }
     }
 }

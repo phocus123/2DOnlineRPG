@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 222987695693490822}
   - component: {fileID: 114563424073699624}
   - component: {fileID: 114779096038773656}
+  - component: {fileID: 114615794545548638}
   m_Layer: 5
   m_Name: AbilityButton
   m_TagString: Guild Ability
@@ -139,6 +140,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114615794545548638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702817153119728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f5456fa208204478b666862a5d5ce5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114699070811138106
 MonoBehaviour:
   m_ObjectHideFlags: 1

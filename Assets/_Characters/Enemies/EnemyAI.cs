@@ -172,7 +172,7 @@ namespace RPG.Characters
 
             while (attackerStillAlive && targetStillAlive)
             {
-                float timeToWait = abilityBehaviour.Ability.AttackSpeed;
+                float timeToWait = abilityBehaviour.Ability.AttackSpeed.Value;
                 bool isTimeToHitAgain = Time.time - lastHitTime > timeToWait;
 
                 if (isTimeToHitAgain && !character.IsAttacking)
