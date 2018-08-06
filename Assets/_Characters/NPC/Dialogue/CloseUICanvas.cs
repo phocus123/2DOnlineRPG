@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using RPG.Core;
+using RPG.CameraUI;
 
 namespace RPG.Characters
 {
@@ -8,10 +9,11 @@ namespace RPG.Characters
     {
         public override void PerformEventAction(NPCControl npc)
         {
+            var abilityButtonPanel = FindObjectOfType<AbilityButtonPanel>();
             var uiManager = FindObjectOfType<UIManager>();
 
             uiManager.DialogueUI.CloseDialogue();
-            uiManager.GuildAbilityUI.CloseGuildAbilities();
+            abilityButtonPanel.CloseGuildAbilitiesCanvas();
         }
 
         public override bool QueryEvent()

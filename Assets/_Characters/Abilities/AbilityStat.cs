@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RPG.Characters
 {
@@ -8,26 +9,46 @@ namespace RPG.Characters
     {
         public float BaseValue;
         public string abilityName;
+        public StatOperator statOperator;
+        [SerializeField] float value;
 
         bool isDirty = true;
-        float value;
         readonly List<StatModifier> statModifiers;
+
+        public enum StatOperator
+        {
+            Add,
+            Subtract
+        }
+
+        //public float Value
+        //{
+        //    get
+        //    {
+        //        if (isDirty)
+        //        {
+        //            value = CalculateFinalValue();
+        //            isDirty = false;
+        //        }
+        //        else
+        //        {
+        //            value = BaseValue;
+        //        }
+        //        return value;
+        //    }
+        //}
 
         public float Value
         {
             get
             {
-                if (isDirty)
-                {
-                    value = CalculateFinalValue();
-                    isDirty = false;
-                }
-                else
+                if (value == 0)
                 {
                     value = BaseValue;
                 }
                 return value;
             }
+            set { this.value = value; }
         }
 
         public AbilityStat(float baseValue)
@@ -44,8 +65,12 @@ namespace RPG.Characters
 
         public bool RemoveModifier(StatModifier mod)
         {
-            isDirty = true;
-            return statModifiers.Remove(mod);
+            if (statModifiers.Remove(mod))
+            {
+                isDirty = true;
+                return true;
+            }
+            return false;
         }
 
         float CalculateFinalValue()
@@ -58,6 +83,12 @@ namespace RPG.Characters
             }
 
             return (float)Math.Round(finalValue, 4);
+        }
+
+        [Serializable]
+        public class StatChanges
+        {
+            public List<float> statChanges;
         }
     }
 }

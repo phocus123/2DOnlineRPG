@@ -60,7 +60,7 @@ namespace RPG.Characters
         public void AttemptAbility(AbilityBehaviour abilityBehaviour, GameObject target = null)
         {
             var energyComponent = GetComponent<AbilitySystem>();
-            var energyCost = abilityBehaviour.Ability.Energy;
+            var energyCost = abilityBehaviour.Ability.Energy.Value;
 
             if (energyCost <= currentEnergyPoints)
             {

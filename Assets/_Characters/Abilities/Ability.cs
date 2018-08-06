@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Characters
@@ -6,13 +7,20 @@ namespace RPG.Characters
     public abstract class Ability : ScriptableObject, IMoveable
     {
         [Header("General Ability Data")]
-        [SerializeField] private AbilityStat attackSpeed;
-        [SerializeField] private AbilityStat cooldown = null;
-        [SerializeField] private float energy;
-        [TextArea(3, 5)] [SerializeField] private string description = string.Empty;
-        [SerializeField] private Sprite icon = null;
-        [SerializeField] private Weapon weapon = null;
-        [SerializeField] private Guild guild;
+        [TextArea(3, 5)] [SerializeField] string description;
+        [SerializeField] Sprite icon;
+        [SerializeField] Weapon weapon;
+        [SerializeField] Guild guild;
+
+        [Header("General Ability Stats")]
+        [SerializeField] AbilityStat attackSpeed;
+        [SerializeField] AbilityStat cooldown;
+        [SerializeField] AbilityStat energy;
+
+        [Header("Experience Cost")]
+        [SerializeField] private int currentExperienceCost;
+        [SerializeField] int experienceMultiplier;
+        [SerializeField] int level;
 
         AbilityBehaviour behaviour;
         AbilityUI abilityUI;
@@ -25,7 +33,20 @@ namespace RPG.Characters
         public Sprite Icon { get { return icon; } }
         public Weapon Weapon { get { return weapon; } }
         public Guild Guild { get { return guild; } }
-        public float Energy { get { return energy; } }
+        public AbilityStat Energy { get { return energy; } }
+        public int ExperienceMultiplier { get { return experienceMultiplier; } }
+
+        public int Level
+        {
+            get { return level; }
+            set { level = value; }
+        }
+
+        public int CurrentExperienceCost
+        {
+            get { return currentExperienceCost; }
+            set { currentExperienceCost = value; }
+        }
 
         public abstract AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo);
         public abstract AbilityUI GetUIComponent(GameObject objectToAttachTo);
@@ -47,7 +68,7 @@ namespace RPG.Characters
             AbilityUI abilityUI = GetUIComponent(gameObjectToAttachTo);
             abilityUI.Ability = this;
             this.abilityUI = abilityUI;
-            this.abilityUI.SetParams();
+            this.abilityUI.GetStats();
         }
     }
 }

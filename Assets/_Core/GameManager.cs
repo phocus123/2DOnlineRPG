@@ -12,6 +12,7 @@ namespace RPG.Core
         public UIManager uiManager;
         public KeybindManager keybindManager;
         public SaveGameManager savegameManager;
+        public AbilityAdvancementManager guildAbilityManager;
 
         [Header("Master Lists")]
         [SerializeField] Ability[] masterAbilityList;

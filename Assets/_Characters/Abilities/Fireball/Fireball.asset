@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -11,26 +11,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73812ba66c4cf534aa9948e41c1b2485, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  attackSpeed:
-    BaseValue: 3
-    abilityName: Attack Speed
-  cooldown:
-    BaseValue: 0
-    abilityName: 
-  energy: 10
   description: A basic magic attack. Requires the knowledge of harnessing magic as
     a weapon.
   icon: {fileID: 21300000, guid: 99730a0bf76061f44a8419f9fc80a226, type: 3}
   weapon: {fileID: 11400000, guid: e1f7b52107e00584e8cccca5eae6140e, type: 2}
   guild: {fileID: 11400000, guid: d4a0426d23676b2448523016a05b3e0f, type: 2}
+  attackSpeed:
+    BaseValue: 3
+    abilityName: Attack Speed
+    statOperator: 1
+    value: 3
+  cooldown:
+    BaseValue: 0
+    abilityName: Cooldown
+    statOperator: 1
+    value: 0
+  energy:
+    BaseValue: 10
+    abilityName: Energy
+    statOperator: 1
+    value: 10
+  currentExperienceCost: 0
+  experienceMultiplier: 2
+  level: 0
   damage:
     BaseValue: 15
     abilityName: Damage
+    statOperator: 0
+    value: 0
   critChance:
     BaseValue: 5
     abilityName: Crit Chance
+    statOperator: 0
+    value: 5
   critEffect:
     BaseValue: 0.25
     abilityName: Crit Effect
+    statOperator: 0
+    value: 0.25
   projectilePrefab: {fileID: 1516577970113520, guid: 3551c4cef90f4a74eafafd5f4dfb6b24,
     type: 2}

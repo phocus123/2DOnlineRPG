@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using RPG.CameraUI;
 
 namespace RPG.Characters
 {

@@ -9,11 +9,15 @@ namespace RPG.Core
     public class UIManager : MonoBehaviour
     {
         [Header("User Interface")]
-        [SerializeField] AbilityBookUI abilityUI;
-        [SerializeField] DialogueUI dialogueUI;
-        [SerializeField] TargetFrameUI targetFrameUI;
-        [SerializeField] MainMenuUI mainMenuUI;
-        [SerializeField] GuildAbilityUI guildAbilityUI;
+        public AbilityBookUI abilityUI;
+        public DialogueUI dialogueUI;
+        public TargetFrameUI targetFrameUI;
+        public MainMenuUI mainMenuUI;
+
+        [Header("Ability Advancement")]
+        public AbilityButtonPanel abilityButtonPanel;
+        public AbilityDetailsPanel abilityDetailsPanel;
+        public AbilityStatsPanel abilityStatsPanel;
 
         [Header("Experience")]
         [SerializeField] Text playerExperienceText;
@@ -26,7 +30,6 @@ namespace RPG.Core
 
         public ActionButton[] ActionButtons { get { return actionButtons; } }
         public DialogueUI DialogueUI { get { return dialogueUI; } }
-        public GuildAbilityUI GuildAbilityUI { get { return guildAbilityUI; } }
 
         void Awake()
         {
@@ -60,7 +63,7 @@ namespace RPG.Core
 
         public void ShowGuildAbilities(Guild guild)
         {
-            guildAbilityUI.OpenGuildAbilities(guild);
+            abilityButtonPanel.Init(guild);
         }
 
         public void UpdateKeyText(string key, KeyCode code)
