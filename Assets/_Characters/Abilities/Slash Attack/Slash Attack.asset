@@ -15,6 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 69c7ad9ba7beb5346a493448f38f1a86, type: 3}
   weapon: {fileID: 11400000, guid: d55ac9975f32c8b41a2b9114a9b3f09e, type: 2}
   guild: {fileID: 11400000, guid: 00331adeb6c93c545a2fc9eb1cb8d534, type: 2}
+  level: 0
   attackSpeed:
     BaseValue: 1.6
     abilityName: Attack Speed
@@ -30,9 +31,6 @@ MonoBehaviour:
     abilityName: Energy
     statOperator: 1
     value: 0
-  currentExperienceCost: 0
-  experienceMultiplier: 2
-  level: 0
   damage:
     BaseValue: 10
     abilityName: Damage

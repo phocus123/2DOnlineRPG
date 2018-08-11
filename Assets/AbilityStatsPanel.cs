@@ -34,18 +34,18 @@ namespace RPG.CameraUI
         public GameObject subtractPrefab;
 
         AbilityDetailsPanel abilityDetailsPanel;
-        AbilityAdvancementManager abilityAdvancementManager;
+        AbilityAdvancement abilityAdvancement;
         List<GameObject> stats = new List<GameObject>();
         List<GameObject> statOperators = new List<GameObject>();
 
         private void Awake()
         {
-            abilityAdvancementManager = FindObjectOfType<AbilityAdvancementManager>();
+            abilityAdvancement = FindObjectOfType<AbilityAdvancement>();
         }
 
         void Start()
         {
-            abilityAdvancementManager.InvokeOnStatChanged += UpdatePage;
+            abilityAdvancement.InvokeOnStatChanged += UpdatePage;
         }
 
         public void Init(AbilityDetailsPanel abilityDetailsPanel)
@@ -53,7 +53,7 @@ namespace RPG.CameraUI
             this.abilityDetailsPanel = abilityDetailsPanel;
 
             abilityName.text = abilityDetailsPanel.CurrentSelectedAbility.name;
-            points.text = "points: " + abilityAdvancementManager.CurrentAbilityPointTransaction.CurrentPoints.ToString();
+            points.text = "points: " + abilityAdvancement.AbilityPoints.CurrentPoints.ToString();
             UIHelper.ToggleCanvasGroup(abilityDetailsPanel.abilityDetailsCanvas);
             UIHelper.ToggleCanvasGroup(abilityStatCanvas);
             LoadAbilityStats(abilityDetailsPanel.CurrentSelectedAbility);
@@ -63,7 +63,7 @@ namespace RPG.CameraUI
 
         public void UpdatePage(AbilityStat stat, float amount)
         {
-            points.text = "points: " + abilityAdvancementManager.CurrentAbilityPointTransaction.CurrentPoints.ToString();
+            points.text = "points: " + abilityAdvancement.AbilityPoints.CurrentPoints.ToString();
             var statObject = stats.Find(x => x.GetComponent<Text>().text == stat.abilityName);
             float currentAmount = float.Parse(statObject.transform.GetChild(0).GetComponent<Text>().text);
             statObject.transform.GetChild(0).GetComponent<Text>().text = (currentAmount += amount).ToString(); 
@@ -95,13 +95,19 @@ namespace RPG.CameraUI
             }
         }
 
+        void AcceptButtonClicked()
+        {
+            InvokeOnAcceptButtonClicked();
+            ReturnToAbilityDetails();
+        }
+
         void CancelButtonClicked()
         {
-            for (int i = 0; i < abilityAdvancementManager.CurrentAbilityStatTransaction.AbilityChanges.Count; i++)
+            for (int i = 0; i < abilityAdvancement.StatPoints.AbilityChanges.Count; i++)
             {
-                var statObject = stats.Find(x => x.GetComponent<Text>().text == abilityAdvancementManager.CurrentAbilityStatTransaction.AbilityChanges[i].abilityName);
+                var statObject = stats.Find(x => x.GetComponent<Text>().text == abilityAdvancement.StatPoints.AbilityChanges[i].abilityName);
                 float currentAmount = float.Parse(statObject.transform.GetChild(0).GetComponent<Text>().text);
-                statObject.transform.GetChild(0).GetComponent<Text>().text = (currentAmount += abilityAdvancementManager.CurrentAbilityStatTransaction.AbilityChangeAmounts[i]).ToString();
+                statObject.transform.GetChild(0).GetComponent<Text>().text = (currentAmount += abilityAdvancement.StatPoints.AbilityChangeAmounts[i]).ToString();
             }
 
             InvokeOnCancelButtonClicked();
@@ -127,12 +133,6 @@ namespace RPG.CameraUI
             acceptButton.onClick.RemoveAllListeners();
             UIHelper.ToggleCanvasGroup(abilityDetailsPanel.abilityDetailsCanvas);
             UIHelper.ToggleCanvasGroup(abilityStatCanvas);
-        }
-
-        void AcceptButtonClicked()
-        {
-            InvokeOnAcceptButtonClicked();
-            ReturnToAbilityDetails();
         }
     }
 }

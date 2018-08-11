@@ -43,9 +43,9 @@ namespace RPG.CameraUI
             }
         }
 
-        private void TriggerCooldownMask()
+        private void TriggerCooldownMask(float time)
         {
-            StartCoroutine(StartCooldownTimer(1f));
+            StartCoroutine(StartCooldownTimer(time));
         }
 
         IEnumerator StartCooldownTimer(float time)

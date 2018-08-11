@@ -397,6 +397,22 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1983082597937802, guid: 166ebf6b7c431894b9dba36ad17ddc30, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1928796864498084, guid: 166ebf6b7c431894b9dba36ad17ddc30, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1044641114127794, guid: 166ebf6b7c431894b9dba36ad17ddc30, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594867395804668, guid: 166ebf6b7c431894b9dba36ad17ddc30, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 166ebf6b7c431894b9dba36ad17ddc30, type: 2}
   m_IsPrefabAsset: 0
@@ -4577,7 +4593,7 @@ MonoBehaviour:
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
@@ -6003,6 +6019,9 @@ GameObject:
   - component: {fileID: 1406613595}
   - component: {fileID: 1406613594}
   - component: {fileID: 1926429028}
+  - component: {fileID: 1406613596}
+  - component: {fileID: 1406613598}
+  - component: {fileID: 1406613597}
   m_Layer: 5
   m_Name: Ability Advancement
   m_TagString: Untagged
@@ -6046,6 +6065,43 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1406613593}
   m_CullTransparentMesh: 0
+--- !u!114 &1406613596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1406613593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc916be64b13b094989b7e13247bbb26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelExperienceCosts: {fileID: 11400000, guid: 6646eb8f0bebf904bbbdb4c142ac73b8,
+    type: 2}
+  abilityPoints: {fileID: 1406613598}
+  statPoints: {fileID: 1406613597}
+--- !u!114 &1406613597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1406613593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be79f190dc6700442a2234f049a081fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1406613598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1406613593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511b59befd25cb246af4339ccb2316fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1408313165
 GameObject:
   m_ObjectHideFlags: 0
@@ -6938,46 +6994,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 391778934}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!1 &1588458892
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1588458893}
-  - component: {fileID: 1588458894}
-  m_Layer: 0
-  m_Name: Guild Ability Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1588458893
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1588458892}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1714241423}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1588458894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1588458892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc916be64b13b094989b7e13247bbb26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1600718438
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7326,7 +7342,6 @@ Transform:
   - {fileID: 1077391626}
   - {fileID: 1424594564}
   - {fileID: 1740023061}
-  - {fileID: 1588458893}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7344,7 +7359,6 @@ MonoBehaviour:
   uiManager: {fileID: 1077391627}
   keybindManager: {fileID: 1424594563}
   savegameManager: {fileID: 1740023062}
-  guildAbilityManager: {fileID: 1588458894}
   masterAbilityList:
   - {fileID: 11400000, guid: 02e5d9118cf31dd4e90103b9712c0bb0, type: 2}
   - {fileID: 11400000, guid: 561a6e2555a336744a84c6e569bd6159, type: 2}

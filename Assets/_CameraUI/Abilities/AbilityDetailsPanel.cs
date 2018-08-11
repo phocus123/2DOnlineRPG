@@ -28,7 +28,7 @@ namespace RPG.CameraUI
         public Button resetButton;
 
         UIManager uIManager;
-        AbilityAdvancementManager abilityAdvancementManager;
+        AbilityAdvancement abilityAdvancement;
         Ability currentSelectedAbility;
 
         public Ability CurrentSelectedAbility
@@ -36,7 +36,10 @@ namespace RPG.CameraUI
             get { return currentSelectedAbility; }
             set
             {
-                InvokeOnSelectedAbilityChanged(currentSelectedAbility);
+                if (currentSelectedAbility != null)
+                {
+                    InvokeOnSelectedAbilityChanged(currentSelectedAbility);
+                }
                 currentSelectedAbility = value;
             }
         }
@@ -44,13 +47,12 @@ namespace RPG.CameraUI
         void Awake()
         {
             uIManager = FindObjectOfType<UIManager>();
-            abilityAdvancementManager = FindObjectOfType<AbilityAdvancementManager>();
+            abilityAdvancement = FindObjectOfType<AbilityAdvancement>();
         }
 
         void Start()
         {
-            abilityAdvancementManager.InvokeOnAbilityPointChanged += UpdateAbilityCostDetails;
-            //uIManager.abilityButtonPanel.InvokeOnAbilityCanvasClosed += RemoveButtonListeners;
+            abilityAdvancement.InvokeOnAbilityPointChanged += UpdateAbilityCostDetails;
         }
 
         public void Init(Ability currentSelectedAbility)
@@ -63,17 +65,10 @@ namespace RPG.CameraUI
 
         public void UpdateAbilityCostDetails()
         {
-            if (abilityAdvancementManager.CurrentAbilityPointTransaction == null)
-            {
-                availablePoints.text = "Available points: " + 0;
-            }
-            else
-            {
-                availablePoints.text = "Available points: " + abilityAdvancementManager.CurrentAbilityPointTransaction.CurrentPoints.ToString();
-            }
+            availablePoints.text = "Available points: " + abilityAdvancement.AbilityPoints.CurrentPoints.ToString();
             experiencePoints.text = "Current XP: " + FindObjectOfType<GameManager>().PlayerExperience.ToString();
             level.text = "Level: " + currentSelectedAbility.Level.ToString();
-            experienceCost.text = "Experience Required: " + currentSelectedAbility.CurrentExperienceCost;
+            experienceCost.text = "Experience Required: " + abilityAdvancement.GetExperienceCost(currentSelectedAbility);
         }
 
         void ShowBasicAbilityDetails()
@@ -95,7 +90,7 @@ namespace RPG.CameraUI
         {
             allocateButton.onClick.AddListener(() => uIManager.abilityStatsPanel.Init(this));
             purchaseButton.onClick.AddListener(() => InvokePurchaseEvent(ability));
-            resetButton.onClick.AddListener(() => abilityAdvancementManager.RefundAbilityPoints(ability));
+            resetButton.onClick.AddListener(() => abilityAdvancement.RefundAbilityPoints(ability));
         }
 
         void RemoveButtonListeners(Ability ability)

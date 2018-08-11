@@ -8,6 +8,9 @@ TagManager:
   - Keybind
   - DragIconCanvas
   - Hitbox
+  - Ability Area
+  - Guild Ability
+  - Stat Button
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - 
   - 
   - Interactable
-  - 
+  - Block
   - 
   - 
   - 

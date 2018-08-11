@@ -11,16 +11,12 @@ namespace RPG.Characters
         [SerializeField] Sprite icon;
         [SerializeField] Weapon weapon;
         [SerializeField] Guild guild;
+        [SerializeField] int level;
 
         [Header("General Ability Stats")]
         [SerializeField] AbilityStat attackSpeed;
         [SerializeField] AbilityStat cooldown;
         [SerializeField] AbilityStat energy;
-
-        [Header("Experience Cost")]
-        [SerializeField] private int currentExperienceCost;
-        [SerializeField] int experienceMultiplier;
-        [SerializeField] int level;
 
         AbilityBehaviour behaviour;
         AbilityUI abilityUI;
@@ -34,18 +30,11 @@ namespace RPG.Characters
         public Weapon Weapon { get { return weapon; } }
         public Guild Guild { get { return guild; } }
         public AbilityStat Energy { get { return energy; } }
-        public int ExperienceMultiplier { get { return experienceMultiplier; } }
 
         public int Level
         {
             get { return level; }
             set { level = value; }
-        }
-
-        public int CurrentExperienceCost
-        {
-            get { return currentExperienceCost; }
-            set { currentExperienceCost = value; }
         }
 
         public abstract AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo);

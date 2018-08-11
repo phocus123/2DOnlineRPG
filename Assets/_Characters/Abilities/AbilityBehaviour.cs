@@ -20,7 +20,7 @@ namespace RPG.Characters
 
     public abstract class AbilityBehaviour : MonoBehaviour
     {
-        public delegate void OnAttackInitiated();
+        public delegate void OnAttackInitiated(float time);
         public event OnAttackInitiated InvokeOnAttackInitiated;
 
         protected Coroutine attackRoutine;
@@ -28,9 +28,10 @@ namespace RPG.Characters
 
         Character character;
         Castbar castbar;
+        Coroutine animationDelayRoutine;
         const string MELEE_IMPACT = "MeleeImpact";
         const float MELEE_ANIMATION_DELAY = 0.25f;
-        Coroutine animationDelayRoutine;
+        const float GLOBAL_COOLDOWN_AMOUNT = 0.75f;
 
         public abstract void Use(GameObject target);
 
@@ -60,15 +61,16 @@ namespace RPG.Characters
 
             yield return new WaitForSeconds(ability.AttackSpeed.Value);
 
-            Projectile attack = Instantiate(useParams.projectilePrefab, character.ExitPoints[character.ExitIndex].position, Quaternion.identity).GetComponent<Projectile>();
-            attack.Initialize(useParams.target.transform, useParams.damageToDeal, ability);
-
             if (InvokeOnAttackInitiated != null)
             {
-                InvokeOnAttackInitiated();
+                InvokeOnAttackInitiated(GLOBAL_COOLDOWN_AMOUNT);
             }
 
+            Projectile attack = Instantiate(useParams.projectilePrefab, character.ExitPoints[character.ExitIndex].position, Quaternion.identity).GetComponent<Projectile>();
+            attack.Initialize(useParams.target.transform, useParams.damageToDeal, ability);
             StopAttack(character, ability.Weapon.AnimationName);
+
+            yield return new WaitForSeconds(GLOBAL_COOLDOWN_AMOUNT);
         }
 
         protected IEnumerator MeleeAttack(AbilityUseParams useParams)
@@ -81,12 +83,12 @@ namespace RPG.Characters
             animationDelayRoutine = StartCoroutine(AnimationDelay(enemyHitboxAnimator));
             enemyHealthSystem.TakeDamage(useParams.damageToDeal);
 
-            yield return new WaitForSeconds(ability.AttackSpeed.Value);
-
             if (InvokeOnAttackInitiated != null)
             {
-                InvokeOnAttackInitiated();
+                InvokeOnAttackInitiated(ability.AttackSpeed.Value + GLOBAL_COOLDOWN_AMOUNT);
             }
+
+            yield return new WaitForSeconds(ability.AttackSpeed.Value + GLOBAL_COOLDOWN_AMOUNT);
 
             StopAttack(character, ability.Weapon.AnimationName);
         }

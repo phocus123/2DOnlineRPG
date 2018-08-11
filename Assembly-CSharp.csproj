@@ -68,6 +68,7 @@
     <Compile Include="Assets\_CameraUI\Abilities\AbilityUI.cs" />
     <Compile Include="Assets\_CameraUI\Abilities\BowShotUI.cs" />
     <Compile Include="Assets\_CameraUI\Abilities\FireballUI.cs" />
+    <Compile Include="Assets\_CameraUI\Abilities\LevelExperienceCosts.cs" />
     <Compile Include="Assets\_CameraUI\Abilities\SlashAttackUI.cs" />
     <Compile Include="Assets\_CameraUI\ActionButton.cs" />
     <Compile Include="Assets\_CameraUI\CameraFollow.cs" />
@@ -144,13 +145,13 @@
     <Compile Include="Assets\_Characters\Player\Guilds\Guild.cs" />
     <Compile Include="Assets\_Characters\Player\PlayerControl.cs" />
     <Compile Include="Assets\_Characters\Weapons\Weapon.cs" />
-    <Compile Include="Assets\_Core\AbilityAdvancementManager.cs" />
-    <Compile Include="Assets\_Core\AbilityPointsTransaction.cs" />
-    <Compile Include="Assets\_Core\AbilityStatTransaction.cs" />
+    <Compile Include="Assets\_Core\AbilityAdvancement.cs" />
+    <Compile Include="Assets\_Core\AbilityPoints.cs" />
     <Compile Include="Assets\_Core\GameManager.cs" />
     <Compile Include="Assets\_Core\KeybindManager.cs" />
     <Compile Include="Assets\_Core\PlayerData.cs" />
     <Compile Include="Assets\_Core\SaveGameManager.cs" />
+    <Compile Include="Assets\_Core\StatPoints.cs" />
     <Compile Include="Assets\_Core\UIHelper.cs" />
     <Compile Include="Assets\_Core\UIManager.cs" />
     <Compile Include="Assets\_Environment\LayerSorter.cs" />
