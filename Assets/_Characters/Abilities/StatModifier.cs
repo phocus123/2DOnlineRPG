@@ -1,5 +1,8 @@
-﻿namespace RPG.Characters
+﻿using System;
+
+namespace RPG.Characters
 {
+    [Serializable]
     public class StatModifier
     {
         public readonly float Value;

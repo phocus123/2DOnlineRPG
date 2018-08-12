@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 namespace RPG.Characters
 {
+    [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(HealthSystem))]
+    [RequireComponent(typeof(AbilitySystem))]
+    [RequireComponent(typeof(WeaponSystem))]
+    [RequireComponent(typeof(AttackSystem))]
     public class Character : MonoBehaviour
     {
         [Header("Animator")]

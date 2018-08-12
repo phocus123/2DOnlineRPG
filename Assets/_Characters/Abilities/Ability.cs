@@ -49,6 +49,7 @@ namespace RPG.Characters
         {
             AbilityBehaviour behaviourComponent = GetBehaviourComponent(gameObjectToAttachTo);
             behaviourComponent.Ability = this;
+            behaviourComponent.Character = gameObjectToAttachTo.GetComponent<Character>();
             behaviour = behaviourComponent;
         }
 

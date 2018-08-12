@@ -1,15 +1,17 @@
 ﻿using RPG.CameraUI;
 using RPG.Characters;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 namespace RPG.Core
 {
     public class UIManager : MonoBehaviour
     {
         [Header("User Interface")]
-        public AbilityBookUI abilityUI;
+        public AbilityBookUI abilityUI; //TODO Make all these ui classes monobehaviours
         public DialogueUI dialogueUI;
         public TargetFrameUI targetFrameUI;
         public MainMenuUI mainMenuUI;
@@ -24,7 +26,12 @@ namespace RPG.Core
 
         [Header("Action Bar")]
         [SerializeField] ActionButton[] actionButtons;
-        [SerializeField ]GameObject[] keybindButtons;
+        [SerializeField] GameObject[] keybindButtons;
+
+        [Header("Combat Text")]
+        [SerializeField] GameObject combatTextPrefab;
+        [SerializeField] Canvas combatTextCanvas;
+        [SerializeField] float speed;
 
         GameManager gameManager;
 
@@ -94,6 +101,13 @@ namespace RPG.Core
             canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
             canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
             ToggleInGameMenu();
+        }
+
+        public void TriggerCombatText(Vector2 position, float healthValue)
+        {
+            GameObject combatText = Instantiate(combatTextPrefab, position, Quaternion.identity, combatTextCanvas.transform);
+            combatText.GetComponent<CombatText>().Initialise(speed, Vector2.up);
+            combatText.GetComponent<TextMeshProUGUI>().text = healthValue.ToString();
         }
     }
 }

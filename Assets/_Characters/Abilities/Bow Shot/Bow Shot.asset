@@ -17,34 +17,30 @@ MonoBehaviour:
   guild: {fileID: 11400000, guid: d353d0b6fe96c734891d27eab6f034d3, type: 2}
   level: 0
   attackSpeed:
-    BaseValue: 2
     abilityName: Attack Speed
+    Value: 2
     statOperator: 1
-    value: 2
   cooldown:
-    BaseValue: 0
     abilityName: Cooldown
+    Value: 0
     statOperator: 1
-    value: 0
   energy:
-    BaseValue: 8
     abilityName: Energy
+    Value: 10
     statOperator: 1
-    value: 0
   damage:
-    BaseValue: 12
     abilityName: Damage
+    Value: 12
     statOperator: 0
-    value: 12
   critChance:
-    BaseValue: 5
     abilityName: Crit Chance
+    Value: 5
     statOperator: 0
-    value: 5
   critEffect:
-    BaseValue: 0.25
     abilityName: Crit Effect
+    Value: 0.25
     statOperator: 0
-    value: 0.25
   projectilePrefab: {fileID: 1341953783385292, guid: fe7ee932bdee3c4479267f2ce8f0e729,
     type: 2}
+  reliantStat: {fileID: 11400000, guid: a58e4582c6cf97a48ab240e4b3a3058f, type: 2}
+  statMultiplier: 0.25

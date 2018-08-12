@@ -8,10 +8,13 @@ namespace RPG.Characters
     public class SlashAttackConfig : Ability
     {
         [Header("Slash Attack data.")]
-
         [SerializeField] private AbilityStat damage;
         [SerializeField] private AbilityStat critChance;
         [SerializeField] private AbilityStat critEffect;
+
+        [Header("Character Stats")]
+        [SerializeField] private CharacterStat reliantStat;
+        [SerializeField] private float statMultiplier;
 
         public AbilityStat Damage
         {
@@ -29,6 +32,18 @@ namespace RPG.Characters
         {
             get { return critEffect; }
             set { critEffect = value; }
+        }
+
+        public CharacterStat ReliantStat
+        {
+            get { return reliantStat; }
+            set { reliantStat = value; }
+        }
+
+        public float StatMultiplier
+        {
+            get { return statMultiplier; }
+            set { statMultiplier = value; }
         }
 
         public override AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo)

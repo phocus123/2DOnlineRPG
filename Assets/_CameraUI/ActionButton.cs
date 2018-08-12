@@ -38,7 +38,8 @@ namespace RPG.CameraUI
         {
             if (Ability != null)
             {
-                Ability.Behaviour.InvokeOnAttackInitiated += TriggerCooldownMask;
+                var characterAttackSystem = Ability.Behaviour.Character.GetComponent<AttackSystem>();
+                characterAttackSystem.InvokeOnAttackInitiated += TriggerCooldownMask; //TODO another event with no unregister.
                 InvokeOnActionButtonClicked(Ability.Behaviour);
             }
         }

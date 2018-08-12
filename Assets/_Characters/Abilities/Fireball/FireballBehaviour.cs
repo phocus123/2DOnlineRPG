@@ -12,7 +12,9 @@ namespace RPG.Characters
         void StartAttack(GameObject target)
         {
             var useParams = GetUseParams(target);
-            attackRoutine = StartCoroutine(ProjectileAttack(useParams));
+            var characterAttackSystem = GetComponent<AttackSystem>();
+
+            characterAttackSystem.Attack(useParams);
         }
 
         AbilityUseParams GetUseParams(GameObject target)
@@ -20,8 +22,10 @@ namespace RPG.Characters
             var damage = (ability as FireballConfig).Damage.Value;
             var projectilePrefab = (ability as FireballConfig).ProjectilePrefab;
             var animationName = (ability as FireballConfig).Weapon.AnimationName;
+            var reliantStat = (ability as FireballConfig).ReliantStat;
+            var statMultiplier = (ability as FireballConfig).StatMultiplier;
 
-            AbilityUseParams useParams = new AbilityUseParams(target, damage, projectilePrefab);
+            AbilityUseParams useParams = new AbilityUseParams(target, damage, projectilePrefab, ability, reliantStat, statMultiplier);
 
             return useParams;
         }

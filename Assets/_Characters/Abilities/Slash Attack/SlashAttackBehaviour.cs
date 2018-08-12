@@ -13,15 +13,19 @@ namespace RPG.Characters
         void StartAttack(GameObject target)
         {
             var useParams = GetUseParams(target);
-            attackRoutine = StartCoroutine(MeleeAttack(useParams));
+            var characterAttackSystem = GetComponent<AttackSystem>();
+
+            characterAttackSystem.Attack(useParams);
         }
 
         AbilityUseParams GetUseParams(GameObject target)
         {
             var damage = (ability as SlashAttackConfig).Damage.Value;
             var animationName = (ability as SlashAttackConfig).Weapon.AnimationName;
+            var reliantStat = (ability as SlashAttackConfig).ReliantStat;
+            var statMultiplier = (ability as SlashAttackConfig).StatMultiplier;
 
-            AbilityUseParams useParams = new AbilityUseParams(target, damage, null);
+            AbilityUseParams useParams = new AbilityUseParams(target, damage, null, ability, reliantStat, statMultiplier);
 
             return useParams;
         }

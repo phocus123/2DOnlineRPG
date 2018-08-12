@@ -74,6 +74,7 @@
     <Compile Include="Assets\_CameraUI\CameraFollow.cs" />
     <Compile Include="Assets\_CameraUI\CameraRaycaster.cs" />
     <Compile Include="Assets\_CameraUI\Castbar.cs" />
+    <Compile Include="Assets\_CameraUI\CombatText.cs" />
     <Compile Include="Assets\_CameraUI\DialogueUI.cs" />
     <Compile Include="Assets\_CameraUI\DragItem.cs" />
     <Compile Include="Assets\_CameraUI\IMoveable.cs" />
@@ -127,8 +128,10 @@
     <Compile Include="Assets\_Characters\Abilities\StatModifier.cs" />
     <Compile Include="Assets\_Characters\Block.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\AbilitySystem.cs" />
+    <Compile Include="Assets\_Characters\Character Scripts\AttackSystem.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\Character.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\CharacterController.cs" />
+    <Compile Include="Assets\_Characters\Character Scripts\DamageSystem.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\HealthSystem.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\WeaponSystem.cs" />
     <Compile Include="Assets\_Characters\DeathBehaviour.cs" />
@@ -144,6 +147,7 @@
     <Compile Include="Assets\_Characters\NPC\NPCControl.cs" />
     <Compile Include="Assets\_Characters\Player\Guilds\Guild.cs" />
     <Compile Include="Assets\_Characters\Player\PlayerControl.cs" />
+    <Compile Include="Assets\_Characters\Player\Stats\CharacterStat.cs" />
     <Compile Include="Assets\_Characters\Weapons\Weapon.cs" />
     <Compile Include="Assets\_Core\AbilityAdvancement.cs" />
     <Compile Include="Assets\_Core\AbilityPoints.cs" />

@@ -1,12 +1,14 @@
-﻿using UnityEngine;
-using RPG.CameraUI;
+﻿using RPG.CameraUI;
 using RPG.Core;
-using System;
+using UnityEngine;
+using System.Collections.Generic;
 
 namespace RPG.Characters
 {
     public class PlayerControl : CharacterController
     {
+        [SerializeField] List<CharacterStat> characterStats;
+
         GameObject target;
         GameObject originalTarget; // Used to track original target before when a spell is cast and then the player clicks on a new target.
 
@@ -14,6 +16,8 @@ namespace RPG.Characters
         int exitIndex;
         Vector3 min, max;
         UIManager uiManager;
+
+        public List<CharacterStat> CharacterStats { get { return characterStats; } }
 
         void Awake()
         {

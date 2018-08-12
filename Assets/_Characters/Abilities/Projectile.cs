@@ -4,14 +4,18 @@ namespace RPG.Characters
 {
     public class Projectile : MonoBehaviour
     {
+        public delegate void OnHitTarget(AbilityUseParams abilityUseParams);
+        public event OnHitTarget InvokeOnHitTarget;
+
         public Transform Target { get; private set; }
 
         [SerializeField] private float speed = 0;
 
         Rigidbody2D rigidBody;
-        Ability currentAbility;
-        float damage;
+        AbilityUseParams abilityUseParams;
+
         const string ARROW_IMPACT = "ArrowImpact";
+        const string FIREBALL_IMPACT = "FireballImpact";
 
         void Start()
         {
@@ -30,29 +34,26 @@ namespace RPG.Characters
             }
         }
 
-        public void Initialize(Transform target, float damage, Ability ability = null)
+        public void Initialize(Transform target, AbilityUseParams abilityUseParams)
         {
             Target = target;
-            currentAbility = ability;
-            this.damage = damage;
+            this.abilityUseParams = abilityUseParams;
         }
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.tag == "Hitbox" && collision.transform.parent == Target)
             {
-                if (currentAbility.Weapon.name == "Bow")
+                if (abilityUseParams.ability.Weapon.name == "Bow")
                 {
-                    GetComponent<Animator>().SetTrigger("ArrowImpact");
+                    GetComponent<Animator>().SetTrigger(ARROW_IMPACT);
                 }
-                else if (currentAbility.Weapon.name == "Magic")
+                else if (abilityUseParams.ability.Weapon.name == "Magic")
                 {
-                    GetComponent<Animator>().SetTrigger("FireballImpact");
+                    GetComponent<Animator>().SetTrigger(FIREBALL_IMPACT);
                 }
 
-                var enemyHealthSystem = Target.GetComponentInParent<HealthSystem>();
-
-                enemyHealthSystem.TakeDamage(damage);
+                InvokeOnHitTarget(abilityUseParams);
                 rigidBody.velocity = Vector2.zero;
                 Target = null;
             }

@@ -12,6 +12,10 @@ namespace RPG.Characters
         [SerializeField] AbilityStat critEffect;
         [SerializeField] GameObject projectilePrefab = null;
 
+        [Header("Character Stats")]
+        [SerializeField] private CharacterStat reliantStat;
+        [SerializeField] private float statMultiplier;
+
         public AbilityStat Damage
         {
             get { return damage; }
@@ -33,6 +37,18 @@ namespace RPG.Characters
         public GameObject ProjectilePrefab
         {
             get { return projectilePrefab; }
+        }
+
+        public CharacterStat ReliantStat
+        {
+            get { return reliantStat; }
+            set { reliantStat = value; }
+        }
+
+        public float StatMultiplier
+        {
+            get { return statMultiplier; }
+            set { statMultiplier = value; }
         }
 
         public override AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo)
