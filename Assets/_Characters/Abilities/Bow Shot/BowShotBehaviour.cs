@@ -24,8 +24,9 @@ namespace RPG.Characters
             var animationName = (ability as BowShotConfig).Weapon.AnimationName;
             var reliantStat = (ability as BowShotConfig).ReliantStat;
             var statMultiplier = (ability as BowShotConfig).StatMultiplier;
+            var animationTrigger = (ability as BowShotConfig).AnimationTrigger;
 
-            AbilityUseParams useParams = new AbilityUseParams(target, damage, projectilePrefab, ability, reliantStat, statMultiplier);
+            AbilityUseParams useParams = new AbilityUseParams(target, damage, projectilePrefab, ability, reliantStat, statMultiplier, animationTrigger);
 
             return useParams;
         }

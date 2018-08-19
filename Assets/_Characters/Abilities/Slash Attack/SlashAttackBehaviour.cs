@@ -25,7 +25,7 @@ namespace RPG.Characters
             var reliantStat = (ability as SlashAttackConfig).ReliantStat;
             var statMultiplier = (ability as SlashAttackConfig).StatMultiplier;
 
-            AbilityUseParams useParams = new AbilityUseParams(target, damage, null, ability, reliantStat, statMultiplier);
+            AbilityUseParams useParams = new AbilityUseParams(target, damage, null, ability, reliantStat, statMultiplier, null);
 
             return useParams;
         }

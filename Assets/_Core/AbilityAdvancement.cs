@@ -1,49 +1,40 @@
-﻿using RPG.CameraUI;
-using RPG.Characters;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using RPG.CameraUI;
+using RPG.Characters;
 
 namespace RPG.Core
 {
     public class AbilityAdvancement : MonoBehaviour
     {
-        public delegate void OnStatChanged(AbilityStat abilityStat, float amount);
-        public event OnStatChanged InvokeOnStatChanged;
-
-        public delegate void OnAbilityPointChanged();
-        public event OnAbilityPointChanged InvokeOnAbilityPointChanged;
-
         [SerializeField] LevelExperienceCosts levelExperienceCosts;
         [SerializeField] AbilityPoints abilityPoints;
         [SerializeField] StatPoints statPoints;
-
-        GameManager gameManager;
-        UIManager uIManager;
+        [Space]
+        [SerializeField] GameManager gameManager;
+        [SerializeField] UIManager uIManager;
 
         const float ABILITY_INCREMENT_AMOUNT = 0.1f; // TODO Come up with a better system. Possibly adding the increment amount to LevelExperienceCosts
 
         public AbilityPoints AbilityPoints { get { return abilityPoints; } }
         public StatPoints StatPoints { get { return statPoints; } }
 
-        public bool HasRequiredExperience(int xpAmount) { return xpAmount <= gameManager.PlayerExperience; }
+        public delegate void OnStatChanged(AbilityStat abilityStat, float amount);
+        public event OnStatChanged InvokeOnStatChanged;
+        public event Action OnAbilityPointChanged;
 
-        private void Awake()
-        {
-            gameManager = FindObjectOfType<GameManager>();
-            uIManager = gameManager.uiManager;
-        }
+        public bool HasRequiredExperience(int xpAmount) { return xpAmount <= gameManager.PlayerExperience; }
 
         void Start()
         {
-            uIManager.abilityButtonPanel.InvokeOnAbilityButtonsCreated += RegisterAbilityButtonEvents; // TODO Do i need to unregister before application quit to free memory?
-            uIManager.abilityButtonPanel.InvokeOnAbilityCanvasClosed += RefundAbilityPoints;
-            uIManager.abilityDetailsPanel.InvokeOnSelectedAbilityChanged += RefundAbilityPoints;
+            uIManager.abilityButtonPanel.OnAbilityButtonCreated += RegisterAbilityButtonEvents; // TODO Do i need to unregister before application quit to free memory?
+            uIManager.abilityButtonPanel.OnAbilityCanvasClosed += RefundAbilityPoints;
+            uIManager.abilityDetailsPanel.OnSelectedAbilityChanged += RefundAbilityPoints;
             uIManager.abilityStatsPanel.InvokeOnStatOperatorCreated += RegisterStatButtonEvent;
-            uIManager.abilityStatsPanel.InvokeOnStatOperatorDestroyed += UnRegisterStatButtonEvent;
-            uIManager.abilityStatsPanel.InvokeOnAcceptButtonClicked += ConfirmStatChange;
-            uIManager.abilityStatsPanel.InvokeOnCancelButtonClicked += ResetStatChanges;
+            uIManager.abilityStatsPanel.OnStatOperatorDestroyed += UnRegisterStatButtonEvent;
+            uIManager.abilityStatsPanel.OnAcceptButtonClicked += ConfirmStatChange;
+            uIManager.abilityStatsPanel.OnCancelButtonClicked += ResetStatChanges;
         }
 
         public void PurchaseAbilityPoints(Ability ability)
@@ -52,15 +43,15 @@ namespace RPG.Core
 
             if (HasRequiredExperience(requiredExperience))
             {
-                abilityPoints.PurchasePoints(ability, gameManager, requiredExperience);
-                InvokeOnAbilityPointChanged();
+                abilityPoints.PurchasePoints(ability, requiredExperience);
+                OnAbilityPointChanged();
             }
         }
 
         public void RefundAbilityPoints(Ability ability)
         {
-            abilityPoints.RefundPoints(gameManager);
-            InvokeOnAbilityPointChanged();
+            abilityPoints.RefundPoints();
+            OnAbilityPointChanged();
         }
 
         public int GetExperienceCost(Ability ability)
@@ -70,15 +61,15 @@ namespace RPG.Core
 
         void RegisterAbilityButtonEvents(GameObject button)
         {
-            AbilityDetailsButton guildAbilityButton = button.GetComponent<AbilityDetailsButton>();
-            uIManager.abilityDetailsPanel.InvokeOnAbilityPointPurchased += PurchaseAbilityPoints;
-            guildAbilityButton.InvokeOnButtonDestroyed += UnRegisterAbilityButtonEvents;
+            AbilityButton guildAbilityButton = button.GetComponent<AbilityButton>();
+            uIManager.abilityDetailsPanel.OnAbilityPointPurchased += PurchaseAbilityPoints;
+            guildAbilityButton.OnButtonDestroyed += UnRegisterAbilityButtonEvents;
         }
 
-        void UnRegisterAbilityButtonEvents(AbilityDetailsButton guildAbilityButton)
+        void UnRegisterAbilityButtonEvents(AbilityButton guildAbilityButton)
         {
-            uIManager.abilityDetailsPanel.InvokeOnAbilityPointPurchased -= PurchaseAbilityPoints;
-            guildAbilityButton.InvokeOnButtonDestroyed -= UnRegisterAbilityButtonEvents;
+            uIManager.abilityDetailsPanel.OnAbilityPointPurchased -= PurchaseAbilityPoints;
+            guildAbilityButton.OnButtonDestroyed -= UnRegisterAbilityButtonEvents;
         }
 
         void RegisterStatButtonEvent(GameObject button, AbilityStat stat)
@@ -116,7 +107,7 @@ namespace RPG.Core
         void ConfirmStatChange()
         {
             statPoints.ConfirmStatChange();
-            InvokeOnAbilityPointChanged();
+            OnAbilityPointChanged();
         }
 
         void ResetStatChanges() 

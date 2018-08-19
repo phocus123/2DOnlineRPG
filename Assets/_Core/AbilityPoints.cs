@@ -6,6 +6,8 @@ namespace RPG.Core
 {
     public class AbilityPoints : MonoBehaviour 
     {
+        [SerializeField] GameManager gameManager;
+
         int currentPoints = 0;
         int maxPoints = 0;
         List<int> experienceSpent = new List<int>();
@@ -20,7 +22,7 @@ namespace RPG.Core
             set { currentPoints = value; }
         }
 
-        public void PurchasePoints(Ability ability, GameManager gameManager, int requiredExperience)
+        public void PurchasePoints(Ability ability, int requiredExperience)
         {
             this.ability = ability;
             gameManager.PlayerExperience -= requiredExperience;
@@ -30,7 +32,7 @@ namespace RPG.Core
             ability.Level++;
         }
 
-        public void RefundPoints(GameManager gameManager)
+        public void RefundPoints()
         {
             for (int i = experienceSpent.Count - 1; i >= 0; i--)
             {

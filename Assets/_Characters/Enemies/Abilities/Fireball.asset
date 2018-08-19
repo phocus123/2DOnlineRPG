@@ -42,5 +42,6 @@ MonoBehaviour:
     statOperator: 0
   projectilePrefab: {fileID: 1516577970113520, guid: 3551c4cef90f4a74eafafd5f4dfb6b24,
     type: 2}
+  animationTrigger: FireballImpact
   reliantStat: {fileID: 0}
   statMultiplier: 0

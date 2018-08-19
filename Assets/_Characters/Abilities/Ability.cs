@@ -24,12 +24,19 @@ namespace RPG.Characters
         public AbilityBehaviour Behaviour { get { return behaviour; } }
         public AbilityUI AbilityUI { get { return abilityUI; } }
         public AbilityStat AttackSpeed { get { return attackSpeed; } }
-        public float Cooldown {get { return cooldown.Value; } }
+        public AbilityStat Cooldown {get { return cooldown; } }
         public string Description { get { return description; } }
         public Sprite Icon { get { return icon; } }
         public Weapon Weapon { get { return weapon; } }
         public Guild Guild { get { return guild; } }
         public AbilityStat Energy { get { return energy; } }
+
+        void OnValidate()
+        {
+            attackSpeed.statName = "Attack Speed";
+            cooldown.statName = "Cooldown";
+            energy.statName = "Energy";
+        }
 
         public int Level
         {

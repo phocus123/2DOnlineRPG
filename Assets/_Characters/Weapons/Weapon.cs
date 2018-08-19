@@ -11,35 +11,14 @@ namespace RPG.Characters
         [SerializeField] private bool isProjectile = false;
         [SerializeField] private float attackRange;
 
-        public GameObject WeaponObject
-        {
-            get
-            {
-                return weaponPrefab;
-            }
-        }
-
-        public string AnimationName
-        {
-            get { return animationName; }
-        }
-
-        public bool IsProjectile
-        {
-            get { return isProjectile; }
-        }
+        public GameObject WeaponPrefab { get { return weaponPrefab; } }
+        public string AnimationName { get { return animationName; } }
+        public bool IsProjectile { get { return isProjectile; } }
 
         public float AttackRange
         {
-            get
-            {
-                return attackRange;
-            }
-
-            set
-            {
-                attackRange = value;
-            }
+            get { return attackRange; }
+            set { attackRange = value; }
         }
     }
 }

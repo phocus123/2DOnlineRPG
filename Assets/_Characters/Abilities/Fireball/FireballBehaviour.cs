@@ -19,13 +19,14 @@ namespace RPG.Characters
 
         AbilityUseParams GetUseParams(GameObject target)
         {
-            var damage = (ability as FireballConfig).Damage.Value;
-            var projectilePrefab = (ability as FireballConfig).ProjectilePrefab;
-            var animationName = (ability as FireballConfig).Weapon.AnimationName;
-            var reliantStat = (ability as FireballConfig).ReliantStat;
-            var statMultiplier = (ability as FireballConfig).StatMultiplier;
+            float damage = (ability as FireballConfig).Damage.Value;
+            GameObject projectilePrefab = (ability as FireballConfig).ProjectilePrefab;
+            string animationName = (ability as FireballConfig).Weapon.AnimationName;
+            PrimaryStat reliantStat = (ability as FireballConfig).ReliantStat;
+            float statMultiplier = (ability as FireballConfig).StatMultiplier;
+            string animationTrigger = (ability as FireballConfig).AnimationTrigger;
 
-            AbilityUseParams useParams = new AbilityUseParams(target, damage, projectilePrefab, ability, reliantStat, statMultiplier);
+            AbilityUseParams useParams = new AbilityUseParams(target, damage, projectilePrefab, ability, reliantStat, statMultiplier, animationTrigger);
 
             return useParams;
         }

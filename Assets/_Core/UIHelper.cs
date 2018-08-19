@@ -23,7 +23,7 @@ public static class UIHelper
         canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
     }
 
-    public static void CloseAllCanvasGroups(List<CanvasGroup> canvasGroups)
+    public static void CloseAllCanvasGroups(params CanvasGroup[] canvasGroups)
     {
         foreach (CanvasGroup canvasGroup in canvasGroups)
         {

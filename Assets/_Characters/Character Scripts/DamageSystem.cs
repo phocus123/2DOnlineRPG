@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using RPG.Core;
+using System;
 using UnityEngine;
-using RPG.Core;
 
 namespace RPG.Characters
 {
@@ -22,15 +21,15 @@ namespace RPG.Characters
 
         float CalculateFinalDamage()
         {
-            var player = abilityUseParams.ability.Behaviour.Character.GetComponent<PlayerControl>();
+            var player = abilityUseParams.ability.Behaviour.Character.GetComponent<CharacterStats>();
             var finalValue = 0f;
 
             if (player != null)
             {
                 float baseDamage = abilityUseParams.baseDamage;
-                CharacterStat reliantStat = abilityUseParams.reliantStat;
+                PrimaryStat reliantStat = abilityUseParams.reliantStat;
                 float statMultiplier = abilityUseParams.statMultiplier;
-                var reliantStatValue = player.CharacterStats.Find(x => x.name == reliantStat.name).Value;
+                var reliantStatValue = Array.Find(player.PrimaryStats, x => x.name == reliantStat.name).Value;
                 finalValue = (reliantStatValue * statMultiplier) + baseDamage;
             }
             else

@@ -9,13 +9,10 @@ namespace RPG.Characters
 
         public Transform Target { get; private set; }
 
-        [SerializeField] private float speed = 0;
+        [SerializeField] private float speed;
 
         Rigidbody2D rigidBody;
         AbilityUseParams abilityUseParams;
-
-        const string ARROW_IMPACT = "ArrowImpact";
-        const string FIREBALL_IMPACT = "FireballImpact";
 
         void Start()
         {
@@ -44,14 +41,7 @@ namespace RPG.Characters
         {
             if (collision.tag == "Hitbox" && collision.transform.parent == Target)
             {
-                if (abilityUseParams.ability.Weapon.name == "Bow")
-                {
-                    GetComponent<Animator>().SetTrigger(ARROW_IMPACT);
-                }
-                else if (abilityUseParams.ability.Weapon.name == "Magic")
-                {
-                    GetComponent<Animator>().SetTrigger(FIREBALL_IMPACT);
-                }
+                GetComponent<Animator>().SetTrigger(abilityUseParams.animationTrigger);
 
                 InvokeOnHitTarget(abilityUseParams);
                 rigidBody.velocity = Vector2.zero;

@@ -6,7 +6,7 @@ namespace RPG.Characters
     [Serializable]
     public class AbilityStat 
     {
-        public string abilityName;
+        public string statName;
         public float Value;
         public StatOperator statOperator;
 

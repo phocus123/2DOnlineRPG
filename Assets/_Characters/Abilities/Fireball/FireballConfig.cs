@@ -11,9 +11,10 @@ namespace RPG.Characters
         [SerializeField] AbilityStat critChance;
         [SerializeField] private AbilityStat critEffect;
         [SerializeField] private GameObject projectilePrefab = null;
+        [SerializeField] string animationTrigger;
 
         [Header("Character Stats")]
-        [SerializeField] private CharacterStat reliantStat;
+        [SerializeField] private PrimaryStat reliantStat;
         [SerializeField] private float statMultiplier;
 
         public AbilityStat Damage
@@ -39,7 +40,7 @@ namespace RPG.Characters
             get { return projectilePrefab; }
         }
 
-        public CharacterStat ReliantStat
+        public PrimaryStat ReliantStat
         {
             get { return reliantStat; }
             set { reliantStat = value; }
@@ -49,6 +50,15 @@ namespace RPG.Characters
         {
             get { return statMultiplier; }
             set { statMultiplier = value; }
+        }
+
+        public string AnimationTrigger { get { return animationTrigger; } }
+
+        void OnValidate()
+        {
+            damage.statName = "Damage";
+            critChance.statName = "Critical Chance";
+            critEffect.statName = "Critical Effect";
         }
 
         public override AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo)

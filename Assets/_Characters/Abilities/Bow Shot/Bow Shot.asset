@@ -17,30 +17,31 @@ MonoBehaviour:
   guild: {fileID: 11400000, guid: d353d0b6fe96c734891d27eab6f034d3, type: 2}
   level: 0
   attackSpeed:
-    abilityName: Attack Speed
+    statName: Attack Speed
     Value: 2
     statOperator: 1
   cooldown:
-    abilityName: Cooldown
+    statName: Cooldown
     Value: 0
     statOperator: 1
   energy:
-    abilityName: Energy
+    statName: energy
     Value: 10
     statOperator: 1
   damage:
-    abilityName: Damage
+    statName: Damage
     Value: 12
     statOperator: 0
   critChance:
-    abilityName: Crit Chance
+    statName: Critical Chance
     Value: 5
     statOperator: 0
   critEffect:
-    abilityName: Crit Effect
+    statName: Critical Effect
     Value: 0.25
     statOperator: 0
   projectilePrefab: {fileID: 1341953783385292, guid: fe7ee932bdee3c4479267f2ce8f0e729,
     type: 2}
+  animationTrigger: ArrowImpact
   reliantStat: {fileID: 11400000, guid: a58e4582c6cf97a48ab240e4b3a3058f, type: 2}
   statMultiplier: 0.25

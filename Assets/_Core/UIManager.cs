@@ -15,6 +15,7 @@ namespace RPG.Core
         public DialogueUI dialogueUI;
         public TargetFrameUI targetFrameUI;
         public MainMenuUI mainMenuUI;
+        public CanvasGroup CharacterPanel;
 
         [Header("Ability Advancement")]
         public AbilityButtonPanel abilityButtonPanel;
@@ -48,16 +49,6 @@ namespace RPG.Core
             abilityUI.Initialize(playerAbilitySystem);
         }
 
-        public void ToggleInGameMenu()
-        {
-            mainMenuUI.ToggleInGameMenu();
-        }
-
-        public void CloseCanvases()
-        {
-            mainMenuUI.CloseCanvases(abilityUI);
-        }
-
         public void ShowTargetFrame(GameObject enemy)
         {
             targetFrameUI.ShowTargetFrame(enemy);
@@ -84,23 +75,9 @@ namespace RPG.Core
             Array.Find(ActionButtons, x => x.gameObject.name == buttonName).Button.onClick.Invoke();
         }
 
-        public void OpenDialogue(NPCControl npc)
-        {
-            StartCoroutine(UIHelper.FadeCanvasGroup(dialogueUI.dialogueBox));
-            dialogueUI.dialogueBox.blocksRaycasts = true;
-            dialogueUI.Initialize(npc);
-        }
-
         public void UpdateExperienceText()
         {
             playerExperienceText.text = "Experience: " + gameManager.PlayerExperience.ToString();
-        }
-
-        public void ToggleCanvasGroup(CanvasGroup canvasGroup)
-        {
-            canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
-            canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
-            ToggleInGameMenu();
         }
 
         public void TriggerCombatText(Vector2 position, float healthValue)

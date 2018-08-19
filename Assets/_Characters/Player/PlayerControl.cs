@@ -7,8 +7,6 @@ namespace RPG.Characters
 {
     public class PlayerControl : CharacterController
     {
-        [SerializeField] List<CharacterStat> characterStats;
-
         GameObject target;
         GameObject originalTarget; // Used to track original target before when a spell is cast and then the player clicks on a new target.
 
@@ -16,8 +14,6 @@ namespace RPG.Characters
         int exitIndex;
         Vector3 min, max;
         UIManager uiManager;
-
-        public List<CharacterStat> CharacterStats { get { return characterStats; } }
 
         void Awake()
         {
@@ -72,8 +68,13 @@ namespace RPG.Characters
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                uiManager.ToggleInGameMenu();
-                uiManager.CloseCanvases();
+                uiManager.mainMenuUI.ToggleInGameMenu();
+                uiManager.mainMenuUI.CloseCanvases();
+            }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                UIHelper.ToggleCanvasGroup(uiManager.CharacterPanel);
             }
 
             foreach (string action in keybindManager.Actionbinds.Keys)
@@ -148,7 +149,7 @@ namespace RPG.Characters
         {
             if (Input.GetMouseButtonDown(1) && npc.IsPlayerInRange)
             {
-                uiManager.OpenDialogue(npc);
+                uiManager.dialogueUI.OpenDialogue(npc);
             }
         }
     }

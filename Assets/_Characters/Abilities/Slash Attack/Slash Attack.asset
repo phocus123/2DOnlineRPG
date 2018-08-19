@@ -17,27 +17,27 @@ MonoBehaviour:
   guild: {fileID: 11400000, guid: 00331adeb6c93c545a2fc9eb1cb8d534, type: 2}
   level: 0
   attackSpeed:
-    abilityName: Attack Speed
+    statName: Attack Speed
     Value: 1.6
     statOperator: 1
   cooldown:
-    abilityName: Cooldown
+    statName: Cooldown
     Value: 0
     statOperator: 1
   energy:
-    abilityName: Energy
+    statName: Energy
     Value: 7
     statOperator: 1
   damage:
-    abilityName: Damage
-    Value: 10
+    statName: Damage
+    Value: 10.500002
     statOperator: 0
   critChance:
-    abilityName: Crit Chance
-    Value: 10
+    statName: Critical Chance
+    Value: 10.1
     statOperator: 0
   critEffect:
-    abilityName: Crit Effect
+    statName: Critical Effect
     Value: 0.5
     statOperator: 0
   reliantStat: {fileID: 11400000, guid: ca3d018bfab85fe49a06695667fcb760, type: 2}

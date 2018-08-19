@@ -23,6 +23,7 @@ namespace RPG.Characters
         void Start()
         {
             damageSystem = GetComponent<DamageSystem>();    
+            character = GetComponent<Character>();
         }
 
         void Update()
@@ -45,7 +46,6 @@ namespace RPG.Characters
 
         protected IEnumerator ProjectileAttack(AbilityUseParams useParams)
         {
-            character = GetComponent<Character>();
             castbar = FindObjectOfType<Castbar>();
             var enemyAI = GetComponent<EnemyAI>();
 
@@ -75,7 +75,6 @@ namespace RPG.Characters
 
         protected IEnumerator MeleeAttack(AbilityUseParams useParams)
         {
-            character = GetComponent<Character>();
             var enemyHitboxAnimator = useParams.target.transform.GetChild(0).GetComponent<Animator>();
 
             character.StartAttackAnimation(ability.Weapon.AnimationName);
