@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum EquipmentType
 {
@@ -21,7 +22,7 @@ namespace RPG.Characters
     [CreateAssetMenu(menuName = "RPG/Equippable Item")]
     public class EquippableItem : Item
     {
-        [Space]
+        [Header("Stat Bonuses")]
         public int StrengthBonus;
         public int DexterityBonue;
         public int IntellectBonus;
@@ -29,18 +30,31 @@ namespace RPG.Characters
         public int ConstitutionBonus;
         [Space]
         public EquipmentType EquipmentType;
+        [Header("Equipment Animations")]
+        [SerializeField] AnimationClip[] animationClips;
+
+        public delegate void OnItemEquipped(EquipmentType equipmentType, EquippableItem item);
+        public event OnItemEquipped ItemEquipped;
+        public delegate void OnItemUnEquipped(EquipmentType equipmentType, EquippableItem item);
+        public event OnItemEquipped ItemUnEquipped;
+
+        public AnimationClip[] AnimationClips { get { return animationClips; } }
 
         public void Equip(CharacterStats characterStats)
         {
+            // TODO Complete this and possible change to concrete implementations within character stats class rather than scriptable object.
             if (StrengthBonus != 0)
             {
                 characterStats.PrimaryStats[3].AddModifier(new StatModifier(StrengthBonus, this));
             }
+
+            ItemEquipped(EquipmentType, this);
         }
 
         public void UnEquip(CharacterStats characterStats)
         {
             characterStats.PrimaryStats[3].RemoveAllModifiersFromSource(this);
+            ItemUnEquipped(EquipmentType, this);
         }
     }
 }

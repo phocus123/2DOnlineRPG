@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6cef250ac3975d48858c913e5fcc7d9, type: 3}
+  m_Name: Leather Chest
+  m_EditorClassIdentifier: 
+  id: ac3ef70dd28953640b964aad96b3b15c
+  icon: {fileID: 21300000, guid: acf7b3e7460c001469dbc795245e6160, type: 3}
+  StrengthBonus: 0
+  DexterityBonue: 0
+  IntellectBonus: 0
+  WisdomBonus: 0
+  ConstitutionBonus: 0
+  EquipmentType: 2
+  animationClips:
+  - {fileID: 7400000, guid: 83afc8aeac40c674fabf3c4ba01601aa, type: 2}
+  - {fileID: 7400000, guid: cc57d63c6587e0f459e8a07eacc45e97, type: 2}
+  - {fileID: 7400000, guid: 15ab2ee10573bff4ab9c2c657c16fde4, type: 2}
+  - {fileID: 7400000, guid: bb6bc6d9373ce47429b8295c844efd3c, type: 2}
+  - {fileID: 7400000, guid: 9f6feef39c7e9624fb4e88a3f2cf286b, type: 2}
+  - {fileID: 7400000, guid: a245ccb8eb7e764438c757014777e268, type: 2}
+  - {fileID: 7400000, guid: 6297400213c5f58409d477da702d8a3c, type: 2}
+  - {fileID: 7400000, guid: cc999e0754b8cde45af7941028af17d9, type: 2}
+  - {fileID: 7400000, guid: 7df4091dd87129148895740d95c59300, type: 2}
+  - {fileID: 7400000, guid: 74ca234bde0a8fd46a5ce2527336a027, type: 2}
+  - {fileID: 7400000, guid: e7231ff917df69e4987497623be133c6, type: 2}
+  - {fileID: 7400000, guid: 89d982b992a9eb64a955f02e91d2a998, type: 2}
+  - {fileID: 7400000, guid: 156c794a72cbb6e40b69561dc69e7d5f, type: 2}
+  - {fileID: 7400000, guid: 897e83a7f3a3fac468797210dfaa8e8a, type: 2}
+  - {fileID: 7400000, guid: 59cea02035160094dad64ddf84e8bd17, type: 2}
+  - {fileID: 7400000, guid: 931c4a1c1fd874048a7096567ecca03a, type: 2}
+  - {fileID: 7400000, guid: 4a57ddc1146a5c042b230da9543d50a5, type: 2}
+  - {fileID: 7400000, guid: 5a3f392dbda3ed7468eea2750dcc78d1, type: 2}
+  - {fileID: 7400000, guid: 93d345b92b53adc438a269e5e0a818e7, type: 2}
+  - {fileID: 7400000, guid: 33009b139d4921043847d3d058bcb199, type: 2}
+  - {fileID: 7400000, guid: b8a868c22258b1040ab2acdf4d5a4ed0, type: 2}

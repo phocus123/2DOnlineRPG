@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,10 +43,16 @@ namespace RPG.Characters
         public bool IsAttacking { get { return isAttacking; } }
         public string CharacterName { get { return characterName; } }
 
+        public delegate void OnPlayerMoving(float x, float y);
+        public event OnPlayerMoving PlayerMoving;
+        public Action<string> OnLayerChanged;
+        public delegate void OnAttackAnimationTriggered(string animationName, bool flag);
+        public event OnAttackAnimationTriggered AttackAnimationChanged;
+
         void Awake()
         {
             AddRequiredComponents();
-            nameText.text = characterName; 
+            nameText.text = characterName;
         }
 
         void Update()
@@ -62,12 +69,22 @@ namespace RPG.Characters
         {
             isAttacking = true;
             animator.SetBool(animationName, isAttacking);
+
+            if (characterController is PlayerControl)
+            {
+                AttackAnimationChanged(animationName, isAttacking);
+            }
         }
 
         public void StopAttackAnimation(string animationName)
         {
             isAttacking = false;
             animator.SetBool(animationName, isAttacking);
+
+            if (characterController is PlayerControl)
+            {
+                AttackAnimationChanged(animationName, isAttacking);
+            }
         }
 
         public void KillCharacter()
@@ -134,6 +151,11 @@ namespace RPG.Characters
 
                     animator.SetFloat("x", characterController.GetDirectionParams().direction.x);
                     animator.SetFloat("y", characterController.GetDirectionParams().direction.y);
+
+                    if (characterController is PlayerControl)
+                    {
+                        PlayerMoving(characterController.GetDirectionParams().direction.x, characterController.GetDirectionParams().direction.y);
+                    }
                 }
                 else if (isAttacking)
                 {
@@ -156,7 +178,13 @@ namespace RPG.Characters
             {
                 animator.SetLayerWeight(i, 0);
             }
+
             animator.SetLayerWeight(animator.GetLayerIndex(layerName), 1);
+
+            if (characterController is PlayerControl)
+            {
+               OnLayerChanged(layerName);
+            }
         }
     }
 }

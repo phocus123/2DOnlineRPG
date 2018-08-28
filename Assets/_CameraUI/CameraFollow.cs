@@ -6,7 +6,7 @@ namespace RPG.CameraUI
 {
     public class CameraFollow : MonoBehaviour
     {
-        [SerializeField] private Tilemap tilemap = null;
+        [SerializeField] Tilemap tilemap = null;
 
         Transform target;
         float xMax, xMin, yMin, yMax;
@@ -27,14 +27,14 @@ namespace RPG.CameraUI
 
         void LateUpdate()
         {
-                transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), -10f);
+            transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), -10f);
         }
 
         void SetLimits(Vector3 minTile, Vector3 maxTile)
         {
             Camera cam = Camera.main;
 
-            float height = 2f * cam.orthographicSize;
+            float height = 1f * cam.orthographicSize;
             float width = height * cam.aspect;
 
             xMin = minTile.x + width / 2;

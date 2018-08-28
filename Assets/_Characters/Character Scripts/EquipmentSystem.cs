@@ -14,6 +14,8 @@ namespace RPG.Characters
         CharacterStats characterStats;
         ItemSlot draggedSlot;
 
+        public Action<EquippableItem> OnItemEquipped;
+
         void Awake()
         {
             characterStats = GetComponent<CharacterStats>();
@@ -43,6 +45,7 @@ namespace RPG.Characters
                         previousItem.UnEquip(characterStats);
                         characterStats.StatPanel.UpdateStatValues();
                     }
+                    OnItemEquipped(item);
                     item.Equip(characterStats);
                     characterStats.StatPanel.UpdateStatValues();
                 }
@@ -60,6 +63,17 @@ namespace RPG.Characters
                 item.UnEquip(characterStats);
                 characterStats.StatPanel.UpdateStatValues();
                 inventory.AddItem(item);
+            }
+        }
+
+        // TODO Rework this later to only be used when a character first logs in. A different system will be needed to ensure previously equipped items from last login remain equipped.
+        public void EquipStartingItems(EquippableItem item)
+        {
+            EquippableItem previousItem;
+            if (equipmentPanel.AddItem(item, out previousItem))
+            {
+                OnItemEquipped(item);
+                item.Equip(characterStats);
             }
         }
 
@@ -110,6 +124,8 @@ namespace RPG.Characters
 
         void Drop(ItemSlot dropItemSlot)
         {
+            if (draggedSlot == null) return;
+
             if (dropItemSlot.CanReceiveItem(draggedSlot.Item) && draggedSlot.CanReceiveItem(dropItemSlot.Item))
             {
                 EquippableItem dragItem = draggedSlot.Item as EquippableItem;
@@ -131,6 +147,7 @@ namespace RPG.Characters
                 {
                     if (dragItem != null)
                     {
+                        OnItemEquipped(dragItem);
                         dragItem.Equip(characterStats);
                     }
                     if (dropItem != null)

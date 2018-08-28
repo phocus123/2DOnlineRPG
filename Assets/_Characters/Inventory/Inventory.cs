@@ -9,7 +9,7 @@ namespace RPG.Characters
         [SerializeField] List<Item> startingItems;
         [SerializeField] Transform itemsParent;
         [SerializeField] ItemSlot[] itemSlots;
-
+         
         public event Action<ItemSlot> OnPointerEnterEvent;
         public event Action<ItemSlot> OnPointerExitEvent;
         public event Action<ItemSlot> OnRightClickEvent;

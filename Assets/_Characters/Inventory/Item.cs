@@ -7,7 +7,6 @@ namespace RPG.Characters
     public class Item : ScriptableObject
     {
         [SerializeField] string id;
-        public string itemName;
         public Sprite icon;
 
         public string ID { get { return id; } }

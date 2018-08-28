@@ -54,3 +54,6 @@ TagManager:
   - name: UI
     uniqueID: 1977354545
     locked: 0
+  - name: Equipment
+    uniqueID: 480141897
+    locked: 0

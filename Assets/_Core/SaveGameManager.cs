@@ -12,7 +12,7 @@ namespace RPG.Core
         GameManager gameManager;
         Dictionary<int, string> abilityDict = new Dictionary<int, string>();
         [SerializeField] int playerXP;
-        string gameDataProjectFilePath = "/StreamingAssets/PlayerGuild.json";
+        //string gameDataProjectFilePath = "/StreamingAssets/PlayerGuild.json";
         [SerializeField] bool hasGuild;
         [SerializeField] Guild playerGuild;
 
