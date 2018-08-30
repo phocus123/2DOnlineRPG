@@ -21,7 +21,7 @@ namespace RPG.Characters
         {
             var damage = (ability as BowShotConfig).Damage.Value;
             var projectilePrefab = (ability as BowShotConfig).ProjectilePrefab;
-            var animationName = (ability as BowShotConfig).Weapon.AnimationName;
+            var animationName = (ability as BowShotConfig).AnimationName;
             var reliantStat = (ability as BowShotConfig).ReliantStat;
             var statMultiplier = (ability as BowShotConfig).StatMultiplier;
             var animationTrigger = (ability as BowShotConfig).AnimationTrigger;

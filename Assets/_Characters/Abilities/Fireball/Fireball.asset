@@ -11,34 +11,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73812ba66c4cf534aa9948e41c1b2485, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  description: A basic magic attack. Requires the knowledge of harnessing magic as
-    a weapon.
+  Description: 
   icon: {fileID: 21300000, guid: 99730a0bf76061f44a8419f9fc80a226, type: 3}
-  weapon: {fileID: 11400000, guid: e1f7b52107e00584e8cccca5eae6140e, type: 2}
-  guild: {fileID: 11400000, guid: d4a0426d23676b2448523016a05b3e0f, type: 2}
-  level: 0
-  attackSpeed:
-    abilityName: Attack Speed
+  WeaponType: 2
+  AnimationName: Cast
+  AttackRange: 3
+  Guild: {fileID: 11400000, guid: d4a0426d23676b2448523016a05b3e0f, type: 2}
+  Level: 0
+  AttackSpeed:
+    statName: Attack Speed
     Value: 3
-    statOperator: 1
-  cooldown:
-    abilityName: Cooldown
+    statOperator: 0
+  Cooldown:
+    statName: Cooldown
     Value: 0
-    statOperator: 1
-  energy:
-    abilityName: Energy
+    statOperator: 0
+  Energy:
+    statName: Energy
     Value: 15
-    statOperator: 1
+    statOperator: 0
   damage:
-    abilityName: Damage
+    statName: Damage
     Value: 15
     statOperator: 0
   critChance:
-    abilityName: Crit Chance
+    statName: Critical Chance
     Value: 5
     statOperator: 0
   critEffect:
-    abilityName: Crit Effect
+    statName: Critical Effect
     Value: 0.25
     statOperator: 0
   projectilePrefab: {fileID: 1516577970113520, guid: 3551c4cef90f4a74eafafd5f4dfb6b24,

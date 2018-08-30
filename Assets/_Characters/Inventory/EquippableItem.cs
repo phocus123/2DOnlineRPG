@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum EquipmentType
 {
@@ -19,7 +18,7 @@ public enum EquipmentType
 
 namespace RPG.Characters
 {
-    [CreateAssetMenu(menuName = "RPG/Equippable Item")]
+    [CreateAssetMenu(menuName = "RPG/Items/Equippable Item")]
     public class EquippableItem : Item
     {
         [Header("Stat Bonuses")]

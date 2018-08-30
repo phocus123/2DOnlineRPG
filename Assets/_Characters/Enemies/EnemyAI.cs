@@ -67,9 +67,7 @@ namespace RPG.Characters
 
         void OnUpdateGetWeapon()
         {
-            weaponSystem = GetComponent<WeaponSystem>();
-            currentWeapon = weaponSystem.GetWeaponAtIndex(0);
-            currentWeaponRange = weaponSystem.GetWeaponAtIndex(0).AttackRange;
+            currentWeaponRange = abilitySystem.Abilities[0].AttackRange;
         }
 
         void OnUpdateGetRanges()

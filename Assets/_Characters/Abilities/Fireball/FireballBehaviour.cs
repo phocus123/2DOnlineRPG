@@ -21,7 +21,7 @@ namespace RPG.Characters
         {
             float damage = (ability as FireballConfig).Damage.Value;
             GameObject projectilePrefab = (ability as FireballConfig).ProjectilePrefab;
-            string animationName = (ability as FireballConfig).Weapon.AnimationName;
+            string animationName = (ability as FireballConfig).AnimationName;
             PrimaryStat reliantStat = (ability as FireballConfig).ReliantStat;
             float statMultiplier = (ability as FireballConfig).StatMultiplier;
             string animationTrigger = (ability as FireballConfig).AnimationTrigger;

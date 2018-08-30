@@ -81,7 +81,7 @@ namespace RPG.CameraUI
             abilityIcon.sprite = ability.Icon;
             title.text = ability.name;
             description.text = ability.Description;
-            Range.text = ability.Weapon.AttackRange.ToString() + "m";
+            Range.text = ability.AttackRange.ToString() + "m";
             attackSpeed.text = ability.AttackSpeed.Value.ToString("F2") + " seconds";
 
             energy.text = ability.Energy.Value.ToString("F2");

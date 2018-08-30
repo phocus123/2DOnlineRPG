@@ -166,7 +166,6 @@ C:\Users\Mark\Desktop\2DOnlineRPG\Temp\bin\Debug\UnityEngine.LocalizationModule.
 C:\Users\Mark\Desktop\2DOnlineRPG\Temp\bin\Debug\UnityEngine.ProfilerModule.xml
 C:\Users\Mark\Desktop\2DOnlineRPG\Temp\bin\Debug\UnityEngine.StreamingModule.xml
 C:\Users\Mark\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
-C:\Users\mark_\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 C:\Users\mark_\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 C:\Users\mark_\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.dll
 C:\Users\mark_\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.pdb
@@ -334,3 +333,4 @@ C:\Users\mark_\Desktop\2DOnlineRPG\Temp\bin\Debug\UnityEngine.GoogleAudioSpatial
 C:\Users\mark_\Desktop\2DOnlineRPG\Temp\bin\Debug\UnityEngine.HoloLens.xml
 C:\Users\mark_\Desktop\2DOnlineRPG\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
 C:\Users\mark_\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.csproj.CopyComplete
+C:\Users\mark_\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache

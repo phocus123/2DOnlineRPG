@@ -11,33 +11,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0b66525dfb249458d3ab2c33a260d9, type: 3}
   m_Name: Bow Shot
   m_EditorClassIdentifier: 
-  description: 
-  icon: {fileID: 0}
-  weapon: {fileID: 11400000, guid: 7ee5ce0f3232fb04f93236605d7f62c4, type: 2}
-  guild: {fileID: 0}
-  level: 0
-  attackSpeed:
-    abilityName: 
+  Description: 
+  icon: {fileID: 21300000, guid: da889fe38a98d3f43b4826b15926c76f, type: 3}
+  WeaponType: 1
+  AnimationName: Shoot
+  AttackRange: 2.5
+  Guild: {fileID: 0}
+  Level: 0
+  AttackSpeed:
+    statName: 
     Value: 2
     statOperator: 0
-  cooldown:
-    abilityName: 
+  Cooldown:
+    statName: 
     Value: 0
     statOperator: 0
-  energy:
-    abilityName: 
-    Value: 10
+  Energy:
+    statName: 10
+    Value: 0
     statOperator: 0
   damage:
-    abilityName: 
+    statName: Damage
     Value: 12
     statOperator: 0
   critChance:
-    abilityName: 
+    statName: Critical Chance
     Value: 5
     statOperator: 0
   critEffect:
-    abilityName: 
+    statName: Critical Effect
     Value: 0.25
     statOperator: 0
   projectilePrefab: {fileID: 1341953783385292, guid: fe7ee932bdee3c4479267f2ce8f0e729,

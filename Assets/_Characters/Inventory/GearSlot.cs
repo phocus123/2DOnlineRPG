@@ -1,14 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace RPG.Characters
 {
     public class GearSlot : MonoBehaviour
     {
         [SerializeField] EquipmentType gearSlotEquipmentType;
+        [SerializeField] AnimationClip[] baseClips;
 
         Animator gearSlotAnimator;
         SpriteRenderer spriteRenderer;
         AnimatorOverrideController animatorOverrideController;
+
+        public Action<EquippableItem> OnPrimaryWeaponEquipped;
 
         void Awake()
         {
@@ -29,7 +33,7 @@ namespace RPG.Characters
             gearSlotAnimator.runtimeAnimatorController = animatorOverrideController;
         }
 
-        public void AttachNewAnimations(AnimationClip[] animationClips)
+        public void AttachClothingAnimations(AnimationClip[] animationClips)
         {
             spriteRenderer.color = Color.white;
 
@@ -130,7 +134,11 @@ namespace RPG.Characters
         {
             if (equipmentType == gearSlotEquipmentType)
             {
-                AttachNewAnimations(item.AnimationClips);
+                if (equipmentType == EquipmentType.PrimaryWeapon)
+                {
+                    OnPrimaryWeaponEquipped(item);
+                }
+                AttachClothingAnimations(item.AnimationClips);
                 item.ItemUnEquipped += RemoveCurrentAnimations;
             }
         }

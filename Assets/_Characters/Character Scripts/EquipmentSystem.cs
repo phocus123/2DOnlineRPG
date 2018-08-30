@@ -2,6 +2,7 @@
 using RPG.Characters;
 using System;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 namespace RPG.Characters
 {
@@ -10,6 +11,8 @@ namespace RPG.Characters
         [SerializeField] Inventory inventory;
         [SerializeField] EquipmentPanel equipmentPanel;
         [SerializeField] Image draggableItem;
+        [Space]
+        [SerializeField] List<EquippableItem> startingEquippedItems;
 
         CharacterStats characterStats;
         ItemSlot draggedSlot;
@@ -30,6 +33,11 @@ namespace RPG.Characters
             equipmentPanel.OnDragEvent += Drag;
             inventory.OnDropEvent += Drop;
             equipmentPanel.OnDropEvent += Drop;
+        }
+
+        void Start()
+        {
+            SetStartingItems();
         }
 
         public void Equip(EquippableItem item)
@@ -74,6 +82,14 @@ namespace RPG.Characters
             {
                 OnItemEquipped(item);
                 item.Equip(characterStats);
+            }
+        }
+
+        void SetStartingItems()
+        {
+            for (int i = 0; i < startingEquippedItems.Count; i++)
+            {
+                EquipStartingItems(startingEquippedItems[i]);
             }
         }
 

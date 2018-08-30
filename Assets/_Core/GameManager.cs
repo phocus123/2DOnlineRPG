@@ -16,6 +16,7 @@ namespace RPG.Core
         [Header("Master Lists")]
         [SerializeField] Ability[] masterAbilityList;
         [SerializeField] Guild[] masterGuildList;
+        [SerializeField] AnimationClip[] baseCharacterAnimationClips; 
 
         HealthSystem playerHealthSystem;
         AbilitySystem playerAbilitySystem;
@@ -25,6 +26,7 @@ namespace RPG.Core
 
         public Ability[] MasterAbilityList { get { return masterAbilityList; } }
         public Guild[] MasterGuildList { get { return masterGuildList; } }
+        public AnimationClip[] BaseCharacterAnimationClips { get { return baseCharacterAnimationClips; } }
         public int PlayerExperience
         {
             get { return playerExperience; }

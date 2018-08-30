@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac68e940e14a7154981f310892e1a6d6, type: 3}
+  m_Name: Magic Scroll
+  m_EditorClassIdentifier: 
+  id: 13beab52b3b835943b173a30fa5a1f39
+  icon: {fileID: 21300000, guid: 3846f5032d85acf4cb740f06307677a8, type: 3}
+  StrengthBonus: 0
+  DexterityBonue: 0
+  IntellectBonus: 0
+  WisdomBonus: 0
+  ConstitutionBonus: 0
+  EquipmentType: 10
+  animationClips:
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  - {fileID: 7400000, guid: 5b8ae8f6411d7c744b8cbff767c1aae0, type: 2}
+  AnimationName: Cast
+  WeaponType: 2
+  IsProjectile: 0

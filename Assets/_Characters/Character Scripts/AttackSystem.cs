@@ -49,7 +49,7 @@ namespace RPG.Characters
             castbar = FindObjectOfType<Castbar>();
             var enemyAI = GetComponent<EnemyAI>();
 
-            character.StartAttackAnimation(ability.Weapon.AnimationName);
+            character.StartAttackAnimation(ability.AnimationName);
 
             if (!enemyAI)
             {
@@ -66,7 +66,7 @@ namespace RPG.Characters
             Projectile attack = Instantiate(useParams.projectilePrefab, character.ExitPoints[character.ExitIndex].position, Quaternion.identity).GetComponent<Projectile>();
             attack.InvokeOnHitTarget += damageSystem.DealDamage;
             attack.Initialize(useParams.target.transform, useParams);
-            StopAttack(character, ability.Weapon.AnimationName);
+            StopAttack(character, ability.AnimationName);
 
             yield return new WaitForSeconds(GLOBAL_COOLDOWN_AMOUNT);
 
@@ -77,7 +77,7 @@ namespace RPG.Characters
         {
             var enemyHitboxAnimator = useParams.target.transform.GetChild(0).GetComponent<Animator>();
 
-            character.StartAttackAnimation(ability.Weapon.AnimationName);
+            character.StartAttackAnimation(ability.AnimationName);
             animationDelayRoutine = StartCoroutine(AnimationDelay(enemyHitboxAnimator));
             damageSystem.DealDamage(useParams);
 
@@ -88,7 +88,7 @@ namespace RPG.Characters
 
             yield return new WaitForSeconds(ability.AttackSpeed.Value + GLOBAL_COOLDOWN_AMOUNT);
 
-            StopAttack(character, ability.Weapon.AnimationName);
+            StopAttack(character, ability.AnimationName);
         }
 
         IEnumerator AnimationDelay(Animator enemyHitboxAnimator)
@@ -102,7 +102,7 @@ namespace RPG.Characters
         {
             if (attackRoutine != null && character.IsMoving)
             {
-                StopAttack(character, ability.Weapon.AnimationName);
+                StopAttack(character, ability.AnimationName);
             }
         }
 

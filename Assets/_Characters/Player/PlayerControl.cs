@@ -79,6 +79,7 @@ namespace RPG.Characters
 
             foreach (string action in keybindManager.Actionbinds.Keys)
             {
+                print(keybindManager.Actionbinds[action]);
                 if (Input.GetKeyDown(keybindManager.Actionbinds[action]))
                 {
                     uiManager.ClickActionButton(action);
@@ -115,7 +116,7 @@ namespace RPG.Characters
 
             weaponSystem.Block(exitIndex);
 
-            if (target != null && weaponSystem.IsTargetInRange(abilityBehaviour.Ability.Weapon, target) && !character.IsAttacking && !character.IsMoving && weaponSystem.InLineOfSight(target))
+            if (target != null && weaponSystem.CorrectWeaponTypeEquipped(abilityBehaviour.Ability.WeaponType) && weaponSystem.IsTargetInRange(abilityBehaviour.Ability.AttackRange, target) && !character.IsAttacking && !character.IsMoving && weaponSystem.InLineOfSight(target))
             {
                 originalTarget = target;
                 abilitySystem.AttemptAbility(abilityBehaviour, originalTarget);

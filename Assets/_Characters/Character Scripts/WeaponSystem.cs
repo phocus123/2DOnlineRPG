@@ -5,13 +5,25 @@ namespace RPG.Characters
     public class WeaponSystem : MonoBehaviour
     {
         [SerializeField] Block[] blockArray;
-        [SerializeField] Weapon[] characterWeapons;
+        [Header("Enemy Weapon")]
+        [SerializeField] Weapon enemyWeapon;
+        [Header("Player Weapons")]
+        [SerializeField] Weapon primaryWeapon;
+        [SerializeField] GearSlot weaponSlot;
+
+        void Awake()
+        {
+            if (GetComponent<CharacterController>() is PlayerControl)
+            {
+                weaponSlot.OnPrimaryWeaponEquipped += SetWeapon;
+            }
+        }
 
         const int BLOCK_LAYER = 9;
 
-        public Weapon GetWeaponAtIndex(int index)
+        public Weapon GetWeapon()
         {
-            return characterWeapons[index];
+            return enemyWeapon;
         }
 
         public void Block(int exitIndex)
@@ -42,10 +54,24 @@ namespace RPG.Characters
             return false;
         }
 
-        public bool IsTargetInRange(Weapon weapon, GameObject target)
+        public bool IsTargetInRange(float attackRange, GameObject target)
         {
             float distance = Vector2.Distance(target.transform.position, transform.position);
-            return distance <= weapon.AttackRange;
+            return distance <= attackRange;
+        }
+
+        public bool CorrectWeaponTypeEquipped(WeaponType weaponType)
+        {
+            if (primaryWeapon != null)
+            {
+                return weaponType == primaryWeapon.WeaponType;
+            }
+            return false;
+        }
+
+        void SetWeapon(EquippableItem item)
+        {
+            primaryWeapon = item as Weapon;
         }
     }
 }
