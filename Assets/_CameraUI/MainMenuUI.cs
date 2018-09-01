@@ -1,23 +1,24 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using RPG.Core;
+using RPG.Characters;
 
 namespace RPG.CameraUI
 {
     public class MainMenuUI :MonoBehaviour
     {
-        [SerializeField] CanvasGroup inGameMenu;
-        [SerializeField] CanvasGroup keybindMenu;
-        [SerializeField] CanvasGroup abilityMenu;
-        [SerializeField] Button keybindsButton;
-        [SerializeField] Button abilityBookButton;
+        public CanvasGroup inGameMenu;
+        public CanvasGroup keybindMenu;
+        public CanvasGroup abilityMenu;
+        public Button keybindsButton;
+        public Button abilityBookButton;
 
-        UIManager uIManager;
+        public static Action OnAbilityBookToggledOn = delegate { };
+        public static Action OnAbilityBookToggledOff = delegate { };
 
-        private void Start()
+        private void Awake()
         {
-            uIManager = FindObjectOfType<UIManager>();
+            PlayerControl.OnEscapeKeyDown += ToggleInGameMenu;
             keybindsButton.onClick.AddListener(ToggleKeybindsMenu);
             abilityBookButton.onClick.AddListener(ToggleAbilityBookMenu);
         }
@@ -26,6 +27,11 @@ namespace RPG.CameraUI
         {
             inGameMenu.alpha = inGameMenu.alpha > 0 ? 0 : 1;
             inGameMenu.blocksRaycasts = inGameMenu.blocksRaycasts == true ? false : true;
+
+            if (abilityMenu.alpha == 1 || keybindMenu.alpha == 1)
+            {
+                CloseCanvases();
+            }
         }
 
         public void CloseCanvases()
@@ -34,19 +40,24 @@ namespace RPG.CameraUI
             keybindMenu.blocksRaycasts = false;
             abilityMenu.alpha = 0;
             abilityMenu.blocksRaycasts = false;
-            uIManager.abilityUI.ResetPageIndex();
+
+            OnAbilityBookToggledOff();
         }
 
         void ToggleKeybindsMenu()
         {
-            UIHelper.ToggleCanvasGroup(keybindMenu);
             ToggleInGameMenu();
+            UIHelper.ToggleCanvasGroup(keybindMenu);
         }
 
         void ToggleAbilityBookMenu()
         {
-            UIHelper.ToggleCanvasGroup(abilityMenu);
+            if (abilityMenu.alpha == 0)
+            {
+                OnAbilityBookToggledOn();
+            }
             ToggleInGameMenu();
+            UIHelper.ToggleCanvasGroup(abilityMenu);
         }
     }
 }

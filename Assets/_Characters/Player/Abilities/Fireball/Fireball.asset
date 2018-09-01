@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73812ba66c4cf534aa9948e41c1b2485, type: 3}
+  m_Name: Fireball
+  m_EditorClassIdentifier: 
+  Description: A basic magic attack. Requires an equipped magic scroll to use.
+  icon: {fileID: 21300000, guid: 99730a0bf76061f44a8419f9fc80a226, type: 3}
+  WeaponType: 2
+  AnimationName: Cast
+  Guild: {fileID: 11400000, guid: d4a0426d23676b2448523016a05b3e0f, type: 2}
+  attackRange: 3
+  level: 0
+  attackSpeed:
+    statName: Attack Speed
+    Value: 3
+    statOperator: 1
+  cooldown:
+    statName: Cooldown
+    Value: 0
+    statOperator: 1
+  energy:
+    statName: Energy
+    Value: 15
+    statOperator: 1
+  Damage:
+    statName: Damage
+    Value: 15
+    statOperator: 0
+  CritChance:
+    statName: Critical Chance
+    Value: 5
+    statOperator: 0
+  CritEffect:
+    statName: Critical Effect
+    Value: 0.25
+    statOperator: 0
+  ProjectilePrefab: {fileID: 1516577970113520, guid: 3551c4cef90f4a74eafafd5f4dfb6b24,
+    type: 2}
+  AnimationTrigger: FireballImpact
+  ReliantStat: {fileID: 11400000, guid: dda956745728464439f8a87ef0526ec1, type: 2}
+  StatMultiplier: 0.5

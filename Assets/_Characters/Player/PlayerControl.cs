@@ -2,6 +2,7 @@
 using RPG.Core;
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace RPG.Characters
 {
@@ -14,6 +15,8 @@ namespace RPG.Characters
         int exitIndex;
         Vector3 min, max;
         UIManager uiManager;
+
+        public static Action OnEscapeKeyDown = delegate { };
 
         void Awake()
         {
@@ -68,8 +71,7 @@ namespace RPG.Characters
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                uiManager.mainMenuUI.ToggleInGameMenu();
-                uiManager.mainMenuUI.CloseCanvases();
+                OnEscapeKeyDown();
             }
 
             if (Input.GetKeyDown(KeyCode.I))
@@ -79,7 +81,6 @@ namespace RPG.Characters
 
             foreach (string action in keybindManager.Actionbinds.Keys)
             {
-                print(keybindManager.Actionbinds[action]);
                 if (Input.GetKeyDown(keybindManager.Actionbinds[action]))
                 {
                     uiManager.ClickActionButton(action);

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6cef250ac3975d48858c913e5fcc7d9, type: 3}
+  m_Name: Black Cloth Shoes
+  m_EditorClassIdentifier: 
+  id: f8bd59b6f88f0a84eab59d81c0e2f2f4
+  icon: {fileID: 21300000, guid: 7190fb9be3813824ba69258c8199a26a, type: 3}
+  ConstitutionBonus: 1
+  DexterityBonus: 1
+  IntellectBonus: 1
+  StrengthBonus: 1
+  WisdomBonus: 1
+  ArmourBonus: 1
+  EquipmentType: 0
+  animationClips:
+  - {fileID: 7400000, guid: 88d1a8fbc26dab84c8812f43113dee03, type: 2}
+  - {fileID: 7400000, guid: f6dd7eaf53717db498ebae18641b66f2, type: 2}
+  - {fileID: 7400000, guid: efbfbb4da790680419fc154d0c42c80a, type: 2}
+  - {fileID: 7400000, guid: 6f8230b59fa0d304fb6af07c8a646b9b, type: 2}
+  - {fileID: 7400000, guid: d825df5b5703c9f4da4cbf41c4a2e152, type: 2}
+  - {fileID: 7400000, guid: 1687ab9804760574ca1751d818e8d528, type: 2}
+  - {fileID: 7400000, guid: 643d595d2fc2ccf4fb451d275042a047, type: 2}
+  - {fileID: 7400000, guid: ca9ca722fdd22844693c31ea541312e2, type: 2}
+  - {fileID: 7400000, guid: f1534ab7b0e716842a8d0368576bdeb8, type: 2}
+  - {fileID: 7400000, guid: 2ba0c25711c54294488fdec420710b2c, type: 2}
+  - {fileID: 7400000, guid: 9c47e4cbe7b27c14c910c0aa1d23c8b4, type: 2}
+  - {fileID: 7400000, guid: 2eab453a454f4b143b7b03f3671f3160, type: 2}
+  - {fileID: 7400000, guid: c7965ef96d7aa4d4bad41bdd6f05c548, type: 2}
+  - {fileID: 7400000, guid: c9fb4932a9010e2428c1e3a0e040bd87, type: 2}
+  - {fileID: 7400000, guid: 8ac77a1aba0e5b3488ac6a75630d3f3d, type: 2}
+  - {fileID: 7400000, guid: 5ae85be5a4641494fae8b7ae7c859534, type: 2}
+  - {fileID: 7400000, guid: 5d4bf8940bbe7c541a23c2542b8b27dd, type: 2}
+  - {fileID: 7400000, guid: 5befff99e8e51ec4aaa06f19fe7d9fa1, type: 2}
+  - {fileID: 7400000, guid: 8121ee8ce0bdc6f46ae60aadb78de166, type: 2}
+  - {fileID: 7400000, guid: 66d5413acc73a5e44984c09e280a94f1, type: 2}
+  - {fileID: 7400000, guid: fd7b28323e252774c939de9ff88dee03, type: 2}

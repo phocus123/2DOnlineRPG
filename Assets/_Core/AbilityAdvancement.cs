@@ -28,7 +28,7 @@ namespace RPG.Core
 
         void Start()
         {
-            uIManager.abilityButtonPanel.OnAbilityButtonCreated += RegisterAbilityButtonEvents; // TODO Do i need to unregister before application quit to free memory?
+            uIManager.abilityButtonPanel.OnAbilityButtonCreated += RegisterAbilityButtonEvents; 
             uIManager.abilityButtonPanel.OnAbilityCanvasClosed += RefundAbilityPoints;
             uIManager.abilityDetailsPanel.OnSelectedAbilityChanged += RefundAbilityPoints;
             uIManager.abilityStatsPanel.InvokeOnStatOperatorCreated += RegisterStatButtonEvent;

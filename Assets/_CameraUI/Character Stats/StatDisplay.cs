@@ -15,4 +15,4 @@ namespace RPG.CameraUI
             ValueText = texts[1];
         }
     }
-}
+} 

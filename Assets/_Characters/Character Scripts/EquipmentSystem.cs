@@ -82,6 +82,7 @@ namespace RPG.Characters
             {
                 OnItemEquipped(item);
                 item.Equip(characterStats);
+                characterStats.StatPanel.UpdateStatValues();
             }
         }
 
@@ -90,6 +91,15 @@ namespace RPG.Characters
             for (int i = 0; i < startingEquippedItems.Count; i++)
             {
                 EquipStartingItems(startingEquippedItems[i]);
+            }
+        }
+
+        // TODO Remove this when serialization of player items is developed.
+        private void OnApplicationQuit()
+        {
+            for (int i = 0; i < startingEquippedItems.Count; i++)
+            {
+                startingEquippedItems[i].UnEquip(characterStats);
             }
         }
 

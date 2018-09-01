@@ -11,7 +11,7 @@ namespace RPG.Core
     public class UIManager : MonoBehaviour
     {
         [Header("User Interface")]
-        public AbilityBookUI abilityUI; //TODO Make all these ui classes monobehaviours
+        public AbilityBook abilityUI; //TODO Make all these ui classes monobehaviours
         public DialogueUI dialogueUI;
         public TargetFrameUI targetFrameUI;
         public MainMenuUI mainMenuUI;
@@ -43,10 +43,7 @@ namespace RPG.Core
         {
             gameManager = FindObjectOfType<GameManager>();
             keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
-            var playerAbilitySystem = GameObject.FindGameObjectWithTag("Player").GetComponent<AbilitySystem>();
-
             UpdateExperienceText();
-            abilityUI.Initialize(playerAbilitySystem);
         }
 
         public void ShowTargetFrame(GameObject enemy)
