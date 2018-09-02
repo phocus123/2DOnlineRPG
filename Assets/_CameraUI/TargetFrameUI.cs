@@ -9,53 +9,53 @@ namespace RPG.CameraUI
     {
         [SerializeField] GameObject targetFrame;
 
-        HealthSystem currentTargetHealthSystem;
-        AbilitySystem currentTargetAbilitySystem;
+        HealthController currentTargetHealthController;
+        AbilityController currentTargetAbilityController;
 
         public void RegisterForHealthEvents()
         {
-            currentTargetHealthSystem.InvokeOnHealthChange += UpdateTargetFrameHealth;
-            currentTargetAbilitySystem.InvokeOnEnergyChanged += UpdateTargetFrameEnergy;
-            currentTargetHealthSystem.InvokeOnCharacterDeath += HideTargetFrame;
+            currentTargetHealthController.OnHealthChange += UpdateTargetFrameHealth;
+            currentTargetAbilityController.OnEnergyChanged += UpdateTargetFrameEnergy;
+            currentTargetHealthController.OnCharacterDeath += HideTargetFrame;
         }
 
         public void ShowTargetFrame(GameObject enemy)
         {
-            currentTargetHealthSystem = enemy.GetComponentInParent<HealthSystem>();
-            currentTargetAbilitySystem = enemy.GetComponentInParent<AbilitySystem>();
-            currentTargetHealthSystem.ShowEnemyHealthBar();
+            currentTargetHealthController = enemy.GetComponentInParent<HealthController>();
+            currentTargetAbilityController = enemy.GetComponentInParent<AbilityController>();
+            currentTargetHealthController.ShowEnemyHealthBar();
             targetFrame.SetActive(true);
-            currentTargetHealthSystem.Initialize(currentTargetHealthSystem.CurrentHealthPoints, currentTargetHealthSystem.MaxHealthPoints);
-            currentTargetAbilitySystem.Initialize(currentTargetAbilitySystem.CurrentEnergyPoints, currentTargetAbilitySystem.MaxEnergyPoints);
+            currentTargetHealthController.Initialize(currentTargetHealthController.CurrentHealthPoints);
+            currentTargetAbilityController.Initialize(currentTargetAbilityController.CurrentEnergyPoints);
             RegisterForHealthEvents();
         }
 
         public void HideTargetFrame()
         {
-            if (currentTargetHealthSystem != null)
+            if (currentTargetHealthController != null)
             {
-                currentTargetHealthSystem.HideEnemyHealthBar();
+                currentTargetHealthController.HideEnemyHealthBar();
                 targetFrame.SetActive(false);
                 DeregisterForHealthEvents();
-                currentTargetHealthSystem = null;
+                currentTargetHealthController = null;
             }
         }
 
-        void UpdateTargetFrameHealth(HealthSystem healthSystem)
+        void UpdateTargetFrameHealth(HealthController healthSystem)
         {
             healthSystem.UpdateTargetFrameHealthbar();
         }
 
-        void UpdateTargetFrameEnergy(AbilitySystem abilitySystem)
+        void UpdateTargetFrameEnergy(AbilityController abilityController)
         {
-            abilitySystem.UpdateTargetFrameEnergybar();
+            abilityController.UpdateTargetFrameEnergybar();
         }
 
         void DeregisterForHealthEvents()
         {
-            currentTargetHealthSystem.InvokeOnHealthChange -= UpdateTargetFrameHealth;
-            currentTargetAbilitySystem.InvokeOnEnergyChanged -= UpdateTargetFrameEnergy;
-            currentTargetHealthSystem.InvokeOnCharacterDeath -= HideTargetFrame;
+            currentTargetHealthController.OnHealthChange -= UpdateTargetFrameHealth;
+            currentTargetAbilityController.OnEnergyChanged -= UpdateTargetFrameEnergy;
+            currentTargetHealthController.OnCharacterDeath -= HideTargetFrame;
         }
     }
 }

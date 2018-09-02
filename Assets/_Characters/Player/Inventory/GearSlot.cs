@@ -12,20 +12,20 @@ namespace RPG.Characters
         SpriteRenderer spriteRenderer;
         AnimatorOverrideController animatorOverrideController;
 
-        public Action<EquippableItem> OnPrimaryWeaponEquipped;
+        public event Action<EquippableItem> OnPrimaryWeaponEquipped;
 
         void Awake()
         {
-            Character character = GetComponentInParent<Character>();
-            EquipmentSystem equipmentSystem = GetComponentInParent<EquipmentSystem>();
+            CharacterAnimationController characterAnimationController = GetComponentInParent<CharacterAnimationController>();
+            EquipmentController equipmentController = GetComponentInParent<EquipmentController>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             gearSlotAnimator = GetComponent<Animator>();
             animatorOverrideController = new AnimatorOverrideController(gearSlotAnimator.runtimeAnimatorController);
 
-            character.PlayerMoving += SetAnimationDirection;
-            character.OnLayerChanged += ActivateLayer;
-            character.AttackAnimationChanged += SetAttackAnimation;
-            equipmentSystem.OnItemEquipped += RegisterEquippedItemEvent;
+            characterAnimationController.PlayerMoving += SetAnimationDirection;
+            characterAnimationController.OnLayerChanged += ActivateLayer;
+            characterAnimationController.AttackAnimationChanged += SetAttackAnimation;
+            equipmentController.OnItemEquipped += RegisterEquippedItemEvent;
         }
 
         void Start()

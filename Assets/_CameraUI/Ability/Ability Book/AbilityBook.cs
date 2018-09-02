@@ -22,14 +22,14 @@ namespace RPG.CameraUI
         [SerializeField] PageButton nextButton;
         [SerializeField] PageButton backButton;
 
-        AbilitySystem playerAbilitySystem;
+        AbilityController playerAbilityController;
         List<GameObject> stats = new List<GameObject>();
 
         int pageIndex = 1;
 
         void Awake()
         {
-            playerAbilitySystem = FindObjectOfType<PlayerControl>().gameObject.GetComponent<AbilitySystem>();
+            playerAbilityController = FindObjectOfType<PlayerControl>().gameObject.GetComponent<AbilityController>();
             MainMenuUI.OnAbilityBookToggledOn += Init;
             MainMenuUI.OnAbilityBookToggledOff += Close;
             nextButton.InvokeOnPageButtonClicked += ChangePage;
@@ -38,7 +38,7 @@ namespace RPG.CameraUI
 
         void Init()
         {
-            LoadAbility(playerAbilitySystem.Abilities[pageIndex - 1]);
+            LoadAbility(playerAbilityController.Abilities[pageIndex - 1]);
             UpdatePageNumberText();
         }
 
@@ -54,12 +54,12 @@ namespace RPG.CameraUI
             switch (button.name)
             {
                 case "NextButton":
-                    if (pageIndex < playerAbilitySystem.Abilities.Length)
+                    if (pageIndex < playerAbilityController.Abilities.Length)
                     {
                         DestroyStats();
                         pageIndex++;
                         //Debug.Log(string.Format("index: {0}  ability length: {1}", pageIndex, playerAbilitySystem.Abilities.Length)); // For later testing if more abilities are added to the ability array.
-                        LoadAbility(playerAbilitySystem.Abilities[pageIndex - 1]);
+                        LoadAbility(playerAbilityController.Abilities[pageIndex - 1]);
                         UpdatePageNumberText();
                     }
                     break;
@@ -68,7 +68,7 @@ namespace RPG.CameraUI
                     {
                         DestroyStats();
                         pageIndex--;
-                        LoadAbility(playerAbilitySystem.Abilities[pageIndex - 1]);
+                        LoadAbility(playerAbilityController.Abilities[pageIndex - 1]);
                         UpdatePageNumberText();
                     }
                     break;

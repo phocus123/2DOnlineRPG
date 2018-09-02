@@ -7,7 +7,7 @@ namespace RPG.Characters
     [System.Serializable]
     public class SecondaryStat 
     {
-        public Character AssociatedCharacter;
+        public CharacterManager AssociatedCharacter;
         public float BaseValue;
         [SerializeField] protected List<StatModifier> statModifiers = new List<StatModifier>();
 

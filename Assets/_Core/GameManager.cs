@@ -18,8 +18,8 @@ namespace RPG.Core
         [SerializeField] Guild[] masterGuildList;
         [SerializeField] AnimationClip[] baseCharacterAnimationClips; 
 
-        HealthSystem playerHealthSystem;
-        AbilitySystem playerAbilitySystem;
+        HealthController playerHealthController;
+        AbilityController playerAbilityController;
         const float HEALTH_REGEN_AMOUNT = 0.25f;
         const float ENERGY_REGEN_AMOUNT = 0.5f;
         int playerExperience;
@@ -41,8 +41,8 @@ namespace RPG.Core
         void Start()
         {
             LoadExperienceAmount();
-            playerHealthSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthSystem>();
-            playerAbilitySystem = GameObject.FindGameObjectWithTag("Player").GetComponent<AbilitySystem>();
+            playerHealthController = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthController>();
+            playerAbilityController = GameObject.FindGameObjectWithTag("Player").GetComponent<AbilityController>();
         }
 
         void Update()
@@ -58,12 +58,12 @@ namespace RPG.Core
 
         void RegenHealth(float value)
         {
-            playerHealthSystem.CurrentHealthPoints += value * Time.deltaTime;
+            playerHealthController.CurrentHealthPoints += value * Time.deltaTime;
         }
 
         void RegenEnergy(float value)
         {
-            playerAbilitySystem.CurrentEnergyPoints += value * Time.deltaTime;
+            playerAbilityController.CurrentEnergyPoints += value * Time.deltaTime;
         }
 
         void InvokeExperienceEvent()

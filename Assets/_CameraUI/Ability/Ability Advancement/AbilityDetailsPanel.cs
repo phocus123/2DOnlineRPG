@@ -27,8 +27,8 @@ namespace RPG.CameraUI
 
         Ability currentSelectedAbility;
 
-        public Action<Ability> OnSelectedAbilityChanged;
-        public Action<Ability> OnAbilityPointPurchased;
+        public event Action<Ability> OnSelectedAbilityChanged;
+        public event Action<Ability> OnAbilityPointPurchased;
 
         public Ability CurrentSelectedAbility
         {

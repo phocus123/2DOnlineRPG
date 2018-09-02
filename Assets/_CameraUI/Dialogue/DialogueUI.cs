@@ -27,7 +27,7 @@ namespace RPG.CameraUI
         public void Initialize(NPCControl npc)
         {
             this.npc = npc;
-            npcName.text = npc.GetComponent<Character>().CharacterName; 
+            npcName.text = npc.GetComponent<CharacterManager>().CharacterName; 
             mainText.text = npc.NpcDialogue.NPCIntroduction;
             UIHelper.ToggleCanvasGroup(buttonOptions);
 

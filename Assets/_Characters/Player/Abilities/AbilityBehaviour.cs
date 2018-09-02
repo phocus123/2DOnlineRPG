@@ -30,7 +30,7 @@ namespace RPG.Characters
     {
         protected Ability ability;
 
-        Character character;
+        CharacterManager character;
 
         public abstract void Use(GameObject target);
 
@@ -40,7 +40,7 @@ namespace RPG.Characters
             set { ability = value; }
         }
 
-        public Character Character
+        public CharacterManager Character
         {
             get { return character; }
             set { character = value; }

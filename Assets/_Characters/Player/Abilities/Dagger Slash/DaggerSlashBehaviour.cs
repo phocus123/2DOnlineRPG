@@ -13,9 +13,9 @@ namespace RPG.Characters
         void StartAttack(GameObject target)
         {
             var useParams = GetUseParams(target);
-            var characterAttackSystem = GetComponent<AttackSystem>();
+            var characterAttackController = GetComponent<AttackController>();
 
-            characterAttackSystem.Attack(useParams);
+            characterAttackController.Attack(useParams);
         }
 
         AbilityUseParams GetUseParams(GameObject target)

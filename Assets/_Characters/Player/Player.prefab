@@ -255,15 +255,17 @@ GameObject:
   m_Component:
   - component: {fileID: 4288649661203896}
   - component: {fileID: 212364528542066802}
-  - component: {fileID: 114238730527879688}
-  - component: {fileID: 114151254786454344}
+  - component: {fileID: 114572062619295424}
+  - component: {fileID: 114672799576058760}
+  - component: {fileID: 114732462454628560}
+  - component: {fileID: 114371627386118488}
   - component: {fileID: 114618272163788426}
   - component: {fileID: 114158886910737690}
   - component: {fileID: 114409336987571204}
   - component: {fileID: 114883228615133080}
-  - component: {fileID: 114672799576058760}
   - component: {fileID: 114991483353021592}
   - component: {fileID: 114110297064527536}
+  - component: {fileID: 114151254786454344}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -588,7 +590,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1574108332565400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.048, y: -0.119, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4288649661203896}
@@ -657,7 +659,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1079366221622942}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.102, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4288649661203896}
@@ -1097,35 +1099,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 02e5d9118cf31dd4e90103b9712c0bb0, type: 2}
   - {fileID: 11400000, guid: 561a6e2555a336744a84c6e569bd6159, type: 2}
   - {fileID: 11400000, guid: 36a381e5ea7a25a499b98cb389f4eab1, type: 2}
-  maxEnergyPoints: 10000
   energyBar: {fileID: 0}
   playerEnergybarText: {fileID: 0}
   targetFrameEnergybar: {fileID: 0}
   targetEnergybarText: {fileID: 0}
---- !u!114 &114238730527879688
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1640595576505452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09b3bd3c14d23994a9eafd093ce47c9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runtimeAnimatorController: {fileID: 9100000, guid: 86253826c7721ba4b889e8ccfba34958,
-    type: 2}
-  colliderSize: {x: 0.5, y: 0.1}
-  colliderOffset: {x: -0.05, y: -0.4}
-  moveSpeed: 3
-  nameText: {fileID: 114746929251921660}
-  characterName: Shrike
-  experienceWorth: 0
-  exitPoints:
-  - {fileID: 4679231432656482}
-  - {fileID: 4022704636106416}
-  - {fileID: 4291620605671332}
-  - {fileID: 4835694498207744}
 --- !u!114 &114280941070216300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1160,6 +1137,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gearSlotEquipmentType: 5
   baseClips: []
+--- !u!114 &114371627386118488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1640595576505452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92be37ef4b492045a409bc82137184e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114401009276142476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1193,11 +1181,9 @@ MonoBehaviour:
     block2: {fileID: 1928796864498084}
   - block1: {fileID: 1044641114127794}
     block2: {fileID: 1983082597937802}
-  characterWeapons:
-  - {fileID: 11400000, guid: e1f7b52107e00584e8cccca5eae6140e, type: 2}
-  - {fileID: 11400000, guid: 7ee5ce0f3232fb04f93236605d7f62c4, type: 2}
-  - {fileID: 11400000, guid: d55ac9975f32c8b41a2b9114a9b3f09e, type: 2}
+  enemyWeapon: {fileID: 0}
   primaryWeapon: {fileID: 0}
+  weaponSlot: {fileID: 114982333892416858}
 --- !u!114 &114480941007984174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1211,6 +1197,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gearSlotEquipmentType: 11
   baseClips: []
+--- !u!114 &114572062619295424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1640595576505452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d7c459be143544ab904c1c91c2e1b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: Shrike
+  nameText: {fileID: 114746929251921660}
+  moveSpeed: 3
+  maxHealthPoints: 10000
+  maxEnergyPoints: 10000
+  exitPoints:
+  - {fileID: 4679231432656482}
+  - {fileID: 4022704636106416}
+  - {fileID: 4291620605671332}
+  - {fileID: 4835694498207744}
+  colliderOffset: {x: 0, y: -0.55}
+  colliderSize: {x: 0.3, y: 0.1}
+  experienceWorth: 0
+  aggroRange: 0
 --- !u!114 &114613608531378490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1238,7 +1249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 868ed0af361e6cf41b9978e193fb200d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 10000
   healthBar: {fileID: 0}
   playerHealthbarText: {fileID: 0}
   targetFrameHealthbar: {fileID: 0}
@@ -1263,6 +1273,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ca3d018bfab85fe49a06695667fcb760, type: 2}
   - {fileID: 11400000, guid: eb3b088bfc73cf4468bb678ccdff8a23, type: 2}
   statPanel: {fileID: 0}
+  Armour:
+    AssociatedCharacter: {fileID: 114572062619295424}
+    BaseValue: 1
+    statModifiers: []
+    value: 0
+--- !u!114 &114732462454628560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1640595576505452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 582e83a06c9cfce419d613875d3050ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runtimeAnimatorController: {fileID: 9100000, guid: 86253826c7721ba4b889e8ccfba34958,
+    type: 2}
 --- !u!114 &114746929251921660
 MonoBehaviour:
   m_ObjectHideFlags: 1

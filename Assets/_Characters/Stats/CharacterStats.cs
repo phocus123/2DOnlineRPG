@@ -17,7 +17,7 @@ namespace RPG.Characters
 
         private void OnValidate()
         {
-            Armour.AssociatedCharacter = GetComponent<Character>();
+            Armour.AssociatedCharacter = GetComponent<CharacterManager>();
         }
 
         private void Awake()
