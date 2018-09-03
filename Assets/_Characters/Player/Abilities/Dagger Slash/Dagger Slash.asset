@@ -42,5 +42,5 @@ MonoBehaviour:
     statName: Critical Effect
     Value: 0.25
     statOperator: 0
-  ReliantStat: {fileID: 11400000, guid: a58e4582c6cf97a48ab240e4b3a3058f, type: 2}
+  ReliantStat: {fileID: 11400000, guid: d2ddda1fe9a62dd48854fd6d5944b7b1, type: 2}
   StatMultiplier: 0.25

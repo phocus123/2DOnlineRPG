@@ -14,14 +14,14 @@ namespace RPG.Characters
         [Space]
         [SerializeField] List<EquippableItem> startingEquippedItems;
 
-        CharacterStats characterStats;
+        CharacterManager characterManager;
         ItemSlot draggedSlot;
 
         public Action<EquippableItem> OnItemEquipped;
 
         void Awake()
         {
-            characterStats = GetComponent<CharacterStats>();
+            characterManager = GetComponent<CharacterManager>();
 
             inventory.OnRightClickEvent += Equip;
             equipmentPanel.OnRightClickEvent += UnEquip;
@@ -50,12 +50,12 @@ namespace RPG.Characters
                     if (previousItem != null)
                     {
                         inventory.AddItem(previousItem);
-                        previousItem.UnEquip(characterStats);
-                        characterStats.StatPanel.UpdateStatValues();
+                        previousItem.UnEquip(characterManager);
+                        characterManager.StatPanel.UpdateStatValues();
                     }
                     OnItemEquipped(item);
-                    item.Equip(characterStats);
-                    characterStats.StatPanel.UpdateStatValues();
+                    item.Equip(characterManager);
+                    characterManager.StatPanel.UpdateStatValues();
                 }
                 else
                 {
@@ -68,8 +68,8 @@ namespace RPG.Characters
         {
             if (!inventory.IsFull() && equipmentPanel.RemoveItem(item))
             {
-                item.UnEquip(characterStats);
-                characterStats.StatPanel.UpdateStatValues();
+                item.UnEquip(characterManager);
+                characterManager.StatPanel.UpdateStatValues();
                 inventory.AddItem(item);
             }
         }
@@ -81,8 +81,8 @@ namespace RPG.Characters
             if (equipmentPanel.AddItem(item, out previousItem))
             {
                 OnItemEquipped(item);
-                item.Equip(characterStats);
-                characterStats.StatPanel.UpdateStatValues();
+                item.Equip(characterManager);
+                characterManager.StatPanel.UpdateStatValues();
             }
         }
 
@@ -99,7 +99,7 @@ namespace RPG.Characters
         {
             for (int i = 0; i < startingEquippedItems.Count; i++)
             {
-                startingEquippedItems[i].UnEquip(characterStats);
+                startingEquippedItems[i].UnEquip(characterManager);
             }
         }
 
@@ -161,11 +161,11 @@ namespace RPG.Characters
                 {
                     if (dragItem != null)
                     {
-                        dragItem.UnEquip(characterStats);
+                        dragItem.UnEquip(characterManager);
                     }
                     if (dropItem != null)
                     {
-                        dropItem.Equip(characterStats);
+                        dropItem.Equip(characterManager);
                     }
                 }
 
@@ -174,14 +174,14 @@ namespace RPG.Characters
                     if (dragItem != null)
                     {
                         OnItemEquipped(dragItem);
-                        dragItem.Equip(characterStats);
+                        dragItem.Equip(characterManager);
                     }
                     if (dropItem != null)
                     {
-                        dropItem.UnEquip(characterStats);
+                        dropItem.UnEquip(characterManager);
                     }
                 }
-                characterStats.StatPanel.UpdateStatValues();
+                characterManager.StatPanel.UpdateStatValues();
 
                 Item draggedItem = draggedSlot.Item;
                 draggedSlot.Item = dropItemSlot.Item;

@@ -7,12 +7,12 @@ namespace RPG.Characters
     public class DamageController : MonoBehaviour
     {
         AbilityUseParams abilityUseParams;
-        CharacterStats characterStats;
+        CharacterManager characterManager;
 
         public void DealDamage(AbilityUseParams useParams)
         {
             abilityUseParams = useParams;
-            characterStats = abilityUseParams.ability.Behaviour.Character.GetComponent<CharacterStats>();
+            characterManager = abilityUseParams.ability.Behaviour.Character.GetComponent<CharacterManager>();
             var enemyHealthController = useParams.target.GetComponent<HealthController>();
             float primaryStatDamage = CalculatePrimaryStatMultiplier();
             float finalDamage = primaryStatDamage - GetArmourValue(abilityUseParams.target);
@@ -30,9 +30,9 @@ namespace RPG.Characters
             if (player)
             {
                 float baseDamage = abilityUseParams.baseDamage;
-                PrimaryStat reliantStat = abilityUseParams.reliantStat;
+                CharacterStat reliantStat = abilityUseParams.reliantStat;
                 float statMultiplier = abilityUseParams.statMultiplier;
-                var reliantStatValue = Array.Find(characterStats.PrimaryStats, x => x.name == reliantStat.name).Value;
+                var reliantStatValue = Array.Find(characterManager.CharacterrStats, x => x.name == reliantStat.name).Value;
                 finalValue = (reliantStatValue * statMultiplier) + baseDamage;
             }
             else
@@ -45,8 +45,9 @@ namespace RPG.Characters
 
         float GetArmourValue(GameObject target)
         {
-            var targetStats = target.GetComponent<CharacterStats>();
-            return targetStats.Armour.Value;
+            var targetStats = target.GetComponent<CharacterManager>().CharacterrStats;
+            var armourStat = Array.Find(targetStats, x => x.name == "Armour");
+            return armourStat.Value;
         }
     }
 }

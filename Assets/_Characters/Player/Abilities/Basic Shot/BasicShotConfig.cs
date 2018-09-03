@@ -14,7 +14,7 @@ namespace RPG.Characters
         public string AnimationTrigger;
 
         [Header("Character Stats")]
-        public PrimaryStat ReliantStat;
+        public CharacterStat ReliantStat;
         public float StatMultiplier;
 
         void OnValidate()

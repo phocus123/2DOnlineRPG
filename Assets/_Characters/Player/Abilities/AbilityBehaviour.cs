@@ -10,11 +10,11 @@ namespace RPG.Characters
         public float baseDamage;
         public GameObject projectilePrefab;
         public Ability ability;
-        public PrimaryStat reliantStat;
+        public CharacterStat reliantStat;
         public float statMultiplier;
         public string animationTrigger;
 
-        public AbilityUseParams(GameObject target, float baseDamage, GameObject projectilePrefab, Ability ability, PrimaryStat reliantStat, float statMultiplier, string animationTrigger)
+        public AbilityUseParams(GameObject target, float baseDamage, GameObject projectilePrefab, Ability ability, CharacterStat reliantStat, float statMultiplier, string animationTrigger)
         {
             this.target = target;
             this.baseDamage = baseDamage;

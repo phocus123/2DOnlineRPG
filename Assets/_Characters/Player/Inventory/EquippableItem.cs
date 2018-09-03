@@ -41,45 +41,44 @@ namespace RPG.Characters
 
         public AnimationClip[] AnimationClips { get { return animationClips; } }
 
-        public void Equip(CharacterStats characterStats)
+        public void Equip(CharacterManager characterStats)
         {
             if (ConstitutionBonus != 0)
             {
-                characterStats.PrimaryStats[0].AddModifier(new StatModifier(ConstitutionBonus, this));
+                characterStats.CharacterrStats[0].AddModifier(new StatModifier(ConstitutionBonus, this));
             }
             if (DexterityBonus != 0)
             {
-                characterStats.PrimaryStats[1].AddModifier(new StatModifier(DexterityBonus, this));
+                characterStats.CharacterrStats[1].AddModifier(new StatModifier(DexterityBonus, this));
             }
             if (IntellectBonus != 0)
             {
-                characterStats.PrimaryStats[2].AddModifier(new StatModifier(IntellectBonus, this));
+                characterStats.CharacterrStats[2].AddModifier(new StatModifier(IntellectBonus, this));
             }
             if (StrengthBonus != 0)
             {
-                characterStats.PrimaryStats[3].AddModifier(new StatModifier(StrengthBonus, this));
+                characterStats.CharacterrStats[3].AddModifier(new StatModifier(StrengthBonus, this));
             }
             if (WisdomBonus != 0)
             {
-                characterStats.PrimaryStats[4].AddModifier(new StatModifier(WisdomBonus, this));
+                characterStats.CharacterrStats[4].AddModifier(new StatModifier(WisdomBonus, this));
             }
             if (ArmourBonus != 0)
             {
-                characterStats.Armour.AddModifier(new StatModifier(ArmourBonus, this));
+                characterStats.CharacterrStats[5].AddModifier(new StatModifier(ArmourBonus, this));
             }
 
             ItemEquipped(EquipmentType, this);
         }
 
-        public void UnEquip(CharacterStats characterStats)
+        public void UnEquip(CharacterManager characterStats)
         {
-            characterStats.PrimaryStats[0].RemoveAllModifiersFromSource(this);
-            characterStats.PrimaryStats[1].RemoveAllModifiersFromSource(this);
-            characterStats.PrimaryStats[2].RemoveAllModifiersFromSource(this);
-            characterStats.PrimaryStats[3].RemoveAllModifiersFromSource(this);
-            characterStats.PrimaryStats[4].RemoveAllModifiersFromSource(this);
-
-            characterStats.Armour.RemoveAllModifiersFromSource(this);
+            characterStats.CharacterrStats[0].RemoveAllModifiersFromSource(this);
+            characterStats.CharacterrStats[1].RemoveAllModifiersFromSource(this);
+            characterStats.CharacterrStats[2].RemoveAllModifiersFromSource(this);
+            characterStats.CharacterrStats[3].RemoveAllModifiersFromSource(this);
+            characterStats.CharacterrStats[4].RemoveAllModifiersFromSource(this);
+            characterStats.CharacterrStats[5].RemoveAllModifiersFromSource(this);
 
             ItemUnEquipped(EquipmentType, this);
         }

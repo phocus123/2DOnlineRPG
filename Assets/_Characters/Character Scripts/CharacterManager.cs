@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using RPG.CameraUI;
 
 namespace RPG.Characters
 {
@@ -15,14 +14,19 @@ namespace RPG.Characters
         [SerializeField] float moveSpeed;
         [SerializeField] float maxHealthPoints;
         [SerializeField] float maxEnergyPoints;
+        [SerializeField] CharacterStat[] characterStats;
         [Space]
         [SerializeField] Transform[] exitPoints;
         [SerializeField] Vector2 colliderOffset;
         [SerializeField] Vector2 colliderSize;
+        [SerializeField] StatPanel statPanel;
 
         [Header("Enemy")]
         [SerializeField] int experienceWorth;
         [SerializeField] float aggroRange;
+
+        public CharacterStat[] CharacterrStats { get { return characterStats; } }
+        public StatPanel StatPanel { get { return statPanel; } }
 
         bool isAttacking;
         private bool isAlive = true;
@@ -53,6 +57,12 @@ namespace RPG.Characters
         {
             nameText.text = characterName;
             AddBoxColliderComponent();
+
+            if (StatPanel != null)
+            {
+                statPanel.SetPrimaryStats(characterStats);
+                statPanel.UpdateStatValues();
+            }
         }
 
         public void KillCharacter()

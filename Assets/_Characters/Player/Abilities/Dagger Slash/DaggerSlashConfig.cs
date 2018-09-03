@@ -13,7 +13,7 @@ namespace RPG.Characters
         public AbilityStat CritEffect;
 
         [Header("Character Stats")]
-        public PrimaryStat ReliantStat;
+        public CharacterStat ReliantStat;
         public float StatMultiplier;
 
         void OnValidate()

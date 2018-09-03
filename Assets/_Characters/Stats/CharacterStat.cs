@@ -5,15 +5,15 @@ using UnityEngine;
 namespace RPG.Characters
 {
     [Serializable]
-    [CreateAssetMenu(menuName = "RPG/Character Stats/Primary Stat")]
-    public class PrimaryStat : ScriptableObject
+    [CreateAssetMenu(menuName = "RPG/Character Stat")]
+    public class CharacterStat : ScriptableObject
     {
         public float BaseValue;
-        [SerializeField] protected List<StatModifier> statModifiers = new List<StatModifier>();
+        [SerializeField] List<StatModifier> statModifiers = new List<StatModifier>();
 
-        [SerializeField] protected float value;
-        protected float lastBaseValue = Mathf.Epsilon;
-        protected bool isDirty = true;
+        [SerializeField] float value;
+        float lastBaseValue = Mathf.Epsilon;
+        bool isDirty = true;
 
         public float Value
         {
@@ -28,6 +28,8 @@ namespace RPG.Characters
                 return value;
             }
         }
+
+        public List<StatModifier> StatModifiers { get { return statModifiers; } }
 
         public void AddModifier(StatModifier mod)
         {

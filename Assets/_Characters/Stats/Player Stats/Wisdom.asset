@@ -13,4 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseValue: 5
   statModifiers: []
-  value: 6
+  value: 0

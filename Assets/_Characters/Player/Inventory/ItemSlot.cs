@@ -2,20 +2,22 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using RPG.CameraUI;
 
 namespace RPG.Characters
 {
     public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
         [SerializeField] Image image;
+        [SerializeField] ItemTooltip itemTooltip;
 
-        public event Action<ItemSlot> OnPointerEnterEvent;
-        public event Action<ItemSlot> OnPointerExitEvent;
-        public event Action<ItemSlot> OnRightClickEvent;
-        public event Action<ItemSlot> OnBeginDragEvent;
-        public event Action<ItemSlot> OnEndDragEvent;
-        public event Action<ItemSlot> OnDragEvent;
-        public event Action<ItemSlot> OnDropEvent;
+        public event Action<ItemSlot> OnPointerEnterEvent = delegate { };
+        public event Action<ItemSlot> OnPointerExitEvent = delegate { };
+        public event Action<ItemSlot> OnRightClickEvent = delegate { };
+        public event Action<ItemSlot> OnBeginDragEvent = delegate { };
+        public event Action<ItemSlot> OnEndDragEvent = delegate { };
+        public event Action<ItemSlot> OnDragEvent = delegate { };
+        public event Action<ItemSlot> OnDropEvent = delegate { };
 
         Color normalColor = Color.white;
         Color disabledColor = Color.clear;
@@ -50,10 +52,7 @@ namespace RPG.Characters
         {
             if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
             {
-                if (OnRightClickEvent != null)
-                {
-                    OnRightClickEvent(this);
-                }
+                OnRightClickEvent(this);
             }
         }
 
@@ -63,54 +62,47 @@ namespace RPG.Characters
             {
                 image = GetComponent<Image>();
             }
+
+            if (itemTooltip == null)
+            {
+                itemTooltip = FindObjectOfType<ItemTooltip>();
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (OnPointerEnterEvent != null)
+            OnPointerEnterEvent(this);
+
+            if (item is EquippableItem)
             {
-                OnPointerEnterEvent(this);
+                itemTooltip.ShowTooltip((EquippableItem)item);
             }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (OnPointerExitEvent != null)
-            {
-                OnPointerExitEvent(this);
-            }
+            OnPointerExitEvent(this);
+            itemTooltip.HideTooltip();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (OnBeginDragEvent!= null)
-            {
-                OnBeginDragEvent(this);
-            }
+            OnBeginDragEvent(this);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (OnEndDragEvent != null)
-            {
-                OnEndDragEvent(this);
-            }
+            OnEndDragEvent(this);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (OnDragEvent != null)
-            {
-                OnDragEvent(this);
-            }
+            OnDragEvent(this);
         }
 
         public void OnDrop(PointerEventData eventData)
         {
-            if (OnDropEvent != null)
-            {
-                OnDropEvent(this);
-            }
+            OnDropEvent(this);
         }
     }
 }

@@ -45,5 +45,5 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 1341953783385292, guid: fe7ee932bdee3c4479267f2ce8f0e729,
     type: 2}
   AnimationTrigger: ArrowImpact
-  ReliantStat: {fileID: 11400000, guid: a58e4582c6cf97a48ab240e4b3a3058f, type: 2}
+  ReliantStat: {fileID: 11400000, guid: d2ddda1fe9a62dd48854fd6d5944b7b1, type: 2}
   StatMultiplier: 0.25

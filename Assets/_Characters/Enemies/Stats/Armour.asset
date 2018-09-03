@@ -8,10 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 553b8a666e324d14990cd465b3bff1db, type: 3}
+  m_Script: {fileID: 11500000, guid: 3150c645732baf24dad62e315d87d3c4, type: 3}
   m_Name: Armour
   m_EditorClassIdentifier: 
-  BaseValue: 0
+  BaseValue: 1
   statModifiers: []
   value: 0
-  AssociatedCharacter: {fileID: 0}

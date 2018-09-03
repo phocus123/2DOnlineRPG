@@ -6,81 +6,53 @@ namespace RPG.CameraUI
 {
     public class StatPanel : MonoBehaviour
     {
-        [Header("Primary Stats")]
-        [SerializeField] StatDisplay[] primaryStatDisplays;
-        [SerializeField] string[] primaryStatNames;
-        [Header("Secondary Stats")]
-        [SerializeField] StatDisplay[] secondaryStatDisplays;
-        [SerializeField] string[] secondaryStatNames;
+        [SerializeField] StatDisplay[] StatDisplays;
+        [SerializeField] string[] statNames;
 
-        PrimaryStat[] primaryStats;
-        SecondaryStat[] secondaryStats;
+        CharacterStat[] characterStats;
 
         private void OnValidate()
         {
+            StatDisplays = GetComponentsInChildren<StatDisplay>();
             UpdateStatNames();
         }
 
-        public void SetPrimaryStats(PrimaryStat[] primaryStats)
+        public void SetPrimaryStats(CharacterStat[] primaryStats)
         {
-            this.primaryStats = primaryStats;
+            this.characterStats = primaryStats;
 
-            if (this.primaryStats.Length > primaryStatDisplays.Length)
+            if (this.characterStats.Length > StatDisplays.Length)
             {
-                Debug.LogError("Not enough stat displays.");
+                Debug.LogError("Not enough stat displays."); 
                 return;
             }
 
-            for (int i = 0; i < primaryStatDisplays.Length; i++)
+            for (int i = 0; i < StatDisplays.Length; i++)
             {
-                primaryStatDisplays[i].gameObject.SetActive(i < this.primaryStats.Length);
-            }
-        }
+                StatDisplays[i].gameObject.SetActive(i < this.characterStats.Length);
 
-        public void SetSecondaryStats(params SecondaryStat[] secondaryStats)
-        {
-            this.secondaryStats = secondaryStats;
-
-            if (this.secondaryStats.Length > secondaryStatDisplays.Length)
-            {
-                Debug.LogError("Not enough stat displays.");
-                return;
-            }
-
-            for (int i = 0; i < secondaryStatDisplays.Length; i++)
-            {
-                secondaryStatDisplays[i].gameObject.SetActive(i < this.secondaryStats.Length);
+                if (i < primaryStats.Length)
+                {
+                     StatDisplays[i].Stat = primaryStats[i];
+                }
             }
         }
 
         public void UpdateStatValues()
         {
-            for (int i = 0; i < primaryStats.Length; i++)
+            for (int i = 0; i < characterStats.Length; i++)
             {
-                primaryStatDisplays[i].ValueText.text = primaryStats[i].Value.ToString();
-            }
-
-            for (int i = 0; i < secondaryStats.Length; i++)
-            {
-                secondaryStatDisplays[i].ValueText.text = secondaryStats[i].Value.ToString();
+                StatDisplays[i].UpdateStatValue();
             }
         }
 
         public void UpdateStatNames()
         {
-            if (primaryStatNames.Length > 0)
+            if (statNames.Length > 0)
             {
-                for (int i = 0; i < primaryStatNames.Length; i++)
+                for (int i = 0; i < statNames.Length; i++)
                 {
-                    primaryStatDisplays[i].NameText.text = primaryStatNames[i];
-                }
-            }
-
-            if (secondaryStatNames.Length > 0)
-            {
-                for (int i = 0; i < secondaryStatNames.Length; i++)
-                {
-                    secondaryStatDisplays[i].NameText.text = secondaryStatNames[i];
+                    StatDisplays[i].NameText.text = statNames[i];
                 }
             }
         }
