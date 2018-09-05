@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba7e7a76f3d681647b49d7c319d8b521, type: 3}
+  m_Name: Greater Heal
+  m_EditorClassIdentifier: 
+  Description: A direct healing spell that can be cast on oneself or a friendly target.
+  icon: {fileID: 21300000, guid: f82ed8b8004af914d84aeb0a42360f4e, type: 3}
+  WeaponType: 3
+  AnimationName: Cast
+  Guild: {fileID: 11400000, guid: d34c924de1d5cd24abe895ae808712da, type: 2}
+  abilityRange: 0
+  level: 0
+  abilitySpeed:
+    statName: Ability Speed
+    Value: 3
+    statOperator: 1
+  cooldown:
+    statName: Cooldown
+    Value: 12
+    statOperator: 1
+  energy:
+    statName: Energy
+    Value: 20
+    statOperator: 1
+  cooldownActive: 1
+  healAmount:
+    statName: Heal Amount
+    Value: 80
+    statOperator: 0
+  critChance:
+    statName: Critical Chance
+    Value: 5
+    statOperator: 0
+  critEffect:
+    statName: Critical Effect
+    Value: 0.25
+    statOperator: 0
+  projectilePrefab: {fileID: 0}
+  hitAnimationName: 
+  reliantStat: {fileID: 11400000, guid: bba01158cf86aed4b851964290299b0a, type: 2}
+  statMultiplier: 0.5

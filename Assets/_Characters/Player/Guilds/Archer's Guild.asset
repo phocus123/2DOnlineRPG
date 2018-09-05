@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guildAbilities:
   - {fileID: 11400000, guid: 561a6e2555a336744a84c6e569bd6159, type: 2}
-  guildLeader: {fileID: 114668102055510012, guid: 2d47dc0713bb693498ae0457bc6ba55d,
+  guildLeader: {fileID: 114601008329834120, guid: 078ee51755c8fae4f83dd15d5473b815,
     type: 2}
   guildMaterial: {fileID: 2100000, guid: 3eeeba5bcc19d37459c2a9ded796aaca, type: 2}

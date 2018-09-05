@@ -51,7 +51,7 @@ namespace RPG.Characters
         {
             if (rigidBody != null)
             {
-                rigidBody.velocity = direction.normalized * GetComponent<CharacterManager>().MoveSpeed;
+                rigidBody.velocity = direction.normalized * GetComponent<Character>().MoveSpeed;
             }
         }
 

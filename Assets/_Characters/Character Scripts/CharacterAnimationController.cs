@@ -9,7 +9,7 @@ namespace RPG.Characters
     {
         [SerializeField] RuntimeAnimatorController runtimeAnimatorController;
 
-        CharacterManager characterManager;
+        Character characterManager;
         CharacterMovementController characterMovementController;
         HealthController healthController;
         Animator animator;
@@ -24,7 +24,7 @@ namespace RPG.Characters
 
         void Awake()
         {
-            characterManager = GetComponent<CharacterManager>();
+            characterManager = GetComponent<Character>();
             characterMovementController = GetComponent<CharacterMovementController>();
             healthController = GetComponent<HealthController>();
 

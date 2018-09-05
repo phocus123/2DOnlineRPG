@@ -16,7 +16,7 @@ namespace RPG.CameraUI
 
         public override List<AbilityStat> ReturnStats()
         {
-            attackSpeed = ability.AttackSpeed;
+            attackSpeed = ability.AbilitySpeed;
             cooldown = ability.Cooldown;
             energy = ability.Energy;
             damage = (ability as BasicShotConfig).Damage;

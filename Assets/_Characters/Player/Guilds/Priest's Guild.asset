@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: Priest's Guild
   m_EditorClassIdentifier: 
   guildAbilities: []
-  guildLeader: {fileID: 114740145379598244, guid: 58064b438d8b9074db8c7311eb8ecdec,
+  guildLeader: {fileID: 114601008329834120, guid: 302847875689af643b83ce3562a75a56,
     type: 2}
   guildMaterial: {fileID: 2100000, guid: 25703dfcc2893bd43aacf9bcaa034024, type: 2}

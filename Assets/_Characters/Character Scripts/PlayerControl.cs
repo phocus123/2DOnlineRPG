@@ -107,16 +107,13 @@ namespace RPG.Characters
         void ActivateAttack(AbilityBehaviour abilityBehaviour)
         {
             var abilityController = GetComponent<AbilityController>();
-            var characterManager = GetComponent<CharacterManager>();
+            var characterManager = GetComponent<Character>();
             var weaponController = GetComponent<WeaponController>();
 
             weaponController.Block(exitIndex);
 
-            if (target != null && weaponController.CorrectWeaponTypeEquipped(abilityBehaviour.Ability.WeaponType) && weaponController.IsTargetInRange(abilityBehaviour.Ability.AttackRange, target) && !characterManager.IsAttacking && !GetComponent<CharacterMovementController>().IsMoving && weaponController.InLineOfSight(target))
-            {
-                originalTarget = target;
-                abilityController.AttemptAbility(abilityBehaviour, originalTarget);
-            }
+            originalTarget = target;
+            abilityController.AttemptAbility(abilityBehaviour, originalTarget);
         }
 
         void OnMouseOverEnemy(GameObject enemy)

@@ -9,7 +9,7 @@ namespace RPG.Characters
     {
         public override void PerformEventAction(NPCControl npc)
         {
-            string characterName = npc.GetComponent<CharacterManager>().CharacterName;
+            string characterName = npc.GetComponent<Character>().CharacterName;
             Guild[] guildList = FindObjectOfType<GameManager>().MasterGuildList;
             Guild guildToOpen = Array.Find(guildList, x => x.GuildLeader.CharacterName == characterName);
 

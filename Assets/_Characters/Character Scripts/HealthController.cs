@@ -16,7 +16,7 @@ namespace RPG.Characters
         [SerializeField] CanvasGroup enemyHealthCanvas;
         [SerializeField] Text targetHealthbarText;
 
-        CharacterManager characterManager;
+        Character characterManager;
         [SerializeField] float currentHealthPoints;
 
         public float HealthAsPercentage { get { return currentHealthPoints / characterManager.MaxHealthPoints; } }
@@ -36,7 +36,7 @@ namespace RPG.Characters
 
         void Start()
         {
-            characterManager = GetComponent<CharacterManager>();
+            characterManager = GetComponent<Character>();
             currentHealthPoints = characterManager.MaxHealthPoints;
         }
 

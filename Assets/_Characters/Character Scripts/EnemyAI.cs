@@ -10,7 +10,7 @@ namespace RPG.Characters
         [SerializeField] EnemyRange enemyRange;
 
         GameObject target;
-        CharacterManager characterManager;
+        Character characterManager;
         GameManager gameManager;
         HealthController healthController;
         WeaponController weaponController;
@@ -37,7 +37,7 @@ namespace RPG.Characters
 
         private void Awake()
         {
-            characterManager = GetComponent<CharacterManager>();
+            characterManager = GetComponent<Character>();
             healthController = GetComponent<HealthController>();
             gameManager = FindObjectOfType<GameManager>();
             abilityController = GetComponent<AbilityController>();
@@ -61,7 +61,7 @@ namespace RPG.Characters
 
         void OnUpdateGetWeapon()
         {
-            currentWeaponRange = abilityController.Abilities[0].AttackRange;
+            currentWeaponRange = abilityController.Abilities[0].AbilityRange;
         }
 
         void OnUpdateGetRanges()
@@ -168,7 +168,7 @@ namespace RPG.Characters
 
             while (attackerStillAlive && targetStillAlive)
             {
-                float timeToWait = abilityBehaviour.Ability.AttackSpeed.Value;
+                float timeToWait = abilityBehaviour.Ability.AbilitySpeed.Value;
                 bool isTimeToHitAgain = Time.time - lastHitTime > timeToWait;
 
                 if (isTimeToHitAgain && !characterManager.IsAttacking)

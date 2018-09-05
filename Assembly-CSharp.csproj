@@ -71,6 +71,7 @@
     <Compile Include="Assets\_CameraUI\Ability\BasicShotUI.cs" />
     <Compile Include="Assets\_CameraUI\Ability\DaggerSlashUI.cs" />
     <Compile Include="Assets\_CameraUI\Ability\FireballUI.cs" />
+    <Compile Include="Assets\_CameraUI\Ability\HealUI.cs" />
     <Compile Include="Assets\_CameraUI\ActionButton.cs" />
     <Compile Include="Assets\_CameraUI\CameraFollow.cs" />
     <Compile Include="Assets\_CameraUI\CameraRaycaster.cs" />
@@ -120,9 +121,8 @@
     <Compile Include="Assets\_CameraUI\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\_Characters\Block.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\AbilityController.cs" />
-    <Compile Include="Assets\_Characters\Character Scripts\AttackController.cs" />
+    <Compile Include="Assets\_Characters\Character Scripts\Character.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\CharacterAnimationController.cs" />
-    <Compile Include="Assets\_Characters\Character Scripts\CharacterManager.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\CharacterMovementController.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\DamageController.cs" />
     <Compile Include="Assets\_Characters\Character Scripts\EnemyAI.cs" />
@@ -149,6 +149,8 @@
     <Compile Include="Assets\_Characters\Player\Abilities\Dagger Slash\DaggerSlashConfig.cs" />
     <Compile Include="Assets\_Characters\Player\Abilities\Fireball\FireballBehaviour.cs" />
     <Compile Include="Assets\_Characters\Player\Abilities\Fireball\FireballConfig.cs" />
+    <Compile Include="Assets\_Characters\Player\Abilities\Healing Spells\HealBehaviour.cs" />
+    <Compile Include="Assets\_Characters\Player\Abilities\Healing Spells\HealConfig.cs" />
     <Compile Include="Assets\_Characters\Player\Abilities\ImpactBehaviour.cs" />
     <Compile Include="Assets\_Characters\Player\Abilities\LevelExperienceCosts.cs" />
     <Compile Include="Assets\_Characters\Player\Abilities\Projectile.cs" />
@@ -159,8 +161,11 @@
     <Compile Include="Assets\_Characters\Player\Inventory\GearSlot.cs" />
     <Compile Include="Assets\_Characters\Player\Inventory\Inventory.cs" />
     <Compile Include="Assets\_Characters\Player\Inventory\Item.cs" />
+    <Compile Include="Assets\_Characters\Player\Inventory\Items\InstantHealEffect.cs" />
+    <Compile Include="Assets\_Characters\Player\Inventory\Items\UseableItemEffect.cs" />
     <Compile Include="Assets\_Characters\Player\Inventory\Items\Weapons\Weapon.cs" />
     <Compile Include="Assets\_Characters\Player\Inventory\ItemSlot.cs" />
+    <Compile Include="Assets\_Characters\Player\Inventory\UseableItem.cs" />
     <Compile Include="Assets\_Characters\Stats\CharacterStat.cs" />
     <Compile Include="Assets\_Characters\Stats\StatModifier.cs" />
     <Compile Include="Assets\_Core\AbilityAdvancement.cs" />

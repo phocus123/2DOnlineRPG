@@ -5,8 +5,6 @@ namespace RPG.Characters
     public class WeaponController : MonoBehaviour
     {
         [SerializeField] Block[] blockArray;
-        [Header("Enemy Weapon")]
-        [SerializeField] Weapon enemyWeapon; //TODO These don't really need to be serialized.
         [Header("Player Weapons")]
         [SerializeField] Weapon primaryWeapon;//TODO These don't really need to be serialized.
         [SerializeField] GearSlot weaponSlot;
@@ -20,11 +18,6 @@ namespace RPG.Characters
         }
 
         const int BLOCK_LAYER = 9;
-
-        public Weapon GetWeapon()
-        {
-            return enemyWeapon;
-        }
 
         public void Block(int exitIndex)
         {
@@ -62,10 +55,16 @@ namespace RPG.Characters
 
         public bool CorrectWeaponTypeEquipped(WeaponType weaponType)
         {
-            if (primaryWeapon != null)
+            if (weaponType != WeaponType.None)
             {
-                return weaponType == primaryWeapon.WeaponType;
+                if (primaryWeapon != null)
+                {
+                    return weaponType == primaryWeapon.WeaponType;
+                }
             }
+            else
+                return true;
+
             return false;
         }
 

@@ -16,9 +16,9 @@ MonoBehaviour:
   WeaponType: 2
   AnimationName: Cast
   Guild: {fileID: 11400000, guid: d4a0426d23676b2448523016a05b3e0f, type: 2}
-  attackRange: 3
+  abilityRange: 3
   level: 0
-  attackSpeed:
+  abilitySpeed:
     statName: 
     Value: 3
     statOperator: 0
@@ -30,20 +30,21 @@ MonoBehaviour:
     statName: 
     Value: 15
     statOperator: 0
-  Damage:
+  cooldownActive: 0
+  damage:
     statName: Damage
     Value: 15
     statOperator: 0
-  CritChance:
+  critChance:
     statName: Critical Chance
     Value: 5
     statOperator: 0
-  CritEffect:
+  critEffect:
     statName: Critical Effect
     Value: 0.25
     statOperator: 0
-  ProjectilePrefab: {fileID: 1516577970113520, guid: 3551c4cef90f4a74eafafd5f4dfb6b24,
+  projectilePrefab: {fileID: 1516577970113520, guid: 3551c4cef90f4a74eafafd5f4dfb6b24,
     type: 2}
-  AnimationTrigger: FireballImpact
-  ReliantStat: {fileID: 11400000, guid: dda956745728464439f8a87ef0526ec1, type: 2}
-  StatMultiplier: 0.5
+  hitAnimationName: FireballImpact
+  reliantStat: {fileID: 0}
+  statMultiplier: 0

@@ -77,10 +77,10 @@ namespace RPG.Core
             playerExperienceText.text = "Experience: " + gameManager.PlayerExperience.ToString();
         }
 
-        public void TriggerCombatText(Vector2 position, float healthValue)
+        public void TriggerCombatText(Vector2 position, float healthValue, CombatTextType combatTextType)
         {
             GameObject combatText = Instantiate(combatTextPrefab, position, Quaternion.identity, combatTextCanvas.transform);
-            combatText.GetComponent<CombatText>().Initialise(speed, Vector2.up);
+            combatText.GetComponent<CombatText>().Initialise(speed, Vector2.up, combatTextType);
             combatText.GetComponent<TextMeshProUGUI>().text = healthValue.ToString();
         }
     }

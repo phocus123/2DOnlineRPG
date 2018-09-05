@@ -13,8 +13,13 @@ namespace RPG.Characters
 
         void OnValidate()
         {
-            string path = AssetDatabase.GetAssetPath(this);
-            id = AssetDatabase.AssetPathToGUID(path);
+            //string path = AssetDatabase.GetAssetPath(this);
+            //id = AssetDatabase.AssetPathToGUID(path);
+        }
+
+        public virtual void Destroy()
+        {
+
         }
     }
 }

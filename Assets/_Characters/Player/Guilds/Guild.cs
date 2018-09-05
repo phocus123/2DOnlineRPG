@@ -8,11 +8,11 @@ namespace RPG.Characters
     public class Guild : ScriptableObject
     {
         [SerializeField] Ability[] guildAbilities;
-        [SerializeField] CharacterManager guildLeader;
+        [SerializeField] Character guildLeader;
         [SerializeField] Material guildMaterial;
 
         public Ability[] GuildAbilities { get { return guildAbilities; } }
-        public CharacterManager GuildLeader { get { return guildLeader; } }
+        public Character GuildLeader { get { return guildLeader; } }
         public Material GuildMaterial { get { return guildMaterial; } }
     }
 }

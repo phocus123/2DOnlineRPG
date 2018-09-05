@@ -7,7 +7,8 @@ namespace RPG.Characters
     {
         Dagger,
         Bow,
-        Magic
+        Magic,
+        None
     }
 
     [CreateAssetMenu(menuName = "RPG/Items/Weapon")]

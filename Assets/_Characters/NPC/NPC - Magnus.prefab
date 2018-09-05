@@ -224,10 +224,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d7c459be143544ab904c1c91c2e1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  nameText: {fileID: 114209851008510556}
   characterName: Magnus
+  nameText: {fileID: 114209851008510556}
+  moveSpeed: 0
+  maxHealthPoints: 0
+  maxEnergyPoints: 0
+  characterStats: []
+  exitPoints: []
+  colliderOffset: {x: 0, y: 0}
+  colliderSize: {x: 0, y: 0}
+  statPanel: {fileID: 0}
   experienceWorth: 0
+  aggroRange: 0
 --- !u!114 &114812705359130226
 MonoBehaviour:
   m_ObjectHideFlags: 1

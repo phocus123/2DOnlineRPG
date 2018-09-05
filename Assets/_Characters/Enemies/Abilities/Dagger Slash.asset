@@ -16,11 +16,11 @@ MonoBehaviour:
   WeaponType: 0
   AnimationName: Slash
   Guild: {fileID: 11400000, guid: d353d0b6fe96c734891d27eab6f034d3, type: 2}
-  attackRange: 0.7
+  abilityRange: 0.7
   level: 0
-  attackSpeed:
+  abilitySpeed:
     statName: 
-    Value: 1.6
+    Value: 0.7
     statOperator: 0
   cooldown:
     statName: 
@@ -30,17 +30,20 @@ MonoBehaviour:
     statName: 
     Value: 7
     statOperator: 0
-  Damage:
+  cooldownActive: 0
+  damage:
     statName: Damage
     Value: 10
     statOperator: 0
-  CritChance:
+  critChance:
     statName: Critical Chance
-    Value: 5
+    Value: 10
     statOperator: 0
-  CritEffect:
+  critEffect:
     statName: Critical Effect
-    Value: 0.25
+    Value: 0.5
     statOperator: 0
-  ReliantStat: {fileID: 11400000, guid: a58e4582c6cf97a48ab240e4b3a3058f, type: 2}
-  StatMultiplier: 0.25
+  projectilePrefab: {fileID: 0}
+  hitAnimationName: MeleeImpact
+  reliantStat: {fileID: 0}
+  statMultiplier: 0

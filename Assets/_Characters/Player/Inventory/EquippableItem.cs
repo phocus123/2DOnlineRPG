@@ -41,7 +41,7 @@ namespace RPG.Characters
 
         public AnimationClip[] AnimationClips { get { return animationClips; } }
 
-        public void Equip(CharacterManager characterStats)
+        public void Equip(Character characterStats)
         {
             if (ConstitutionBonus != 0)
             {
@@ -71,7 +71,7 @@ namespace RPG.Characters
             ItemEquipped(EquipmentType, this);
         }
 
-        public void UnEquip(CharacterManager characterStats)
+        public void UnEquip(Character characterStats)
         {
             characterStats.CharacterrStats[0].RemoveAllModifiersFromSource(this);
             characterStats.CharacterrStats[1].RemoveAllModifiersFromSource(this);

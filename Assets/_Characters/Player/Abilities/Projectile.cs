@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace RPG.Characters
 {
@@ -13,10 +14,14 @@ namespace RPG.Characters
 
         Rigidbody2D rigidBody;
         AbilityUseParams abilityUseParams;
+        bool hasHitTarget;
+
+        public bool HasHitTarget { get { return hasHitTarget; } }
 
         void Start()
         {
             rigidBody = GetComponent<Rigidbody2D>();
+            hasHitTarget = false;
         }
 
         void FixedUpdate()
@@ -41,7 +46,8 @@ namespace RPG.Characters
         {
             if (collision.tag == "Hitbox" && collision.transform.parent == Target)
             {
-                GetComponent<Animator>().SetTrigger(abilityUseParams.animationTrigger);
+                hasHitTarget = true;
+                GetComponent<Animator>().SetTrigger(abilityUseParams.hitAnimationName);
 
                 InvokeOnHitTarget(abilityUseParams);
                 rigidBody.velocity = Vector2.zero;

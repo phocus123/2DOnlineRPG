@@ -18,7 +18,7 @@ namespace RPG.Characters
         [SerializeField] Image targetFrameEnergybar;
         [SerializeField] Text targetEnergybarText;
 
-        CharacterManager characterManager;
+        Character characterManager;
         List<AbilityBehaviour> equippedAbilityBehaviours = new List<AbilityBehaviour>();
         float currentEnergyPoints;
 
@@ -37,7 +37,7 @@ namespace RPG.Characters
 
         void Start()
         {
-            characterManager = GetComponent<CharacterManager>();
+            characterManager = GetComponent<Character>();
 
             AttachInitialAbilities();
             currentEnergyPoints = characterManager.MaxEnergyPoints;

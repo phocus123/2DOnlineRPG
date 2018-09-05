@@ -7,19 +7,19 @@ namespace RPG.Characters
     public class DamageController : MonoBehaviour
     {
         AbilityUseParams abilityUseParams;
-        CharacterManager characterManager;
+        Character characterManager;
 
         public void DealDamage(AbilityUseParams useParams)
         {
             abilityUseParams = useParams;
-            characterManager = abilityUseParams.ability.Behaviour.Character.GetComponent<CharacterManager>();
+            characterManager = abilityUseParams.ability.Behaviour.Character.GetComponent<Character>();
             var enemyHealthController = useParams.target.GetComponent<HealthController>();
             float primaryStatDamage = CalculatePrimaryStatMultiplier();
             float finalDamage = primaryStatDamage - GetArmourValue(abilityUseParams.target);
             var uiManager = FindObjectOfType<UIManager>();
 
             enemyHealthController.TakeDamage(finalDamage);
-            uiManager.TriggerCombatText(enemyHealthController.gameObject.transform.position, finalDamage);
+            uiManager.TriggerCombatText(enemyHealthController.gameObject.transform.position, finalDamage, CombatTextType.NormalDamage);
         }
 
         float CalculatePrimaryStatMultiplier()
@@ -45,7 +45,7 @@ namespace RPG.Characters
 
         float GetArmourValue(GameObject target)
         {
-            var targetStats = target.GetComponent<CharacterManager>().CharacterrStats;
+            var targetStats = target.GetComponent<Character>().CharacterrStats;
             var armourStat = Array.Find(targetStats, x => x.name == "Armour");
             return armourStat.Value;
         }

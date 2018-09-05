@@ -7,21 +7,44 @@ namespace RPG.Characters
     public class FireballConfig : Ability
     {
         [Header("Fireball")]
-        public AbilityStat Damage;
-        public AbilityStat CritChance;
-        public AbilityStat CritEffect;
-        public GameObject ProjectilePrefab;
-        public string AnimationTrigger;
+        [SerializeField] AbilityStat damage;
+        [SerializeField] AbilityStat critChance;
+        [SerializeField] AbilityStat critEffect;
+        [SerializeField] GameObject projectilePrefab;
+        [SerializeField] string hitAnimationName;
 
         [Header("Character Stats")]
-        public CharacterStat ReliantStat;
-        public float StatMultiplier;
+        [SerializeField] CharacterStat reliantStat;
+        [SerializeField] float statMultiplier;
+
+        public AbilityStat Damage
+        {
+            get { return damage; }
+            set { damage = value; }
+        }
+
+        public AbilityStat CritChance
+        {
+            get { return critChance; }
+            set { critChance = value; }
+        }
+
+        public AbilityStat CritEffect
+        {
+            get{ return critEffect; }
+            set{ critEffect = value; }
+        }
+
+        public GameObject ProjectilePrefab { get { return projectilePrefab; } }
+        public string HitAnimationName { get { return hitAnimationName; } }
+        public CharacterStat ReliantStat { get { return reliantStat; } }
+        public float StatMultiplier { get { return statMultiplier; } }
 
         void OnValidate()
         {
-            Damage.statName = "Damage";
-            CritChance.statName = "Critical Chance";
-            CritEffect.statName = "Critical Effect";
+            damage.statName = "Damage";
+            critChance.statName = "Critical Chance";
+            critEffect.statName = "Critical Effect";
         }
 
         public override AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo)

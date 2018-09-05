@@ -38,8 +38,7 @@ namespace RPG.CameraUI
         {
             if (Ability != null)
             {
-                var characterAttackController = Ability.Behaviour.Character.GetComponent<AttackController>();
-                characterAttackController.OnAttackInitiated += TriggerCooldownMask; 
+                Ability.Behaviour.OnAttackInitiated += TriggerCooldownMask; 
                 InvokeOnActionButtonClicked(Ability.Behaviour);
             }
         }
@@ -47,6 +46,7 @@ namespace RPG.CameraUI
         private void TriggerCooldownMask(float time)
         {
             StartCoroutine(StartCooldownTimer(time));
+            Ability.Behaviour.OnAttackInitiated -= TriggerCooldownMask;
         }
 
         IEnumerator StartCooldownTimer(float time)

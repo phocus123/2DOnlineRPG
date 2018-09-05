@@ -27,7 +27,7 @@ namespace RPG.CameraUI
         public void Initialize(NPCControl npc)
         {
             this.npc = npc;
-            npcName.text = npc.GetComponent<CharacterManager>().CharacterName; 
+            npcName.text = npc.GetComponent<Character>().CharacterName; 
             mainText.text = npc.NpcDialogue.NPCIntroduction;
             UIHelper.ToggleCanvasGroup(buttonOptions);
 
@@ -77,7 +77,6 @@ namespace RPG.CameraUI
             UpdateContinueButton(buttonIndex, linesIndex + 1);
             continueButton.onClick.AddListener(() => NextDialogueLine(buttonIndex));
             returnButton.onClick.AddListener(() => OpenDialogueOptionsCanvas());
-
             if (npc.NpcDialogue.DialogueButtons.buttonOptions[buttonIndex].dialogueEvent)
             {
                 npc.NpcDialogue.DialogueButtons.buttonOptions[buttonIndex].dialogueEvent.PerformEventAction(npc);

@@ -12,7 +12,7 @@ namespace RPG.Characters
         public override void PerformEventAction(NPCControl npc)
         {
             GameManager gameManager = FindObjectOfType<GameManager>();
-            CharacterManager npcCharacter = npc.GetComponent<CharacterManager>();
+            Character npcCharacter = npc.GetComponent<Character>();
             Guild guildToJoin = Array.Find(gameManager.MasterGuildList, x => x.GuildLeader.CharacterName == npcCharacter.CharacterName);
 
             InviteToGuild(guildToJoin);

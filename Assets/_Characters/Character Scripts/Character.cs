@@ -4,7 +4,7 @@ using RPG.CameraUI;
 
 namespace RPG.Characters
 {
-    public class CharacterManager : MonoBehaviour
+    public class Character : MonoBehaviour
     {
         [Header("All Characters")]
         [SerializeField] string characterName;

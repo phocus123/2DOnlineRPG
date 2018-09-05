@@ -1,20 +1,50 @@
 ﻿using UnityEngine;
+using RPG.Core;
+using RPG.CameraUI;
+using System.Collections;
 
 namespace RPG.Characters
 {
     public class FireballBehaviour : AbilityBehaviour
     {
-        public override void Use(GameObject target)
+        void Start()
         {
-            StartAttack(target);
+            if (castbar == null && GetComponent<PlayerControl>())
+                castbar = FindObjectOfType<Castbar>();
+            if (uIManager == null)
+                uIManager = FindObjectOfType<UIManager>();
+            if (damageController == null)
+                damageController = GetComponent<DamageController>();
+            if (weaponController == null)
+                weaponController = GetComponent<WeaponController>();
+            if (characterMovementController == null)
+                characterMovementController = GetComponent<CharacterMovementController>();
+            if (characterAnimationController == null)
+                characterAnimationController = GetComponent<CharacterAnimationController>();
         }
 
-        void StartAttack(GameObject target)
+        private void Update()
         {
-            var useParams = GetUseParams(target);
-            var characterAttackController = GetComponent<AttackController>();
+            StopAttackIfMoving();
+        }
 
-            characterAttackController.Attack(useParams);
+        public override void Use(GameObject target)
+        {
+            currentTarget = target.GetComponent<Character>();
+            var useParams = GetUseParams(target);
+
+            if (GetComponent<PlayerControl>())
+            {
+                if (TargetExists && CorrectWeaponType && TargetInRange && NotCurrentlyAttacking && NotCurrentlyMoving && TargetInLineOfSight)
+                {
+                    castbar.TriggerCastBar(ability);
+                    attackRoutine = StartCoroutine(PerformFireball(useParams));
+                }
+            }
+            else if (GetComponent<EnemyAI>())
+            {
+                attackRoutine = StartCoroutine(PerformFireball(useParams));
+            }
         }
 
         AbilityUseParams GetUseParams(GameObject target)
@@ -24,11 +54,24 @@ namespace RPG.Characters
             string animationName = (ability as FireballConfig).AnimationName;
             CharacterStat reliantStat = (ability as FireballConfig).ReliantStat;
             float statMultiplier = (ability as FireballConfig).StatMultiplier;
-            string animationTrigger = (ability as FireballConfig).AnimationTrigger;
+            var hitAnimationName = (ability as FireballConfig).HitAnimationName;
 
-            AbilityUseParams useParams = new AbilityUseParams(target, damage, projectilePrefab, ability, reliantStat, statMultiplier, animationTrigger);
+            AbilityUseParams useParams = new AbilityUseParams(target, damage, projectilePrefab, ability, reliantStat, statMultiplier, hitAnimationName);
 
             return useParams;
+        }
+
+        IEnumerator PerformFireball(AbilityUseParams useParams)
+        {
+            characterAnimationController.StartAttackAnimation(ability.AnimationName);
+
+            yield return new WaitForSeconds(ability.AbilitySpeed.Value);
+
+            Projectile attack = Instantiate(useParams.projectilePrefab, Character.ExitPoints[Character.ExitIndex].position, Quaternion.identity).GetComponent<Projectile>();
+            attack.Initialize(useParams.target.transform, useParams);
+            attack.InvokeOnHitTarget += damageController.DealDamage;
+            StopAttack(ability.AnimationName);
+            StartCoroutine(UnregisterProjectileEvent(attack, damageController));
         }
     }
 }

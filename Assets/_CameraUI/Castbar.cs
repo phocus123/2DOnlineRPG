@@ -42,7 +42,7 @@ namespace RPG.CameraUI
         private IEnumerator Progress(Ability ability)
         {
             float timePassed = Time.deltaTime;
-            float rate = 1.0f / ability.AttackSpeed.Value;
+            float rate = 1.0f / ability.AbilitySpeed.Value;
             float progress = 0.0f;
 
             while (progress <= 1.0)
@@ -50,9 +50,9 @@ namespace RPG.CameraUI
                 castingBar.fillAmount = Mathf.Lerp(0, 1, progress);
                 progress += rate * Time.deltaTime;
                 timePassed += Time.deltaTime;
-                casttime.text = (ability.AttackSpeed.Value - timePassed).ToString("F2");
+                casttime.text = (ability.AbilitySpeed.Value - timePassed).ToString("F2");
 
-                if (ability.AttackSpeed.Value - timePassed < 0)
+                if (ability.AbilitySpeed.Value - timePassed < 0)
                 {
                     casttime.text = "0.00";
                 }
