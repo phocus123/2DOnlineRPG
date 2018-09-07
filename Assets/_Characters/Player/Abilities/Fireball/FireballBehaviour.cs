@@ -30,12 +30,14 @@ namespace RPG.Characters
 
         public override void Use(GameObject target)
         {
-            currentTarget = target.GetComponent<Character>();
+            if(target != null)
+                currentTarget = target.GetComponent<Character>();
+
             var useParams = GetUseParams(target);
 
             if (GetComponent<PlayerControl>())
             {
-                if (TargetExists && CorrectWeaponType && TargetInRange && NotCurrentlyAttacking && NotCurrentlyMoving && TargetInLineOfSight)
+                if (TargetExists && TargetIsAlive && CharacterIsAlive && CorrectWeaponType && TargetInRange && NotCurrentlyAttacking && NotCurrentlyMoving && TargetInLineOfSight)
                 {
                     castbar.TriggerCastBar(ability);
                     attackRoutine = StartCoroutine(PerformFireball(useParams));
@@ -63,7 +65,7 @@ namespace RPG.Characters
 
         IEnumerator PerformFireball(AbilityUseParams useParams)
         {
-            characterAnimationController.StartAttackAnimation(ability.AnimationName);
+            characterAnimationController.StartAbilityAnimation(ability.AnimationName);
 
             yield return new WaitForSeconds(ability.AbilitySpeed.Value);
 

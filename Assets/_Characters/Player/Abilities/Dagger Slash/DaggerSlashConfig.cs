@@ -41,8 +41,10 @@ namespace RPG.Characters
         public CharacterStat ReliantStat { get { return reliantStat; } }
         public float StatMultiplier { get { return statMultiplier; } }
 
-        void OnValidate()
+        protected override void OnValidate()
         {
+            base.OnValidate();
+
             Damage.statName = "Damage";
             CritChance.statName = "Critical Chance";
             CritEffect.statName = "Critical Effect";

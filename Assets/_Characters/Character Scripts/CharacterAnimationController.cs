@@ -37,7 +37,7 @@ namespace RPG.Characters
             HandleLayers();
         }
 
-        public void StartAttackAnimation(string animationName)
+        public void StartAbilityAnimation(string animationName)
         {
             characterManager.IsAttacking = true;
             animator.SetBool(animationName, characterManager.IsAttacking);

@@ -40,11 +40,13 @@ namespace RPG.Characters
         public CharacterStat ReliantStat { get { return reliantStat; } }
         public float StatMultiplier { get { return statMultiplier; } }
 
-        void OnValidate()
+        protected override void OnValidate()
         {
+            base.OnValidate();
+
             healAmount.statName = "Heal Amount";
-            critChance.statName = "Critical Chance";
-            critEffect.statName = "Critical Effect";
+            CritChance.statName = "Critical Chance";
+            CritEffect.statName = "Critical Effect";
         }
 
         public override AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo)

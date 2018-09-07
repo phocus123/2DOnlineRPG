@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using RPG.Characters;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Characters
+namespace RPG.CameraUI
 {
     public abstract class AbilityUI : MonoBehaviour
     {

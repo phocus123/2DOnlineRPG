@@ -32,7 +32,7 @@ namespace RPG.Characters
 
             if (GetComponent<PlayerControl>())
             {
-                if (TargetExists && CorrectWeaponType && TargetInRange && NotCurrentlyAttacking && NotCurrentlyMoving && TargetInLineOfSight)
+                if (TargetExists && TargetIsAlive && CharacterIsAlive && CorrectWeaponType && TargetInRange && NotCurrentlyAttacking && NotCurrentlyMoving && TargetInLineOfSight)
                 {
                     attackRoutine = StartCoroutine(PerformDaggerSlash(useParams));
                 }
@@ -60,8 +60,8 @@ namespace RPG.Characters
         {
             var enemyHitboxAnimator = useParams.target.transform.GetChild(0).GetComponent<Animator>();
 
-            characterAnimationController.StartAttackAnimation(ability.AnimationName);
-            yield return animationDelayRoutine = StartCoroutine(AnimationDelay(MELEE_ANIMATION_DELAY, enemyHitboxAnimator, ANIMATION_TRIGGER_NAME));
+            characterAnimationController.StartAbilityAnimation(ability.AnimationName);
+            yield return animationDelayRoutine = StartCoroutine(AnimationDelay(ANIMATION_DELAY, enemyHitboxAnimator, MeleeTrigger));
             damageController.DealDamage(useParams);
 
             yield return new WaitForSeconds(ability.AbilitySpeed.Value);

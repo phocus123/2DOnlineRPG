@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RPG.CameraUI;
 using UnityEngine;
 
 namespace RPG.Characters
@@ -42,6 +41,13 @@ namespace RPG.Characters
         public AbilityBehaviour Behaviour { get { return behaviour; } }
         public AbilityUI AbilityUI { get { return abilityUI; } }
         public Sprite Icon { get { return icon; } }
+
+        protected virtual void OnValidate()
+        {
+            abilitySpeed.statName = "Ability Speed";
+            cooldown.statName = "Cooldown";
+            energy.statName = "Energy";
+        }
          
         public abstract AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo);
         public abstract AbilityUI GetUIComponent(GameObject objectToAttachTo);

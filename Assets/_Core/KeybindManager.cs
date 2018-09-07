@@ -64,6 +64,7 @@ namespace RPG.Core
             BindKey("ACT3", KeyCode.Alpha3);
             BindKey("ACT4", KeyCode.Alpha4);
             BindKey("ACT5", KeyCode.Alpha5);
+            BindKey("ACT6", KeyCode.Alpha6);
         }
 
 

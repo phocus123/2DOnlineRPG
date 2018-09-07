@@ -5,6 +5,7 @@ using RPG.Characters;
 using System;
 using RPG.Core;
 using System.Collections;
+using TMPro;
 
 namespace RPG.CameraUI
 {
@@ -15,6 +16,7 @@ namespace RPG.CameraUI
 
         [SerializeField] Image icon;
         [SerializeField] Image darkMask;
+        [SerializeField] TextMeshProUGUI cooldownText;
 
         Button button;
         GameManager gameManager;
@@ -52,11 +54,15 @@ namespace RPG.CameraUI
         IEnumerator StartCooldownTimer(float time)
         {
             float timer = 0;
+            icon.color = Color.grey;
+            darkMask.sprite = icon.sprite;
+            darkMask.color = Color.white;
+
             while (time > timer)
             {
                 timer += Time.deltaTime;
-                darkMask.color = new Color(.5f, .5f, .5f, .5f);
                 darkMask.fillAmount = timer / time;
+                cooldownText.text = Mathf.Round(time - timer).ToString();
                 yield return new WaitForEndOfFrame();
             }
             ResetCooldown();
@@ -64,8 +70,11 @@ namespace RPG.CameraUI
 
         void ResetCooldown()
         {
-            darkMask.color = new Color(.5f, .5f, .5f, 0);
+            darkMask.color = Color.clear;
+            darkMask.sprite = null;
+            icon.color = Color.white;
             darkMask.fillAmount = 0;
+            cooldownText.text = string.Empty;
         }
 
         public void SetAbility(Ability ability, DragItem item)

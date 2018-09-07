@@ -7,7 +7,7 @@ using RPG.Characters;
 
 namespace RPG.CameraUI
 {
-    public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     {
         GameManager gameManager;
         GameObject draggingIcon;
@@ -58,6 +58,11 @@ namespace RPG.CameraUI
                 }
                 Destroy(draggingIcon);
             }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            print("test");
         }
     }
 }

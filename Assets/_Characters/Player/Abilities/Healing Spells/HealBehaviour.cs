@@ -30,11 +30,12 @@ namespace RPG.Characters
 
         public override void Use(GameObject target)
         {
-            currentTarget = target.GetComponent<Character>();
+            if(target != null)
+                currentTarget = target.GetComponent<Character>();
 
             if (GetComponent<PlayerControl>())
             {
-                if (CorrectWeaponType && NotCurrentlyAttacking && NotCurrentlyMoving && AbilityCooldownInactive)
+                if (CorrectWeaponType && TargetIsAlive && CharacterIsAlive && NotCurrentlyAttacking && NotCurrentlyMoving && AbilityCooldownInactive)
                 {
 
                     attackRoutine = StartCoroutine(CastHealOnTarget(target));
@@ -50,7 +51,7 @@ namespace RPG.Characters
         {
             var player = GetComponent<PlayerControl>();
 
-            characterAnimationController.StartAttackAnimation(ability.AnimationName);
+            characterAnimationController.StartAbilityAnimation(ability.AnimationName);
 
             if (player)
                 castbar.TriggerCastBar(ability);
@@ -59,12 +60,19 @@ namespace RPG.Characters
 
             if (target == null || target.GetComponent<EnemyAI>())
             {
-                GetComponent<HealthController>().CurrentHealthPoints += (ability as HealConfig).HealAmount.Value;
-                uIManager.TriggerCombatText(transform.position, (ability as HealConfig).HealAmount.Value, CombatTextType.Heal);
+                var targetHitboxAnimator = transform.GetChild(0).GetComponent<Animator>();
+                targetHitboxAnimator.SetTrigger(HealTrigger);
+                HealTarget();
             }
             // else heal friendly target
             TriggerCooldown(ability.Cooldown.Value);
-            StopAttack(ability.AnimationName, castbar);
+            StopAttack(ability.AnimationName);
+        }
+
+        private void HealTarget()
+        {
+            GetComponent<HealthController>().CurrentHealthPoints += (ability as HealConfig).HealAmount.Value;
+            uIManager.TriggerCombatText(transform.position, (ability as HealConfig).HealAmount.Value, CombatTextType.Heal);
         }
     }
 }

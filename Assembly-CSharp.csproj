@@ -72,6 +72,7 @@
     <Compile Include="Assets\_CameraUI\Ability\DaggerSlashUI.cs" />
     <Compile Include="Assets\_CameraUI\Ability\FireballUI.cs" />
     <Compile Include="Assets\_CameraUI\Ability\HealUI.cs" />
+    <Compile Include="Assets\_CameraUI\Ability\RejuvenateUI.cs" />
     <Compile Include="Assets\_CameraUI\ActionButton.cs" />
     <Compile Include="Assets\_CameraUI\CameraFollow.cs" />
     <Compile Include="Assets\_CameraUI\CameraRaycaster.cs" />
@@ -151,6 +152,8 @@
     <Compile Include="Assets\_Characters\Player\Abilities\Fireball\FireballConfig.cs" />
     <Compile Include="Assets\_Characters\Player\Abilities\Healing Spells\HealBehaviour.cs" />
     <Compile Include="Assets\_Characters\Player\Abilities\Healing Spells\HealConfig.cs" />
+    <Compile Include="Assets\_Characters\Player\Abilities\Healing Spells\RejuvenationBehaviour.cs" />
+    <Compile Include="Assets\_Characters\Player\Abilities\Healing Spells\RejuvenationConfig.cs" />
     <Compile Include="Assets\_Characters\Player\Abilities\ImpactBehaviour.cs" />
     <Compile Include="Assets\_Characters\Player\Abilities\LevelExperienceCosts.cs" />
     <Compile Include="Assets\_Characters\Player\Abilities\Projectile.cs" />

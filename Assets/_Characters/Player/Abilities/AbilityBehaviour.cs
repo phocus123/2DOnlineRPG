@@ -20,8 +20,9 @@ namespace RPG.Characters
         protected Coroutine animationDelayRoutine;
         protected Coroutine attackRoutine;
 
-        protected const string ANIMATION_TRIGGER_NAME = "MeleeImpact";
-        protected const float MELEE_ANIMATION_DELAY = 0.5f;
+        protected const string MeleeTrigger = "MeleeImpact";
+        protected const string HealTrigger = "HealImpact";
+        protected const float ANIMATION_DELAY = 0.5f;
 
         Character character;
 
@@ -40,6 +41,8 @@ namespace RPG.Characters
         protected bool TargetExists { get { return currentTarget != null; } }
         protected bool TargetInRange { get { return weaponController.IsTargetInRange(ability.AbilityRange, currentTarget.gameObject); } }
         protected bool TargetInLineOfSight { get { return weaponController.InLineOfSight(currentTarget.gameObject); } }
+        protected bool TargetIsAlive { get { return currentTarget.GetComponent<HealthController>().CurrentHealthPoints > 0; } }
+        protected bool CharacterIsAlive { get { return GetComponent<HealthController>().CurrentHealthPoints > 0; } }
         protected bool CorrectWeaponType { get { return weaponController.CorrectWeaponTypeEquipped(ability.WeaponType); } }
         protected bool NotCurrentlyAttacking { get { return !Character.IsAttacking; } }
         protected bool NotCurrentlyMoving { get { return !characterMovementController.IsMoving; } }
@@ -78,11 +81,11 @@ namespace RPG.Characters
         {
             if (attackRoutine != null && GetComponent<CharacterMovementController>().IsMoving)
             {
-                StopAttack(ability.AnimationName, castbar);
+                StopAttack(ability.AnimationName);
             }
         }
 
-        protected void StopAttack(string animationName, Castbar castbar = null)
+        protected void StopAttack(string animationName)
         {
             if (attackRoutine != null)
             {

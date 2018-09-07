@@ -16,7 +16,7 @@ MonoBehaviour:
   WeaponType: 3
   AnimationName: Cast
   Guild: {fileID: 11400000, guid: d34c924de1d5cd24abe895ae808712da, type: 2}
-  attackRange: 2.5
+  abilityRange: 0
   level: 0
   abilitySpeed:
     statName: Ability Speed
@@ -30,6 +30,7 @@ MonoBehaviour:
     statName: Energy
     Value: 15
     statOperator: 1
+  cooldownActive: 0
   healAmount:
     statName: Heal Amount
     Value: 30
