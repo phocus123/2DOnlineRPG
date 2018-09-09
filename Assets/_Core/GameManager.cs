@@ -1,17 +1,24 @@
 ﻿using RPG.Characters;
 using UnityEngine;
+using RPG.CameraUI;
 
 namespace RPG.Core
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : Singleton<GameManager>
     {
         public delegate void OnExperienceAwarded();
         public event OnExperienceAwarded InvokeOnExperienceAwarded;
 
         [Header("Managers")]
-        public UIManager uiManager;
+        public UIManager uIManager;
         public KeybindManager keybindManager;
         public SaveGameManager savegameManager;
+        public PlayerControl player;
+
+        [Header("UI References")]
+        public AlertMessageController alertMessageController;
+        public Castbar castbar;
+        public AbilityButtonPanel abilityButtonPanel;
 
         [Header("Master Lists")]
         [SerializeField] Ability[] masterAbilityList;
@@ -68,9 +75,9 @@ namespace RPG.Core
 
         void InvokeExperienceEvent()
         {
-            InvokeOnExperienceAwarded += uiManager.UpdateExperienceText;
+            InvokeOnExperienceAwarded += uIManager.UpdateExperienceText;
             InvokeOnExperienceAwarded();
-            InvokeOnExperienceAwarded -= uiManager.UpdateExperienceText;
+            InvokeOnExperienceAwarded -= uIManager.UpdateExperienceText;
         }
 
         void LoadExperienceAmount()
@@ -78,12 +85,12 @@ namespace RPG.Core
             if (savegameManager.PlayerXP > 0)
             {
                 playerExperience = savegameManager.PlayerXP;
-                uiManager.UpdateExperienceText();
+                uIManager.UpdateExperienceText();
             }
             else
             {
                 playerExperience = 0;
-                uiManager.UpdateExperienceText();
+                uIManager.UpdateExperienceText();
             }
         }
     }

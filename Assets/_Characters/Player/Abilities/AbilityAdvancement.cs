@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using RPG.CameraUI;
-using RPG.Characters;
+using RPG.Core;
 
-namespace RPG.Core
+namespace RPG.Characters
 {
     public class AbilityAdvancement : MonoBehaviour
     {

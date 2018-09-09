@@ -1,25 +1,12 @@
-﻿using System.Collections;
+﻿using RPG.Core;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using RPG.Core;
 
 namespace RPG.Characters
 {
     public class DaggerSlashBehaviour : AbilityBehaviour
     {
-        void Start()
-        {
-            if (uIManager == null)
-                uIManager = FindObjectOfType<UIManager>();
-            if (damageController == null)
-                damageController = GetComponent<DamageController>();
-            if (weaponController == null)
-                weaponController = GetComponent<WeaponController>();
-            if (characterMovementController == null)
-                characterMovementController = GetComponent<CharacterMovementController>();
-            if (characterAnimationController == null)
-                characterAnimationController = GetComponent<CharacterAnimationController>();
-        }
-
         private void Update()
         {
             StopAttackIfMoving();
@@ -27,19 +14,50 @@ namespace RPG.Characters
 
         public override void Use(GameObject target)
         {
-            currentTarget = target.GetComponent<Character>();
+            if (target != null)
+                currentTarget = target.GetComponent<Character>();
             var useParams = GetUseParams(target);
 
             if (GetComponent<PlayerControl>())
             {
-                if (TargetExists && TargetIsAlive && CharacterIsAlive && CorrectWeaponType && TargetInRange && NotCurrentlyAttacking && NotCurrentlyMoving && TargetInLineOfSight)
+                if (PerformCombatChecks(out messageType, PopulateCombatChecks()))
                 {
                     attackRoutine = StartCoroutine(PerformDaggerSlash(useParams));
+                    currentTarget = null;
                 }
+                else
+                    GameManager.Instance.alertMessageController.TriggerAlert(messageType);
             }
             else if (GetComponent<EnemyAI>())
             {
                 attackRoutine = StartCoroutine(PerformDaggerSlash(useParams));
+            }
+        }
+
+        List<CombatCheck> PopulateCombatChecks()
+        {
+            if (NoTarget)
+            {
+                List<CombatCheck> combatChecks = new List<CombatCheck>
+                {
+                    new CombatCheck(NoTarget, "NoTarget")
+                };
+                return combatChecks;
+            }
+            else
+            {
+                List<CombatCheck> combatChecks = new List<CombatCheck>
+                {
+                    new CombatCheck(TargetNotInRange, "TargetNotInRange"),
+                    new CombatCheck(TargetNotInLineOfSight, "TargetNotInLineOfSight"),
+                    new CombatCheck(CorrectWeaponNotEquipped, "CorrectWeaponNotEquipped"),
+                    new CombatCheck(TargetNotAlive, "TargetNotAlive"),
+                    new CombatCheck(CharacterNotAlive, "CharacterIsAlive"),
+                    new CombatCheck(IsAttacking, "NotCurrentlyAttacking"),
+                    new CombatCheck(IsMoving, "NotCurrentlyMoving"),
+                    new CombatCheck(AbilityCooldownActive, "AbilityCooldownInactive")
+                };
+                return combatChecks;
             }
         }
 
@@ -60,9 +78,9 @@ namespace RPG.Characters
         {
             var enemyHitboxAnimator = useParams.target.transform.GetChild(0).GetComponent<Animator>();
 
-            characterAnimationController.StartAbilityAnimation(ability.AnimationName);
-            yield return animationDelayRoutine = StartCoroutine(AnimationDelay(ANIMATION_DELAY, enemyHitboxAnimator, MeleeTrigger));
-            damageController.DealDamage(useParams);
+            Character.characterAnimationController.StartAbilityAnimation(ability.AnimationName);
+            yield return animationDelayRoutine = StartCoroutine(AnimationDelay(ANIMATION_DELAY, enemyHitboxAnimator, (ability as DaggerSlashConfig).HitAnimationName));
+            Character.damageController.DealDamage(useParams);
 
             yield return new WaitForSeconds(ability.AbilitySpeed.Value);
 

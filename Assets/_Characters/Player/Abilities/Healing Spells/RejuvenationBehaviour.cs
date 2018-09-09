@@ -1,29 +1,15 @@
-﻿using RPG.Core;
-using System;
+﻿using UnityEngine;
 using System.Collections;
-using UnityEngine;
+using System.Collections.Generic;
+using RPG.Core;
 
 namespace RPG.Characters
 {
     public class RejuvenationBehaviour : AbilityBehaviour
     {
-        void Start()
-        {
-            if (uIManager == null)
-                uIManager = FindObjectOfType<UIManager>();
-            if (damageController == null)
-                damageController = GetComponent<DamageController>();
-            if (weaponController == null)
-                weaponController = GetComponent<WeaponController>();
-            if (characterMovementController == null)
-                characterMovementController = GetComponent<CharacterMovementController>();
-            if (characterAnimationController == null)
-                characterAnimationController = GetComponent<CharacterAnimationController>();
-        }
-
         private void Update()
         {
-            StopAttackIfMoving(castbar);
+            StopAttackIfMoving();
         }
 
         public override void Use(GameObject target)
@@ -33,11 +19,12 @@ namespace RPG.Characters
 
             if (GetComponent<PlayerControl>())
             {
-                if (CorrectWeaponType && TargetIsAlive && CharacterIsAlive && NotCurrentlyAttacking && NotCurrentlyMoving && AbilityCooldownInactive)
+                if (PerformCombatChecks(out messageType, PopulateCombatChecks()))
                 {
-
                     attackRoutine = StartCoroutine(CastRejuvenationOnTarget(target));
                 }
+                else
+                    GameManager.Instance.alertMessageController.TriggerAlert(messageType);
             }
             else if (GetComponent<EnemyAI>())
             {
@@ -45,26 +32,38 @@ namespace RPG.Characters
             }
         }
 
+        List<CombatCheck> PopulateCombatChecks()
+        {
+            List<CombatCheck> combatChecks = new List<CombatCheck>
+            {
+                new CombatCheck(CorrectWeaponNotEquipped, "CorrectWeaponType"),
+                new CombatCheck(CharacterNotAlive, "CharacterIsAlive"),
+                new CombatCheck(IsAttacking, "NotCurrentlyAttacking"),
+                new CombatCheck(IsMoving, "NotCurrentlyMoving"),
+                new CombatCheck(AbilityCooldownActive, "AbilityCooldownActive")
+            };
+
+            return combatChecks;
+        }
+
         IEnumerator CastRejuvenationOnTarget(GameObject target)
         {
-            var player = GetComponent<PlayerControl>();
-
-            characterAnimationController.StartAbilityAnimation(ability.AnimationName);
+            Character.characterAnimationController.StartAbilityAnimation(ability.AnimationName);
 
             yield return new WaitForSeconds(ability.AbilitySpeed.Value);
 
             if (target == null || target.GetComponent<EnemyAI>())
             {
                 var targetHitboxAnimator = transform.GetChild(0).GetComponent<Animator>();
-                targetHitboxAnimator.SetTrigger(HealTrigger);
-                StartCoroutine(TrackFrequency());
+                targetHitboxAnimator.SetTrigger((ability as RejuvenationConfig).HitAnimationName);
+                StartCoroutine(TrackHealFrequency());
             }
             // else heal friendly target
             TriggerCooldown(ability.Cooldown.Value);
             StopAttack(ability.AnimationName);
         }
 
-        IEnumerator TrackFrequency()
+        IEnumerator TrackHealFrequency()
         {
             var abilityConfig = (ability as RejuvenationConfig);
             float count = 0;
@@ -81,7 +80,7 @@ namespace RPG.Characters
         private void Rejuvenate()
         {
             GetComponent<HealthController>().CurrentHealthPoints += (ability as RejuvenationConfig).HealAmount.Value;
-            uIManager.TriggerCombatText(transform.position, (ability as RejuvenationConfig).HealAmount.Value, CombatTextType.Heal);
+            GameManager.Instance.uIManager.TriggerCombatText(transform.position, (ability as RejuvenationConfig).HealAmount.Value, CombatTextType.Heal);
         }
     }
 }

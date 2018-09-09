@@ -12,7 +12,8 @@ namespace RPG.Characters
         SpriteRenderer spriteRenderer;
         AnimatorOverrideController animatorOverrideController;
 
-        public event Action<EquippableItem> OnPrimaryWeaponEquipped;
+        public event Action<EquippableItem> OnPrimaryWeaponEquipped = delegate { };
+        public event Action OnPrimaryWeaponUnEquipped = delegate { };
 
         void Awake()
         {
@@ -99,6 +100,7 @@ namespace RPG.Characters
             spriteRenderer.color = c;
             item.ItemUnEquipped -= RemoveCurrentAnimations;
             item.ItemEquipped -= CheckForCorrectEquipmentType;
+            OnPrimaryWeaponUnEquipped();
         }
 
         void SetAnimationDirection(float x, float y)

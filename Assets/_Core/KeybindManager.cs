@@ -22,7 +22,7 @@ namespace RPG.Core
         public void BindKey(string key, KeyCode keybind)
         {
             Dictionary<string, KeyCode> currentDictionary = Keybinds;
-            var uiManager = gameManager.uiManager;
+            var uiManager = gameManager.uIManager;
 
             if (key.Contains("ACT"))
             {
@@ -65,6 +65,11 @@ namespace RPG.Core
             BindKey("ACT4", KeyCode.Alpha4);
             BindKey("ACT5", KeyCode.Alpha5);
             BindKey("ACT6", KeyCode.Alpha6);
+            BindKey("ACT7", KeyCode.Alpha7);
+            BindKey("ACT8", KeyCode.Alpha8);
+            BindKey("ACT9", KeyCode.Alpha9);
+            BindKey("ACT10", KeyCode.LeftControl & KeyCode.Alpha1); // TODO Come up with a system to use combinations of keys pressed.
+
         }
 
 

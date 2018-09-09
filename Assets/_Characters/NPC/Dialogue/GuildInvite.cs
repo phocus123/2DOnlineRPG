@@ -11,7 +11,7 @@ namespace RPG.Characters
 
         public override void PerformEventAction(NPCControl npc)
         {
-            GameManager gameManager = FindObjectOfType<GameManager>();
+            GameManager gameManager = GameManager.Instance;
             Character npcCharacter = npc.GetComponent<Character>();
             Guild guildToJoin = Array.Find(gameManager.MasterGuildList, x => x.GuildLeader.CharacterName == npcCharacter.CharacterName);
 
@@ -20,7 +20,7 @@ namespace RPG.Characters
 
         public override bool QueryEvent()
         {
-            savegameManager = FindObjectOfType<SaveGameManager>();
+            savegameManager = GameManager.Instance.savegameManager;
             return savegameManager.HasGuild; // return true if player does not have a guild.
         }
 

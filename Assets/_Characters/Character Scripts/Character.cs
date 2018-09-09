@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using RPG.CameraUI;
+using RPG.Core;
+using System;
 
 namespace RPG.Characters
 {
     public class Character : MonoBehaviour
     {
+        [Header("Component References")]
+        public DamageController damageController;
+        public WeaponController weaponController;
+        public CharacterAnimationController characterAnimationController;
+        public CharacterMovementController characterMovementController;
+
         [Header("All Characters")]
         [SerializeField] string characterName;
         [SerializeField] Text nameText;
@@ -55,6 +63,11 @@ namespace RPG.Characters
 
         void Awake()
         {
+            damageController = GetComponent<DamageController>();
+            weaponController = GetComponent<WeaponController>();
+            characterMovementController = GetComponent<CharacterMovementController>();
+            characterAnimationController = GetComponent<CharacterAnimationController>();
+
             nameText.text = characterName;
             AddBoxColliderComponent();
 

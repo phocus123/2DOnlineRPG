@@ -16,7 +16,7 @@ namespace RPG.Characters
             var enemyHealthController = useParams.target.GetComponent<HealthController>();
             float primaryStatDamage = CalculatePrimaryStatMultiplier();
             float finalDamage = primaryStatDamage - GetArmourValue(abilityUseParams.target);
-            var uiManager = FindObjectOfType<UIManager>();
+            var uiManager = GameManager.Instance.uIManager;
 
             enemyHealthController.TakeDamage(finalDamage);
             uiManager.TriggerCombatText(enemyHealthController.gameObject.transform.position, finalDamage, CombatTextType.NormalDamage);

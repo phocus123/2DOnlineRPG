@@ -30,7 +30,7 @@ MonoBehaviour:
     statName: Energy
     Value: 15
     statOperator: 1
-  cooldownActive: 0
+  cooldownActive: 1
   healAmount:
     statName: Heal Amount
     Value: 30
@@ -44,6 +44,6 @@ MonoBehaviour:
     Value: 0.25
     statOperator: 0
   projectilePrefab: {fileID: 0}
-  hitAnimationName: 
+  hitAnimationName: HealImpact
   reliantStat: {fileID: 11400000, guid: bba01158cf86aed4b851964290299b0a, type: 2}
   statMultiplier: 0.5

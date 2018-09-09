@@ -58,7 +58,7 @@ namespace RPG.CameraUI
         public void UpdateAbilityCostDetails()
         {
             availablePoints.text = "Available points: " + abilityAdvancement.AbilityPoints.CurrentPoints.ToString();
-            experiencePoints.text = "Current XP: " + FindObjectOfType<GameManager>().PlayerExperience.ToString();
+            experiencePoints.text = "Current XP: " + GameManager.Instance.PlayerExperience.ToString();
             level.text = "Level: " + currentSelectedAbility.Level.ToString();
             experienceCost.text = "Experience Required: " + abilityAdvancement.GetExperienceCost(currentSelectedAbility);
         }

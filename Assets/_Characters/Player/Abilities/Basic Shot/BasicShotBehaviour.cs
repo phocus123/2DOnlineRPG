@@ -1,28 +1,12 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using RPG.Core;
-using RPG.CameraUI;
 
 namespace RPG.Characters
 {
     public class BasicShotBehaviour : AbilityBehaviour
     {
-        void Start()
-        {
-            if (castbar == null && GetComponent<PlayerControl>())
-                castbar = FindObjectOfType<Castbar>();
-            if (uIManager == null)
-                uIManager = FindObjectOfType<UIManager>();
-            if (damageController == null)
-                damageController = GetComponent<DamageController>();
-            if (weaponController == null)
-                weaponController = GetComponent<WeaponController>();
-            if (characterMovementController == null)
-                characterMovementController = GetComponent<CharacterMovementController>();
-            if (characterAnimationController == null)
-                characterAnimationController = GetComponent<CharacterAnimationController>();
-        }
-
         private void Update()
         {
             StopAttackIfMoving();
@@ -37,15 +21,47 @@ namespace RPG.Characters
 
             if (GetComponent<PlayerControl>())
             {
-                if (TargetExists && TargetIsAlive && CharacterIsAlive && CorrectWeaponType && TargetInRange && NotCurrentlyAttacking && NotCurrentlyMoving && TargetInLineOfSight)
+                if (PerformCombatChecks(out messageType, PopulateCombatChecks()))
                 {
-                    castbar.TriggerCastBar(ability);
+                    GameManager.Instance.castbar.TriggerCastBar(ability);
                     attackRoutine = StartCoroutine(PerformBasicShot(useParams));
+                    currentTarget = null;
+                }
+                else
+                {
+                    GameManager.Instance.alertMessageController.TriggerAlert(messageType);
                 }
             }
             else if (GetComponent<EnemyAI>())
             {
                 attackRoutine = StartCoroutine(PerformBasicShot(useParams));
+            }
+        }
+
+        List<CombatCheck> PopulateCombatChecks()
+        {
+            if (NoTarget)
+            {
+                List<CombatCheck>combatChecks = new List<CombatCheck>
+                {
+                    new CombatCheck(NoTarget, "NoTarget")
+                };
+                return combatChecks;
+            }
+            else
+            {
+                List<CombatCheck> combatChecks = new List<CombatCheck>
+                {
+                    new CombatCheck(TargetNotInRange, "TargetNotInRange"),
+                    new CombatCheck(TargetNotInLineOfSight, "TargetNotInLineOfSight"),
+                    new CombatCheck(CorrectWeaponNotEquipped, "CorrectWeaponNotEquipped"),
+                    new CombatCheck(TargetNotAlive, "TargetNotAlive"),
+                    new CombatCheck(CharacterNotAlive, "CharacterIsAlive"),
+                    new CombatCheck(IsAttacking, "NotCurrentlyAttacking"),
+                    new CombatCheck(IsMoving, "NotCurrentlyMoving"),
+                    new CombatCheck(AbilityCooldownActive, "AbilityCooldownInactive")
+                };
+                return combatChecks;
             }
         }
 
@@ -65,15 +81,15 @@ namespace RPG.Characters
 
         IEnumerator PerformBasicShot(AbilityUseParams useParams)
         {
-            characterAnimationController.StartAbilityAnimation(ability.AnimationName);
+            Character.characterAnimationController.StartAbilityAnimation(ability.AnimationName);
 
             yield return new WaitForSeconds(ability.AbilitySpeed.Value);
 
             Projectile attack = Instantiate(useParams.projectilePrefab, Character.ExitPoints[Character.ExitIndex].position, Quaternion.identity).GetComponent<Projectile>();
             attack.Initialize(useParams.target.transform, useParams);
-            attack.InvokeOnHitTarget += damageController.DealDamage;
+            attack.InvokeOnHitTarget += Character.damageController.DealDamage;
             StopAttack(ability.AnimationName);
-            StartCoroutine(UnregisterProjectileEvent(attack, damageController));
+            StartCoroutine(UnregisterProjectileEvent(attack, Character.damageController));
         }
     }
 }

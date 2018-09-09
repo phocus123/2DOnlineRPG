@@ -31,7 +31,7 @@ namespace RPG.CameraUI
 
         private void Start()
         {
-            gameManager = FindObjectOfType<GameManager>();
+            gameManager = GameManager.Instance;
             button = GetComponent<Button>();
             button.onClick.AddListener(OnClick);
         }
@@ -94,7 +94,7 @@ namespace RPG.CameraUI
         public void OnDrop(PointerEventData eventData)
         {
             DragItem item = eventData.pointerDrag.GetComponent<DragItem>();
-            var uiManager = gameManager.uiManager;
+            var uiManager = gameManager.uIManager;
 
             if (item.Moveable != null && item.Moveable is Ability)
             {

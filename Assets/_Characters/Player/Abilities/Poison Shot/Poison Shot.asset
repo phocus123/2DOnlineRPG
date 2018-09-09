@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1acf56e484d7e974dab6dc6aa3f9721f, type: 3}
+  m_Name: Poison Shot
+  m_EditorClassIdentifier: 
+  Description: Shoot a poisoned arrow at your enemy. This will cause damage over a
+    period of time.
+  icon: {fileID: 21300000, guid: fc73e05c54a790f4ba738772b53158a7, type: 3}
+  WeaponType: 1
+  AnimationName: Shoot
+  Guild: {fileID: 11400000, guid: d353d0b6fe96c734891d27eab6f034d3, type: 2}
+  abilityRange: 2.5
+  level: 0
+  abilitySpeed:
+    statName: Ability Speed
+    Value: 2
+    statOperator: 1
+  cooldown:
+    statName: Cooldown
+    Value: 20
+    statOperator: 1
+  energy:
+    statName: Energy
+    Value: 10
+    statOperator: 1
+  cooldownActive: 0
+  damage:
+    statName: Damage
+    Value: 4
+    statOperator: 0
+  damageFrequency:
+    statName: Damage Frequency
+    Value: 4
+    statOperator: 0
+  duration:
+    statName: Duration
+    Value: 20
+    statOperator: 0
+  projectilePrefab: {fileID: 1341953783385292, guid: 55a9171208a911f43a6f22c749f027f1,
+    type: 2}
+  hitAnimationName: PoisonImpact
+  reliantStat: {fileID: 11400000, guid: d2ddda1fe9a62dd48854fd6d5944b7b1, type: 2}
+  statMultiplier: 0.25

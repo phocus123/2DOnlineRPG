@@ -10,10 +10,10 @@ namespace RPG.Characters
         public override void PerformEventAction(NPCControl npc)
         {
             string characterName = npc.GetComponent<Character>().CharacterName;
-            Guild[] guildList = FindObjectOfType<GameManager>().MasterGuildList;
+            Guild[] guildList = GameManager.Instance.MasterGuildList;
             Guild guildToOpen = Array.Find(guildList, x => x.GuildLeader.CharacterName == characterName);
 
-            FindObjectOfType<UIManager>().ShowGuildAbilities(guildToOpen);
+            GameManager.Instance.uIManager.ShowGuildAbilities(guildToOpen);
         }
 
         public override bool QueryEvent()

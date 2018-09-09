@@ -41,7 +41,7 @@ namespace RPG.Core
 
         void Awake()
         {
-            gameManager = FindObjectOfType<GameManager>();
+            gameManager = GameManager.Instance;
             keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
             UpdateExperienceText();
         }

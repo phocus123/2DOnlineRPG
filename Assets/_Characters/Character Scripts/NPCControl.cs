@@ -17,8 +17,8 @@ namespace RPG.Characters
 
         void Start()
         {
-            player = FindObjectOfType<PlayerControl>(); // TODO Will this cause issues when there are multiple players?
-            uIManager = FindObjectOfType<UIManager>();
+            player = GameManager.Instance.player; // TODO Will this cause issues when there are multiple players?
+            uIManager = GameManager.Instance.uIManager;
         }
     }
 }

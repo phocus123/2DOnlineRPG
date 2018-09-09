@@ -39,7 +39,7 @@ namespace RPG.Characters
         {
             characterManager = GetComponent<Character>();
             healthController = GetComponent<HealthController>();
-            gameManager = FindObjectOfType<GameManager>();
+            gameManager = GameManager.Instance;
             abilityController = GetComponent<AbilityController>();
 
             SetAggroRangeCollider();

@@ -333,4 +333,3 @@ C:\Users\mark_\Desktop\2DOnlineRPG\Temp\bin\Debug\UnityEngine.GoogleAudioSpatial
 C:\Users\mark_\Desktop\2DOnlineRPG\Temp\bin\Debug\UnityEngine.HoloLens.xml
 C:\Users\mark_\Desktop\2DOnlineRPG\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
 C:\Users\mark_\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.csproj.CopyComplete
-C:\Users\mark_\Desktop\2DOnlineRPG\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache

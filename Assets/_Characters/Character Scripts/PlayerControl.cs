@@ -21,8 +21,8 @@ namespace RPG.Characters
 
         void Awake()
         {
-            uiManager = FindObjectOfType<UIManager>();
-            FindObjectOfType<CameraRaycaster>().InvokeOnMouseOverInteractable += OnMouseOverInteractable;
+            uiManager = GameManager.Instance.uIManager;
+            Camera.main.GetComponent<CameraRaycaster>().InvokeOnMouseOverInteractable += OnMouseOverInteractable;
             RegisterForMouseEvents();
             RegisterForActionButtonClicks();
         }
@@ -35,7 +35,7 @@ namespace RPG.Characters
 
         public void GetInput()
         {
-            var keybindManager = FindObjectOfType<KeybindManager>();
+            var keybindManager = GameManager.Instance.keybindManager;
             direction = Vector2.zero;
             OnDirectionChanged(new DirectionParams(direction));
 

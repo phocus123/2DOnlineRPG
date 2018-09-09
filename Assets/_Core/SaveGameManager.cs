@@ -42,7 +42,7 @@ namespace RPG.Core
 
         private void Awake()
         {
-            gameManager = FindObjectOfType<GameManager>();
+            gameManager = GameManager.Instance;
 
             Load();
         }
@@ -116,7 +116,7 @@ namespace RPG.Core
         {
             if (abilityDict != null)
             {
-                var uiManager = gameManager.uiManager;
+                var uiManager = gameManager.uIManager;
 
                 foreach (var item in abilityDict)
                 {

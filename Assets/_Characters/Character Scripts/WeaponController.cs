@@ -14,6 +14,7 @@ namespace RPG.Characters
             if (GetComponent<PlayerControl>())
             {
                 weaponSlot.OnPrimaryWeaponEquipped += SetWeapon;
+                weaponSlot.OnPrimaryWeaponUnEquipped += ClearWeapon;
             }
         }
 
@@ -71,6 +72,11 @@ namespace RPG.Characters
         void SetWeapon(EquippableItem item)
         {
             primaryWeapon = item as Weapon;
+        }
+
+        void ClearWeapon()
+        {
+            primaryWeapon = null;
         }
     }
 }

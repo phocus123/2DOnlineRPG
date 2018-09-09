@@ -1,8 +1,8 @@
-﻿using RPG.Characters;
+﻿using RPG.Core;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Core
+namespace RPG.Characters
 {
     public class AbilityPoints : MonoBehaviour 
     {

@@ -1,9 +1,10 @@
 ﻿using System;
-using RPG.Characters;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
-using System.Collections.Generic;
+using RPG.Characters;
+using RPG.Core;
 
 namespace RPG.CameraUI
 {
@@ -29,7 +30,7 @@ namespace RPG.CameraUI
 
         void Awake()
         {
-            playerAbilityController = FindObjectOfType<PlayerControl>().gameObject.GetComponent<AbilityController>();
+            playerAbilityController = GameManager.Instance.player.GetComponent<AbilityController>();
             MainMenuUI.OnAbilityBookToggledOn += Init;
             MainMenuUI.OnAbilityBookToggledOff += Close;
             nextButton.InvokeOnPageButtonClicked += ChangePage;

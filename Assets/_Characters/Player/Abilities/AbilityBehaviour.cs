@@ -3,26 +3,19 @@ using UnityEngine;
 using RPG.CameraUI;
 using System;
 using RPG.Core;
+using System.Collections.Generic;
 
 namespace RPG.Characters
 {
     public abstract class AbilityBehaviour : MonoBehaviour
     {
-        protected CharacterAnimationController characterAnimationController;
-        protected CharacterMovementController characterMovementController;
-        protected WeaponController weaponController;
-        protected DamageController damageController;
-        protected UIManager uIManager;
-        protected Castbar castbar;
-
         protected Ability ability;
         protected Character currentTarget;
         protected Coroutine animationDelayRoutine;
         protected Coroutine attackRoutine;
 
-        protected const string MeleeTrigger = "MeleeImpact";
-        protected const string HealTrigger = "HealImpact";
         protected const float ANIMATION_DELAY = 0.5f;
+        protected AlertMessageType messageType;
 
         Character character;
 
@@ -38,15 +31,15 @@ namespace RPG.Characters
             set { character = value; }
         }
 
-        protected bool TargetExists { get { return currentTarget != null; } }
-        protected bool TargetInRange { get { return weaponController.IsTargetInRange(ability.AbilityRange, currentTarget.gameObject); } }
-        protected bool TargetInLineOfSight { get { return weaponController.InLineOfSight(currentTarget.gameObject); } }
-        protected bool TargetIsAlive { get { return currentTarget.GetComponent<HealthController>().CurrentHealthPoints > 0; } }
-        protected bool CharacterIsAlive { get { return GetComponent<HealthController>().CurrentHealthPoints > 0; } }
-        protected bool CorrectWeaponType { get { return weaponController.CorrectWeaponTypeEquipped(ability.WeaponType); } }
-        protected bool NotCurrentlyAttacking { get { return !Character.IsAttacking; } }
-        protected bool NotCurrentlyMoving { get { return !characterMovementController.IsMoving; } }
-        protected bool AbilityCooldownInactive { get { return !ability.CooldownActive; } }
+        protected bool NoTarget { get { return currentTarget == null; } }
+        protected bool TargetNotInRange { get { return !character.weaponController.IsTargetInRange(ability.AbilityRange, currentTarget.gameObject); } }
+        protected bool TargetNotInLineOfSight { get { return !character.weaponController.InLineOfSight(currentTarget.gameObject); } }
+        protected bool TargetNotAlive { get { return currentTarget.GetComponent<HealthController>().CurrentHealthPoints == 0; } }
+        protected bool CharacterNotAlive { get { return GetComponent<HealthController>().CurrentHealthPoints == 0; } }
+        protected bool CorrectWeaponNotEquipped { get { return !character.weaponController.CorrectWeaponTypeEquipped(ability.WeaponType); } }
+        protected bool IsAttacking { get { return Character.IsAttacking; } }
+        protected bool IsMoving { get { return character.characterMovementController.IsMoving; } }
+        protected bool AbilityCooldownActive { get { return ability.CooldownActive; } }
 
         public event Action<float> OnAttackInitiated = delegate { };
         public abstract void Use(GameObject target);
@@ -77,7 +70,7 @@ namespace RPG.Characters
             attack.InvokeOnHitTarget -= damageController.DealDamage;
         }
 
-        protected void StopAttackIfMoving(Castbar castbar = null)
+        protected void StopAttackIfMoving()
         {
             if (attackRoutine != null && GetComponent<CharacterMovementController>().IsMoving)
             {
@@ -93,11 +86,82 @@ namespace RPG.Characters
                 GetComponent<CharacterAnimationController>().StopAttackAnimation(animationName);
                 var playerCharacter = GetComponent<PlayerControl>();
 
-                if (castbar != null && playerCharacter)
+                if (playerCharacter)
                 {
-                    castbar.StopCasting();
+                    GameManager.Instance.castbar.StopCasting();
                 }
             }
+        }
+
+
+        protected bool PerformCombatChecks(out AlertMessageType messageType, List<CombatCheck> combatChecks)
+        {
+            messageType = AlertMessageType.None;
+
+            for (int i = 0; i < combatChecks.Count; i++)
+            {
+                if (combatChecks[i].name == "NoTarget" && NoTarget)
+                {
+                    messageType = AlertMessageType.NoTarget;
+                    return false;
+                }
+
+                if (combatChecks[i].name == "TargetNotInRange" && TargetNotInRange)
+                {
+                    messageType = AlertMessageType.TargetNotInRange;
+                    return false;
+                }
+
+                if (combatChecks[i].name == "TargetNotInLineOfSight" && TargetNotInLineOfSight)
+                {
+                    messageType = AlertMessageType.TargetNotInLineOfSight;
+                    return false;
+                }
+
+                if (combatChecks[i].name == "TargetNotAlive" && TargetNotAlive)
+                {
+                    messageType = AlertMessageType.TargetNotAlive;
+                    return false;
+                }
+
+                if (combatChecks[i].name == "CharacterNotAlive" && CharacterNotAlive)
+                {
+                    messageType = AlertMessageType.CharacterNotAlive;
+                    return false;
+                }
+
+                if (combatChecks[i].name == "CorrectWeaponNotEquipped" && CorrectWeaponNotEquipped)
+                {
+                    messageType = AlertMessageType.CorrectWeaponNotEquipped;
+                    return false;
+                }
+
+                if (combatChecks[i].name == "AbilityCooldownActive" && AbilityCooldownActive)
+                {
+                    messageType = AlertMessageType.AbilityOnCooldown;
+                    return false;
+                }
+
+                if (combatChecks[i].name == "IsAttacking" && IsAttacking)
+                    return false;
+
+
+                if (combatChecks[i].name == "IsMoving" && IsMoving)
+                    return false;
+            }
+            return true;
+        }
+    }
+
+    public struct CombatCheck
+    {
+        public bool combatCheck;
+        public string name;
+
+        public CombatCheck(bool combatCheck, string name)
+        {
+            this.combatCheck = combatCheck;
+            this.name = name;
         }
     }
 }

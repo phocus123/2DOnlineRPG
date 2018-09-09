@@ -7,7 +7,7 @@ using RPG.Characters;
 
 namespace RPG.CameraUI
 {
-    public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+    public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         GameManager gameManager;
         GameObject draggingIcon;
@@ -16,7 +16,7 @@ namespace RPG.CameraUI
 
         void Start()
         {
-            gameManager = FindObjectOfType<GameManager>();
+            gameManager = GameManager.Instance;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -29,7 +29,7 @@ namespace RPG.CameraUI
             image.sprite = GetComponent<Image>().sprite;
 
             // Will need to change this in the future, a universal icon size might be an idea
-            image.rectTransform.sizeDelta = new Vector2(45f, 45f); ;
+            image.rectTransform.sizeDelta = new Vector2(40f, 40f); ;
             draggingIcon.transform.SetParent(parent, false);
 
             Ability a = Array.Find(gameManager.MasterAbilityList, x => x.Icon == image.sprite);
@@ -43,12 +43,12 @@ namespace RPG.CameraUI
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            var uiManager = gameManager.uiManager;
+            var uiManager = gameManager.uIManager;
             if (draggingIcon != null)
             {
                 for (int i = 0; i < uiManager.ActionButtons.Length; i++)
                 {
-                    if (eventData.pointerDrag.transform.parent.name == uiManager.ActionButtons[i].name)
+                    if (eventData.pointerDrag.name == uiManager.ActionButtons[i].name)
                     {
                         ActionButton button = uiManager.ActionButtons[i];
                         int index = Array.FindIndex(uiManager.ActionButtons, x => x.Button.name == button.name);
@@ -58,11 +58,6 @@ namespace RPG.CameraUI
                 }
                 Destroy(draggingIcon);
             }
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            print("test");
         }
     }
 }
