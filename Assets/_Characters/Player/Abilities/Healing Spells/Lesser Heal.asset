@@ -31,6 +31,7 @@ MonoBehaviour:
     Value: 15
     statOperator: 1
   cooldownActive: 1
+  overTimeAbility: 0
   healAmount:
     statName: Heal Amount
     Value: 30

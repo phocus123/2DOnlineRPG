@@ -9,10 +9,9 @@ namespace RPG.Characters
     {
         public override void PerformEventAction(NPCControl npc)
         {
-            var abilityButtonPanel = GameManager.Instance.abilityButtonPanel;
-            var uiManager = GameManager.Instance.uIManager;
+            var abilityButtonPanel = UIManager.Instance.abilityButtonPanel;
 
-            uiManager.DialogueUI.CloseDialogue();
+            UIManager.Instance.DialogueUI.CloseDialogue();
             abilityButtonPanel.CloseGuildAbilitiesCanvas();
         }
 

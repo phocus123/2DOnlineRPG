@@ -47,11 +47,13 @@ namespace RPG.Characters
             if (collision.tag == "Hitbox" && collision.transform.parent == Target)
             {
                 hasHitTarget = true;
-                GetComponent<Animator>().SetTrigger(abilityUseParams.hitAnimationName);
+                var enemyHitboxAnimator = Target.GetComponentInChildren<HitAnimationController>().GetComponent<Animator>();
+                enemyHitboxAnimator.SetTrigger(abilityUseParams.hitAnimationName);
 
                 InvokeOnHitTarget(abilityUseParams);
                 rigidBody.velocity = Vector2.zero;
                 Target = null;
+                Destroy(gameObject);
             }
         }
     }

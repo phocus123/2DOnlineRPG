@@ -19,6 +19,7 @@ namespace RPG.Characters
         [SerializeField] AbilityStat cooldown;
         [SerializeField] AbilityStat energy;
         [SerializeField] bool cooldownActive = false;
+        [SerializeField] bool overTimeAbility;
 
         AbilityBehaviour behaviour;
         AbilityUI abilityUI;
@@ -32,6 +33,7 @@ namespace RPG.Characters
         public AbilityStat AbilitySpeed { get { return abilitySpeed; } }
         public AbilityStat Cooldown { get { return cooldown; } }
         public AbilityStat Energy { get { return energy; } }
+        public bool OverTimeAbility { get { return overTimeAbility; } }
         public bool CooldownActive
         {
             get { return cooldownActive; }

@@ -7,6 +7,8 @@ namespace RPG.Characters
 {
     public class HealBehaviour : AbilityBehaviour
     {
+        List<CombatCheck> combatChecks;
+
         private void Update()
         {
             StopAttackIfMoving();
@@ -24,7 +26,7 @@ namespace RPG.Characters
                     attackRoutine = StartCoroutine(CastHealOnTarget(target));
                 }
                 else
-                    GameManager.Instance.alertMessageController.TriggerAlert(messageType);
+                    UIManager.Instance.alertMessageController.TriggerAlert(messageType);
             }
             else if (GetComponent<EnemyAI>())
             {
@@ -34,13 +36,11 @@ namespace RPG.Characters
 
         List<CombatCheck> PopulateCombatChecks()
         {
-            List<CombatCheck> combatChecks = new List<CombatCheck>
+            combatChecks = new List<CombatCheck>
             {
-                new CombatCheck(CorrectWeaponNotEquipped, "CorrectWeaponType"),
-                new CombatCheck(CharacterNotAlive, "CharacterIsAlive"),
-                new CombatCheck(IsAttacking, "NotCurrentlyAttacking"),
-                new CombatCheck(IsMoving, "NotCurrentlyMoving"),
-                new CombatCheck(AbilityCooldownActive, "AbilityCooldownActive")
+                new CombatCheck(CorrectWeaponNotEquipped, CameraUI.AlertMessageType.CorrectWeaponNotEquipped),
+                new CombatCheck(CharacterNotAlive, CameraUI.AlertMessageType.CharacterNotAlive),
+                new CombatCheck(AbilityOnCooldown, CameraUI.AlertMessageType.AbilityOnCooldown)
             };
 
             return combatChecks;
@@ -53,13 +53,13 @@ namespace RPG.Characters
             Character.characterAnimationController.StartAbilityAnimation(ability.AnimationName);
 
             if (player)
-                GameManager.Instance.castbar.TriggerCastBar(ability);
+                UIManager.Instance.castbar.TriggerCastBar(ability);
 
             yield return new WaitForSeconds(ability.AbilitySpeed.Value);
 
             if (target == null || target.GetComponent<EnemyAI>())
             {
-                var targetHitboxAnimator = transform.GetChild(0).GetComponent<Animator>();
+                var targetHitboxAnimator = transform.GetComponentInChildren<HitAnimationController>().GetComponent<Animator>();
                 targetHitboxAnimator.SetTrigger((ability as HealConfig).HitAnimationName);
                 HealTarget();
             }
@@ -71,7 +71,7 @@ namespace RPG.Characters
         private void HealTarget()
         {
             GetComponent<HealthController>().CurrentHealthPoints += (ability as HealConfig).HealAmount.Value;
-            GameManager.Instance.uIManager.TriggerCombatText(transform.position, (ability as HealConfig).HealAmount.Value, CombatTextType.Heal);
+            UIManager.Instance.TriggerCombatText(transform.position, (ability as HealConfig).HealAmount.Value, CombatTextType.Heal);
         }
     }
 }

@@ -13,7 +13,6 @@ namespace RPG.Characters
         [SerializeField] StatPoints statPoints;
         [Space]
         [SerializeField] GameManager gameManager;
-        [SerializeField] UIManager uIManager;
 
         const float ABILITY_INCREMENT_AMOUNT = 0.1f; // TODO Come up with a better system. Possibly adding the increment amount to LevelExperienceCosts
 
@@ -28,13 +27,13 @@ namespace RPG.Characters
 
         void Start()
         {
-            uIManager.abilityButtonPanel.OnAbilityButtonCreated += RegisterAbilityButtonEvents; 
-            uIManager.abilityButtonPanel.OnAbilityCanvasClosed += RefundAbilityPoints;
-            uIManager.abilityDetailsPanel.OnSelectedAbilityChanged += RefundAbilityPoints;
-            uIManager.abilityStatsPanel.InvokeOnStatOperatorCreated += RegisterStatButtonEvent;
-            uIManager.abilityStatsPanel.OnStatOperatorDestroyed += UnRegisterStatButtonEvent;
-            uIManager.abilityStatsPanel.OnAcceptButtonClicked += ConfirmStatChange;
-            uIManager.abilityStatsPanel.OnCancelButtonClicked += ResetStatChanges;
+            UIManager.Instance.abilityButtonPanel.OnAbilityButtonCreated += RegisterAbilityButtonEvents;
+            UIManager.Instance.abilityButtonPanel.OnAbilityCanvasClosed += RefundAbilityPoints;
+            UIManager.Instance.abilityDetailsPanel.OnSelectedAbilityChanged += RefundAbilityPoints;
+            UIManager.Instance.abilityStatsPanel.InvokeOnStatOperatorCreated += RegisterStatButtonEvent;
+            UIManager.Instance.abilityStatsPanel.OnStatOperatorDestroyed += UnRegisterStatButtonEvent;
+            UIManager.Instance.abilityStatsPanel.OnAcceptButtonClicked += ConfirmStatChange;
+            UIManager.Instance.abilityStatsPanel.OnCancelButtonClicked += ResetStatChanges;
         }
 
         public void PurchaseAbilityPoints(Ability ability)
@@ -62,13 +61,13 @@ namespace RPG.Characters
         void RegisterAbilityButtonEvents(GameObject button)
         {
             AbilityButton guildAbilityButton = button.GetComponent<AbilityButton>();
-            uIManager.abilityDetailsPanel.OnAbilityPointPurchased += PurchaseAbilityPoints;
+            UIManager.Instance.abilityDetailsPanel.OnAbilityPointPurchased += PurchaseAbilityPoints;
             guildAbilityButton.OnButtonDestroyed += UnRegisterAbilityButtonEvents;
         }
 
         void UnRegisterAbilityButtonEvents(AbilityButton guildAbilityButton)
         {
-            uIManager.abilityDetailsPanel.OnAbilityPointPurchased -= PurchaseAbilityPoints;
+            UIManager.Instance.abilityDetailsPanel.OnAbilityPointPurchased -= PurchaseAbilityPoints;
             guildAbilityButton.OnButtonDestroyed -= UnRegisterAbilityButtonEvents;
         }
 

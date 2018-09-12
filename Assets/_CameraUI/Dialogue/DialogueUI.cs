@@ -24,6 +24,12 @@ namespace RPG.CameraUI
         List<Button> optionsButtons = new List<Button>();
         NPCControl npc;
 
+        public void OpenDialogue(NPCControl npc)
+        {
+            UIHelper.ToggleCanvasGroup(dialogueBox);
+            Initialize(npc);
+        }
+
         public void Initialize(NPCControl npc)
         {
             this.npc = npc;
@@ -34,11 +40,6 @@ namespace RPG.CameraUI
             GenerateOptionButtons();
         }
 
-        public void OpenDialogue(NPCControl npc)
-        {
-            UIHelper.ToggleCanvasGroup(dialogueBox);
-            Initialize(npc);
-        }
 
         public void CloseDialogue()
         {
@@ -71,12 +72,16 @@ namespace RPG.CameraUI
         void OpenDialogueProcessCanvas(NPCControl npc, Button button)
         {
             ToggleCanvases();
+
+
             int buttonIndex = optionsButtons.FindIndex(x => x == button);
             mainText.text = npc.NpcDialogue.DialogueLines[buttonIndex, linesIndex];
             scrollbar.gameObject.SetActive(false);
             UpdateContinueButton(buttonIndex, linesIndex + 1);
+
             continueButton.onClick.AddListener(() => NextDialogueLine(buttonIndex));
             returnButton.onClick.AddListener(() => OpenDialogueOptionsCanvas());
+
             if (npc.NpcDialogue.DialogueButtons.buttonOptions[buttonIndex].dialogueEvent)
             {
                 npc.NpcDialogue.DialogueButtons.buttonOptions[buttonIndex].dialogueEvent.PerformEventAction(npc);

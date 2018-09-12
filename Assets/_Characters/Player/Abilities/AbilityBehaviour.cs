@@ -39,7 +39,7 @@ namespace RPG.Characters
         protected bool CorrectWeaponNotEquipped { get { return !character.weaponController.CorrectWeaponTypeEquipped(ability.WeaponType); } }
         protected bool IsAttacking { get { return Character.IsAttacking; } }
         protected bool IsMoving { get { return character.characterMovementController.IsMoving; } }
-        protected bool AbilityCooldownActive { get { return ability.CooldownActive; } }
+        protected bool AbilityOnCooldown { get { return ability.CooldownActive; } }
 
         public event Action<float> OnAttackInitiated = delegate { };
         public abstract void Use(GameObject target);
@@ -88,7 +88,7 @@ namespace RPG.Characters
 
                 if (playerCharacter)
                 {
-                    GameManager.Instance.castbar.StopCasting();
+                    UIManager.Instance.castbar.StopCasting();
                 }
             }
         }
@@ -100,53 +100,53 @@ namespace RPG.Characters
 
             for (int i = 0; i < combatChecks.Count; i++)
             {
-                if (combatChecks[i].name == "NoTarget" && NoTarget)
+                if (combatChecks[i].messageType == AlertMessageType.NoTarget && NoTarget)
                 {
                     messageType = AlertMessageType.NoTarget;
                     return false;
                 }
 
-                if (combatChecks[i].name == "TargetNotInRange" && TargetNotInRange)
+                if (combatChecks[i].messageType == AlertMessageType.TargetNotInRange && TargetNotInRange)
                 {
                     messageType = AlertMessageType.TargetNotInRange;
                     return false;
                 }
 
-                if (combatChecks[i].name == "TargetNotInLineOfSight" && TargetNotInLineOfSight)
+                if (combatChecks[i].messageType == AlertMessageType.TargetNotInLineOfSight && TargetNotInLineOfSight)
                 {
                     messageType = AlertMessageType.TargetNotInLineOfSight;
                     return false;
                 }
 
-                if (combatChecks[i].name == "TargetNotAlive" && TargetNotAlive)
+                if (combatChecks[i].messageType == AlertMessageType.TargetNotAlive && TargetNotAlive)
                 {
                     messageType = AlertMessageType.TargetNotAlive;
                     return false;
                 }
 
-                if (combatChecks[i].name == "CharacterNotAlive" && CharacterNotAlive)
+                if (combatChecks[i].messageType == AlertMessageType.CharacterNotAlive && CharacterNotAlive)
                 {
                     messageType = AlertMessageType.CharacterNotAlive;
                     return false;
                 }
 
-                if (combatChecks[i].name == "CorrectWeaponNotEquipped" && CorrectWeaponNotEquipped)
+                if (combatChecks[i].messageType == AlertMessageType.CorrectWeaponNotEquipped && CorrectWeaponNotEquipped)
                 {
                     messageType = AlertMessageType.CorrectWeaponNotEquipped;
                     return false;
                 }
 
-                if (combatChecks[i].name == "AbilityCooldownActive" && AbilityCooldownActive)
+                if (combatChecks[i].messageType == AlertMessageType.AbilityOnCooldown && AbilityOnCooldown)
                 {
                     messageType = AlertMessageType.AbilityOnCooldown;
                     return false;
                 }
 
-                if (combatChecks[i].name == "IsAttacking" && IsAttacking)
+                if (combatChecks[i].messageType == AlertMessageType.IsAttacking && IsAttacking)
                     return false;
 
 
-                if (combatChecks[i].name == "IsMoving" && IsMoving)
+                if (combatChecks[i].messageType == AlertMessageType.IsMoving && IsMoving)
                     return false;
             }
             return true;
@@ -156,12 +156,12 @@ namespace RPG.Characters
     public struct CombatCheck
     {
         public bool combatCheck;
-        public string name;
+        public AlertMessageType messageType;
 
-        public CombatCheck(bool combatCheck, string name)
+        public CombatCheck(bool combatCheck, AlertMessageType messageType)
         {
             this.combatCheck = combatCheck;
-            this.name = name;
+            this.messageType = messageType;
         }
     }
 }

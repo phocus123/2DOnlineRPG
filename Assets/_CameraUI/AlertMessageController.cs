@@ -13,6 +13,8 @@ namespace RPG.CameraUI
         CharacterNotAlive,
         CorrectWeaponNotEquipped,
         AbilityOnCooldown,
+        IsAttacking,
+        IsMoving,
         None
     }
 
@@ -21,6 +23,7 @@ namespace RPG.CameraUI
         CanvasGroup canvasGroup;
         TextMeshProUGUI alertText;
         string message;
+        bool isActive = false;
 
         void Start()
         {
@@ -33,12 +36,16 @@ namespace RPG.CameraUI
 
         public void TriggerAlert(AlertMessageType messageType)
         {
-            alertText.text = DetermineMessage(messageType);
-            StartCoroutine(FadeAlertIn());
+            if (!isActive)
+            {
+                alertText.text = DetermineMessage(messageType);
+                StartCoroutine(FadeAlertIn());
+            }
         }
 
         IEnumerator FadeAlertIn()
         {
+            isActive = true;
             float rate = 5f;
             float progress = 0.0f;
 
@@ -66,6 +73,7 @@ namespace RPG.CameraUI
             }
 
             alertText.text = string.Empty;
+            isActive = false;
         }
 
         string DetermineMessage(AlertMessageType messageType)

@@ -9,7 +9,6 @@ namespace RPG.Characters
         [SerializeField] float interactionRange;
         [SerializeField] Dialogue npcDialogue;
 
-        UIManager uIManager;
         PlayerControl player;
 
         public bool IsPlayerInRange { get { return Vector2.Distance(transform.position, player.transform.position) <= interactionRange; } }
@@ -18,7 +17,6 @@ namespace RPG.Characters
         void Start()
         {
             player = GameManager.Instance.player; // TODO Will this cause issues when there are multiple players?
-            uIManager = GameManager.Instance.uIManager;
         }
     }
 }

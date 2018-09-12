@@ -13,7 +13,7 @@ namespace RPG.Characters
             Guild[] guildList = GameManager.Instance.MasterGuildList;
             Guild guildToOpen = Array.Find(guildList, x => x.GuildLeader.CharacterName == characterName);
 
-            GameManager.Instance.uIManager.ShowGuildAbilities(guildToOpen);
+            UIManager.Instance.ShowGuildAbilities(guildToOpen);
         }
 
         public override bool QueryEvent()

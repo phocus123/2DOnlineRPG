@@ -8,14 +8,18 @@ using UnityEngine.UI;
 
 namespace RPG.Core
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : Singleton<UIManager>
     {
         [Header("User Interface")]
-        public AbilityBook abilityUI; //TODO Make all these ui classes monobehaviours
+        public AbilityBook abilityUI; 
         public DialogueUI dialogueUI;
-        public TargetFrameUI targetFrameUI;
+        public TargetPanel targetPanel;
         public MainMenuUI mainMenuUI;
         public CanvasGroup CharacterPanel;
+        public DebuffPanel targetDebuffPanel;
+        public DebuffPanel playerDebuffPanel;
+        public AlertMessageController alertMessageController;
+        public Castbar castbar;
 
         [Header("Ability Advancement")]
         public AbilityButtonPanel abilityButtonPanel;
@@ -34,26 +38,23 @@ namespace RPG.Core
         [SerializeField] Canvas combatTextCanvas;
         [SerializeField] float speed;
 
-        GameManager gameManager;
-
         public ActionButton[] ActionButtons { get { return actionButtons; } }
         public DialogueUI DialogueUI { get { return dialogueUI; } }
 
         void Awake()
         {
-            gameManager = GameManager.Instance;
             keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
             UpdateExperienceText();
         }
 
         public void ShowTargetFrame(GameObject enemy)
         {
-            targetFrameUI.ShowTargetFrame(enemy);
+            targetPanel.ShowTargetPanel(enemy);
         }
 
         public void HideTargetFrame()
         {
-            targetFrameUI.HideTargetFrame();
+            targetPanel.HideTargetPanel();
         }
 
         public void ShowGuildAbilities(Guild guild)
@@ -74,13 +75,13 @@ namespace RPG.Core
 
         public void UpdateExperienceText()
         {
-            playerExperienceText.text = "Experience: " + gameManager.PlayerExperience.ToString();
+            playerExperienceText.text = "Experience: " + GameManager.Instance.PlayerExperience.ToString();
         }
 
         public void TriggerCombatText(Vector2 position, float healthValue, CombatTextType combatTextType)
         {
             GameObject combatText = Instantiate(combatTextPrefab, position, Quaternion.identity, combatTextCanvas.transform);
-            combatText.GetComponent<CombatText>().Initialise(speed, Vector2.up, combatTextType);
+            combatText.GetComponent<CombatText>().Initialise(combatTextType);
             combatText.GetComponent<TextMeshProUGUI>().text = healthValue.ToString();
         }
     }

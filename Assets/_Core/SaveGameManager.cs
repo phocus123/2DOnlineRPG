@@ -116,15 +116,13 @@ namespace RPG.Core
         {
             if (abilityDict != null)
             {
-                var uiManager = gameManager.uIManager;
-
                 foreach (var item in abilityDict)
                 {
                     Ability a = Array.Find(gameManager.MasterAbilityList, x => x.name == item.Value);
 
-                    uiManager.ActionButtons[item.Key - 1].Ability = a;
-                    uiManager.ActionButtons[item.Key - 1].Icon.sprite = a.Icon;
-                    uiManager.ActionButtons[item.Key - 1].Icon.color = Color.white;
+                    UIManager.Instance.ActionButtons[item.Key - 1].Ability = a;
+                    UIManager.Instance.ActionButtons[item.Key - 1].Icon.sprite = a.Icon;
+                    UIManager.Instance.ActionButtons[item.Key - 1].Icon.color = Color.white;
                 }
             }
         }

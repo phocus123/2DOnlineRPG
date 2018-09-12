@@ -7,6 +7,8 @@ namespace RPG.Characters
 {
     public class RejuvenationBehaviour : AbilityBehaviour
     {
+        List<CombatCheck> combatChecks;
+
         private void Update()
         {
             StopAttackIfMoving();
@@ -24,7 +26,7 @@ namespace RPG.Characters
                     attackRoutine = StartCoroutine(CastRejuvenationOnTarget(target));
                 }
                 else
-                    GameManager.Instance.alertMessageController.TriggerAlert(messageType);
+                    UIManager.Instance.alertMessageController.TriggerAlert(messageType);
             }
             else if (GetComponent<EnemyAI>())
             {
@@ -34,13 +36,11 @@ namespace RPG.Characters
 
         List<CombatCheck> PopulateCombatChecks()
         {
-            List<CombatCheck> combatChecks = new List<CombatCheck>
+            combatChecks = new List<CombatCheck>
             {
-                new CombatCheck(CorrectWeaponNotEquipped, "CorrectWeaponType"),
-                new CombatCheck(CharacterNotAlive, "CharacterIsAlive"),
-                new CombatCheck(IsAttacking, "NotCurrentlyAttacking"),
-                new CombatCheck(IsMoving, "NotCurrentlyMoving"),
-                new CombatCheck(AbilityCooldownActive, "AbilityCooldownActive")
+                new CombatCheck(CorrectWeaponNotEquipped, CameraUI.AlertMessageType.CorrectWeaponNotEquipped),
+                new CombatCheck(CharacterNotAlive, CameraUI.AlertMessageType.CharacterNotAlive),
+                new CombatCheck(AbilityOnCooldown, CameraUI.AlertMessageType.AbilityOnCooldown)
             };
 
             return combatChecks;
@@ -54,7 +54,7 @@ namespace RPG.Characters
 
             if (target == null || target.GetComponent<EnemyAI>())
             {
-                var targetHitboxAnimator = transform.GetChild(0).GetComponent<Animator>();
+                var targetHitboxAnimator = transform.GetComponentInChildren<HitAnimationController>().GetComponent<Animator>();
                 targetHitboxAnimator.SetTrigger((ability as RejuvenationConfig).HitAnimationName);
                 StartCoroutine(TrackHealFrequency());
             }
@@ -67,7 +67,7 @@ namespace RPG.Characters
         {
             var abilityConfig = (ability as RejuvenationConfig);
             float count = 0;
-            Rejuvenate();
+            UIManager.Instance.playerDebuffPanel.Init(ability, count, (ability as RejuvenationConfig).Duration.Value);
 
             while (count < abilityConfig.Duration.Value)
             {
@@ -80,7 +80,9 @@ namespace RPG.Characters
         private void Rejuvenate()
         {
             GetComponent<HealthController>().CurrentHealthPoints += (ability as RejuvenationConfig).HealAmount.Value;
-            GameManager.Instance.uIManager.TriggerCombatText(transform.position, (ability as RejuvenationConfig).HealAmount.Value, CombatTextType.Heal);
+            var playerHitboxAnimator = GetComponentInChildren<HitAnimationController>().GetComponent<Animator>();
+            playerHitboxAnimator.SetTrigger((ability as RejuvenationConfig).HitAnimationName);
+            UIManager.Instance.TriggerCombatText(transform.position, (ability as RejuvenationConfig).HealAmount.Value, CombatTextType.Heal);
         }
     }
 }

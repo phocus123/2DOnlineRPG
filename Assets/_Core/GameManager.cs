@@ -15,11 +15,6 @@ namespace RPG.Core
         public SaveGameManager savegameManager;
         public PlayerControl player;
 
-        [Header("UI References")]
-        public AlertMessageController alertMessageController;
-        public Castbar castbar;
-        public AbilityButtonPanel abilityButtonPanel;
-
         [Header("Master Lists")]
         [SerializeField] Ability[] masterAbilityList;
         [SerializeField] Guild[] masterGuildList;

@@ -7,6 +7,8 @@ namespace RPG.Characters
 {
     public class PoisonShotBehaviour : AbilityBehaviour
     {
+        List<CombatCheck> combatChecks;
+
         private void Update()
         {
             StopAttackIfMoving();
@@ -19,16 +21,19 @@ namespace RPG.Characters
 
             var useParams = GetUseParams(target);
 
-            if (GetComponent<PlayerControl>())
+            if (!IsAttacking && GetComponent<PlayerControl>())
             {
                 if (PerformCombatChecks(out messageType, PopulateCombatChecks()))
                 {
-                    GameManager.Instance.castbar.TriggerCastBar(ability);
+                    UIManager.Instance.castbar.TriggerCastBar(ability);
                     attackRoutine = StartCoroutine(PerformPoisonShot(useParams));
                     currentTarget = null;
                 }
                 else
-                    GameManager.Instance.alertMessageController.TriggerAlert(messageType);
+                {
+                    UIManager.Instance.alertMessageController.TriggerAlert(messageType);
+                    messageType = CameraUI.AlertMessageType.None;
+                }
             }
             else if (GetComponent<EnemyAI>())
             {
@@ -36,28 +41,26 @@ namespace RPG.Characters
             }
         }
 
-        List<CombatCheck> PopulateCombatChecks() // TODO Fix bug where deselecting a target will not trigger the no target message again.
+        List<CombatCheck> PopulateCombatChecks() 
         {
             if (NoTarget)
             {
-                List<CombatCheck> combatChecks = new List<CombatCheck>
+                combatChecks = new List<CombatCheck>
                 {
-                    new CombatCheck(NoTarget, "NoTarget")
+                    new CombatCheck(NoTarget, CameraUI.AlertMessageType.NoTarget)
                 };
                 return combatChecks;
             }
             else
             {
-                List<CombatCheck> combatChecks = new List<CombatCheck>
+                combatChecks = new List<CombatCheck>
                 {
-                    new CombatCheck(TargetNotInRange, "TargetNotInRange"),
-                    new CombatCheck(TargetNotInLineOfSight, "TargetNotInLineOfSight"),
-                    new CombatCheck(CorrectWeaponNotEquipped, "CorrectWeaponNotEquipped"),
-                    new CombatCheck(TargetNotAlive, "TargetNotAlive"),
-                    new CombatCheck(CharacterNotAlive, "CharacterIsAlive"),
-                    new CombatCheck(IsAttacking, "NotCurrentlyAttacking"),
-                    new CombatCheck(IsMoving, "NotCurrentlyMoving"),
-                    new CombatCheck(AbilityCooldownActive, "AbilityCooldownInactive")
+                    new CombatCheck(TargetNotInRange, CameraUI.AlertMessageType.TargetNotInRange),
+                    new CombatCheck(TargetNotInLineOfSight, CameraUI.AlertMessageType.TargetNotInLineOfSight),
+                    new CombatCheck(CorrectWeaponNotEquipped, CameraUI.AlertMessageType.CorrectWeaponNotEquipped),
+                    new CombatCheck(TargetNotAlive, CameraUI.AlertMessageType.TargetNotAlive),
+                    new CombatCheck(CharacterNotAlive, CameraUI.AlertMessageType.CharacterNotAlive),
+                    new CombatCheck(AbilityOnCooldown, CameraUI.AlertMessageType.AbilityOnCooldown)
                 };
                 return combatChecks;
             }
@@ -86,31 +89,35 @@ namespace RPG.Characters
             Projectile attack = Instantiate(useParams.projectilePrefab, Character.ExitPoints[Character.ExitIndex].position, Quaternion.identity).GetComponent<Projectile>();
             attack.Initialize(useParams.target.transform, useParams);
             attack.InvokeOnHitTarget += Character.damageController.DealDamage;
-            StartCoroutine(TrackDamageFrequency());
+            StartCoroutine(TrackDamageFrequency(useParams.target.GetComponent<Character>()));
             TriggerCooldown(ability.Cooldown.Value);
             StopAttack(ability.AnimationName);
             StartCoroutine(UnregisterProjectileEvent(attack, Character.damageController));
         }
 
-        IEnumerator TrackDamageFrequency()
+        IEnumerator TrackDamageFrequency(Character target)
         {
             var abilityConfig = (ability as PoisonShotConfig);
             float count = 0;
+            UIManager.Instance.targetDebuffPanel.Init(ability, count, (ability as PoisonShotConfig).Duration.Value);
 
             while (count < abilityConfig.Duration.Value)
             {
                 yield return new WaitForSeconds(abilityConfig.DamageFrequency.Value);
                 count += abilityConfig.DamageFrequency.Value;
-                DealDamage();
+                DealDamage(target);
             }
         }
 
-        void DealDamage()
+        void DealDamage(Character target)
         {
             var damage = (ability as PoisonShotConfig).Damage.Value;
-            var enemyHealthController = currentTarget.GetComponent<HealthController>();
+            var enemyHealthController = target.GetComponent<HealthController>();
+            var enemyHitboxAnimator = target.GetComponentInChildren<HitAnimationController>().GetComponent<Animator>();
+
             enemyHealthController.TakeDamage(damage);
-            GameManager.Instance.uIManager.TriggerCombatText(enemyHealthController.gameObject.transform.position, damage, CombatTextType.NormalDamage);
+            enemyHitboxAnimator.SetTrigger((ability as PoisonShotConfig).HitAnimationName);
+            UIManager.Instance.TriggerCombatText(enemyHealthController.gameObject.transform.position, damage, CombatTextType.NormalDamage);
         }
     }
 }

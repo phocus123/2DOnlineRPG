@@ -7,6 +7,8 @@ namespace RPG.Characters
 {
     public class DaggerSlashBehaviour : AbilityBehaviour
     {
+        List<CombatCheck> combatChecks;
+
         private void Update()
         {
             StopAttackIfMoving();
@@ -18,7 +20,7 @@ namespace RPG.Characters
                 currentTarget = target.GetComponent<Character>();
             var useParams = GetUseParams(target);
 
-            if (GetComponent<PlayerControl>())
+            if (!IsAttacking && GetComponent<PlayerControl>())
             {
                 if (PerformCombatChecks(out messageType, PopulateCombatChecks()))
                 {
@@ -26,7 +28,10 @@ namespace RPG.Characters
                     currentTarget = null;
                 }
                 else
-                    GameManager.Instance.alertMessageController.TriggerAlert(messageType);
+                {
+                    UIManager.Instance.alertMessageController.TriggerAlert(messageType);
+                    messageType = CameraUI.AlertMessageType.None;
+                }
             }
             else if (GetComponent<EnemyAI>())
             {
@@ -38,24 +43,22 @@ namespace RPG.Characters
         {
             if (NoTarget)
             {
-                List<CombatCheck> combatChecks = new List<CombatCheck>
+                combatChecks = new List<CombatCheck>
                 {
-                    new CombatCheck(NoTarget, "NoTarget")
+                    new CombatCheck(NoTarget, CameraUI.AlertMessageType.NoTarget)
                 };
                 return combatChecks;
             }
             else
             {
-                List<CombatCheck> combatChecks = new List<CombatCheck>
+                combatChecks = new List<CombatCheck>
                 {
-                    new CombatCheck(TargetNotInRange, "TargetNotInRange"),
-                    new CombatCheck(TargetNotInLineOfSight, "TargetNotInLineOfSight"),
-                    new CombatCheck(CorrectWeaponNotEquipped, "CorrectWeaponNotEquipped"),
-                    new CombatCheck(TargetNotAlive, "TargetNotAlive"),
-                    new CombatCheck(CharacterNotAlive, "CharacterIsAlive"),
-                    new CombatCheck(IsAttacking, "NotCurrentlyAttacking"),
-                    new CombatCheck(IsMoving, "NotCurrentlyMoving"),
-                    new CombatCheck(AbilityCooldownActive, "AbilityCooldownInactive")
+                    new CombatCheck(TargetNotInRange, CameraUI.AlertMessageType.TargetNotInRange),
+                    new CombatCheck(TargetNotInLineOfSight, CameraUI.AlertMessageType.TargetNotInLineOfSight),
+                    new CombatCheck(CorrectWeaponNotEquipped, CameraUI.AlertMessageType.CorrectWeaponNotEquipped),
+                    new CombatCheck(TargetNotAlive, CameraUI.AlertMessageType.TargetNotAlive),
+                    new CombatCheck(CharacterNotAlive, CameraUI.AlertMessageType.CharacterNotAlive),
+                    new CombatCheck(AbilityOnCooldown, CameraUI.AlertMessageType.AbilityOnCooldown)
                 };
                 return combatChecks;
             }
@@ -76,7 +79,8 @@ namespace RPG.Characters
 
         protected IEnumerator PerformDaggerSlash(AbilityUseParams useParams)
         {
-            var enemyHitboxAnimator = useParams.target.transform.GetChild(0).GetComponent<Animator>();
+            var enemyHealthController = useParams.target.GetComponent<HealthController>();
+            var enemyHitboxAnimator = useParams.target.GetComponentInChildren<HitAnimationController>().GetComponent<Animator>();
 
             Character.characterAnimationController.StartAbilityAnimation(ability.AnimationName);
             yield return animationDelayRoutine = StartCoroutine(AnimationDelay(ANIMATION_DELAY, enemyHitboxAnimator, (ability as DaggerSlashConfig).HitAnimationName));

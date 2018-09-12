@@ -22,7 +22,6 @@ namespace RPG.Core
         public void BindKey(string key, KeyCode keybind)
         {
             Dictionary<string, KeyCode> currentDictionary = Keybinds;
-            var uiManager = gameManager.uIManager;
 
             if (key.Contains("ACT"))
             {
@@ -31,16 +30,16 @@ namespace RPG.Core
             if (!currentDictionary.ContainsKey(key))
             {
                 currentDictionary.Add(key, keybind);
-                uiManager.UpdateKeyText(key, keybind);
+                UIManager.Instance.UpdateKeyText(key, keybind);
             }
             else if (currentDictionary.ContainsValue(keybind))
             {
                 string myKey = currentDictionary.FirstOrDefault(x => x.Value == keybind).Key;
-                uiManager.UpdateKeyText(key, KeyCode.None);
+                UIManager.Instance.UpdateKeyText(key, KeyCode.None);
             }
 
             currentDictionary[key] = keybind;
-            uiManager.UpdateKeyText(key, keybind);
+            UIManager.Instance.UpdateKeyText(key, keybind);
             bindName = string.Empty;
         }
 

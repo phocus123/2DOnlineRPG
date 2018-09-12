@@ -9,7 +9,7 @@ namespace RPG.Characters
     {
         [SerializeField] RuntimeAnimatorController runtimeAnimatorController;
 
-        Character characterManager;
+        Character character;
         CharacterMovementController characterMovementController;
         HealthController healthController;
         Animator animator;
@@ -24,7 +24,7 @@ namespace RPG.Characters
 
         void Awake()
         {
-            characterManager = GetComponent<Character>();
+            character = GetComponent<Character>();
             characterMovementController = GetComponent<CharacterMovementController>();
             healthController = GetComponent<HealthController>();
 
@@ -39,23 +39,23 @@ namespace RPG.Characters
 
         public void StartAbilityAnimation(string animationName)
         {
-            characterManager.IsAttacking = true;
-            animator.SetBool(animationName, characterManager.IsAttacking);
+            character.IsAttacking = true;
+            animator.SetBool(animationName, character.IsAttacking);
 
             if (GetComponent<PlayerControl>())
             {
-                AttackAnimationChanged(animationName, characterManager.IsAttacking);
+                AttackAnimationChanged(animationName, character.IsAttacking);
             }
         }
 
         public void StopAttackAnimation(string animationName)
         {
-            characterManager.IsAttacking = false;
-            animator.SetBool(animationName, characterManager.IsAttacking);
+            character.IsAttacking = false;
+            animator.SetBool(animationName, character.IsAttacking);
 
             if (GetComponent<PlayerControl>())
             {
-                AttackAnimationChanged(animationName, characterManager.IsAttacking);
+                AttackAnimationChanged(animationName, character.IsAttacking);
             }
         }
         
@@ -82,7 +82,7 @@ namespace RPG.Characters
 
         void HandleLayers()
         {
-            if (characterManager.IsAlive)
+            if (character.IsAlive)
             {
                 if (characterMovementController.IsMoving)
                 {
@@ -96,7 +96,7 @@ namespace RPG.Characters
                         PlayerMoving(characterMovementController.Direction.x, characterMovementController.Direction.y);
                     }
                 }
-                else if (characterManager.IsAttacking)
+                else if (character.IsAttacking)
                 {
                     ActivateLayer("AttackLayer");
                 }

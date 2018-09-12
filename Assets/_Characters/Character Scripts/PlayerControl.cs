@@ -14,14 +14,12 @@ namespace RPG.Characters
         Vector2 direction;
         int exitIndex;
         Vector3 min, max;
-        UIManager uiManager;
 
         public static event Action OnEscapeKeyDown = delegate { };
         public event Action<DirectionParams> OnDirectionChanged = delegate { };
 
         void Awake()
         {
-            uiManager = GameManager.Instance.uIManager;
             Camera.main.GetComponent<CameraRaycaster>().InvokeOnMouseOverInteractable += OnMouseOverInteractable;
             RegisterForMouseEvents();
             RegisterForActionButtonClicks();
@@ -71,14 +69,14 @@ namespace RPG.Characters
 
             if (Input.GetKeyDown(KeyCode.I))
             {
-                UIHelper.ToggleCanvasGroup(uiManager.CharacterPanel);
+                UIHelper.ToggleCanvasGroup(UIManager.Instance.CharacterPanel);
             }
 
             foreach (string action in keybindManager.Actionbinds.Keys)
             {
                 if (Input.GetKeyDown(keybindManager.Actionbinds[action]))
                 {
-                    uiManager.ClickActionButton(action);
+                    UIManager.Instance.ClickActionButton(action);
                 }
             }
         }
@@ -98,7 +96,7 @@ namespace RPG.Characters
 
         void RegisterForActionButtonClicks()
         {
-            foreach (ActionButton actionButton in uiManager.ActionButtons)
+            foreach (ActionButton actionButton in UIManager.Instance.ActionButtons)
             {
                 actionButton.InvokeOnActionButtonClicked += ActivateAttack;
             }
@@ -123,9 +121,9 @@ namespace RPG.Characters
                 if (target != null)
                 {
                     target = null;
-                    uiManager.HideTargetFrame();
+                    UIManager.Instance.HideTargetFrame();
                 }
-                uiManager.ShowTargetFrame(enemy);
+                UIManager.Instance.ShowTargetFrame(enemy);
                 target = enemy;
             }
         }
@@ -135,7 +133,7 @@ namespace RPG.Characters
             if (Input.GetMouseButtonDown(0))
             {
                 target = null;
-                uiManager.HideTargetFrame();
+                UIManager.Instance.HideTargetFrame();
             }
         }
 
@@ -143,7 +141,7 @@ namespace RPG.Characters
         {
             if (Input.GetMouseButtonDown(1) && npc.IsPlayerInRange)
             {
-                uiManager.dialogueUI.OpenDialogue(npc);
+                UIManager.Instance.dialogueUI.OpenDialogue(npc);
             }
         }
     }

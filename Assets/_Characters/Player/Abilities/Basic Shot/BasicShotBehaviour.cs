@@ -7,6 +7,8 @@ namespace RPG.Characters
 {
     public class BasicShotBehaviour : AbilityBehaviour
     {
+        List<CombatCheck> combatChecks;
+
         private void Update()
         {
             StopAttackIfMoving();
@@ -19,17 +21,18 @@ namespace RPG.Characters
 
             var useParams = GetUseParams(target);
 
-            if (GetComponent<PlayerControl>())
+            if (!IsAttacking && GetComponent<PlayerControl>())
             {
                 if (PerformCombatChecks(out messageType, PopulateCombatChecks()))
                 {
-                    GameManager.Instance.castbar.TriggerCastBar(ability);
+                    UIManager.Instance.castbar.TriggerCastBar(ability);
                     attackRoutine = StartCoroutine(PerformBasicShot(useParams));
                     currentTarget = null;
                 }
                 else
                 {
-                    GameManager.Instance.alertMessageController.TriggerAlert(messageType);
+                    UIManager.Instance.alertMessageController.TriggerAlert(messageType);
+                    messageType = CameraUI.AlertMessageType.None;
                 }
             }
             else if (GetComponent<EnemyAI>())
@@ -42,24 +45,22 @@ namespace RPG.Characters
         {
             if (NoTarget)
             {
-                List<CombatCheck>combatChecks = new List<CombatCheck>
+                combatChecks = new List<CombatCheck>
                 {
-                    new CombatCheck(NoTarget, "NoTarget")
+                    new CombatCheck(NoTarget, CameraUI.AlertMessageType.NoTarget)
                 };
                 return combatChecks;
             }
             else
             {
-                List<CombatCheck> combatChecks = new List<CombatCheck>
+                combatChecks = new List<CombatCheck>
                 {
-                    new CombatCheck(TargetNotInRange, "TargetNotInRange"),
-                    new CombatCheck(TargetNotInLineOfSight, "TargetNotInLineOfSight"),
-                    new CombatCheck(CorrectWeaponNotEquipped, "CorrectWeaponNotEquipped"),
-                    new CombatCheck(TargetNotAlive, "TargetNotAlive"),
-                    new CombatCheck(CharacterNotAlive, "CharacterIsAlive"),
-                    new CombatCheck(IsAttacking, "NotCurrentlyAttacking"),
-                    new CombatCheck(IsMoving, "NotCurrentlyMoving"),
-                    new CombatCheck(AbilityCooldownActive, "AbilityCooldownInactive")
+                    new CombatCheck(TargetNotInRange, CameraUI.AlertMessageType.TargetNotInRange),
+                    new CombatCheck(TargetNotInLineOfSight, CameraUI.AlertMessageType.TargetNotInLineOfSight),
+                    new CombatCheck(CorrectWeaponNotEquipped, CameraUI.AlertMessageType.CorrectWeaponNotEquipped),
+                    new CombatCheck(TargetNotAlive, CameraUI.AlertMessageType.TargetNotAlive),
+                    new CombatCheck(CharacterNotAlive, CameraUI.AlertMessageType.CharacterNotAlive),
+                    new CombatCheck(AbilityOnCooldown, CameraUI.AlertMessageType.AbilityOnCooldown)
                 };
                 return combatChecks;
             }

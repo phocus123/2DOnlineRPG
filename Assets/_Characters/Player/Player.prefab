@@ -256,13 +256,11 @@ GameObject:
   - component: {fileID: 4288649661203896}
   - component: {fileID: 212364528542066802}
   - component: {fileID: 114572062619295424}
-  - component: {fileID: 114672799576058760}
   - component: {fileID: 114732462454628560}
   - component: {fileID: 114371627386118488}
   - component: {fileID: 114618272163788426}
   - component: {fileID: 114158886910737690}
   - component: {fileID: 114409336987571204}
-  - component: {fileID: 114883228615133080}
   - component: {fileID: 114991483353021592}
   - component: {fileID: 114110297064527536}
   - component: {fileID: 114151254786454344}
@@ -659,7 +657,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1079366221622942}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.102, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.065, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4288649661203896}
@@ -867,7 +865,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1, y: -0.09}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1099,6 +1097,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 02e5d9118cf31dd4e90103b9712c0bb0, type: 2}
   - {fileID: 11400000, guid: 561a6e2555a336744a84c6e569bd6159, type: 2}
   - {fileID: 11400000, guid: 36a381e5ea7a25a499b98cb389f4eab1, type: 2}
+  - {fileID: 11400000, guid: 17c4c41079cf803469ef0a6353e3e954, type: 2}
+  - {fileID: 11400000, guid: ab0e2f29ee078e04891b54e652128d91, type: 2}
+  - {fileID: 11400000, guid: d6af545b2f73b764588ec7e481a1ce04, type: 2}
+  - {fileID: 11400000, guid: 05f9d608ae4051c4e902e563b72c86e2, type: 2}
   energyBar: {fileID: 0}
   playerEnergybarText: {fileID: 0}
   targetFrameEnergybar: {fileID: 0}
@@ -1181,7 +1183,6 @@ MonoBehaviour:
     block2: {fileID: 1928796864498084}
   - block1: {fileID: 1044641114127794}
     block2: {fileID: 1983082597937802}
-  enemyWeapon: {fileID: 0}
   primaryWeapon: {fileID: 0}
   weaponSlot: {fileID: 114982333892416858}
 --- !u!114 &114480941007984174
@@ -1208,11 +1209,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d7c459be143544ab904c1c91c2e1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageController: {fileID: 0}
+  weaponController: {fileID: 0}
+  characterAnimationController: {fileID: 0}
+  characterMovementController: {fileID: 0}
   characterName: Shrike
   nameText: {fileID: 114746929251921660}
   moveSpeed: 3
-  maxHealthPoints: 10000
+  maxHealthPoints: 200
   maxEnergyPoints: 10000
+  characterStats:
+  - {fileID: 11400000, guid: c061aa3ad120d9b46bc582ba7e515dca, type: 2}
+  - {fileID: 11400000, guid: d2ddda1fe9a62dd48854fd6d5944b7b1, type: 2}
+  - {fileID: 11400000, guid: 409f322da1ed4d840b99b16784fbf82f, type: 2}
+  - {fileID: 11400000, guid: 8ecdbbe8123a6de43aafc07c7498cda9, type: 2}
+  - {fileID: 11400000, guid: bba01158cf86aed4b851964290299b0a, type: 2}
+  - {fileID: 11400000, guid: e966c40c6cc5d7545a3375da6209cc9c, type: 2}
   exitPoints:
   - {fileID: 4679231432656482}
   - {fileID: 4022704636106416}
@@ -1220,6 +1232,7 @@ MonoBehaviour:
   - {fileID: 4835694498207744}
   colliderOffset: {x: 0, y: -0.55}
   colliderSize: {x: 0.3, y: 0.1}
+  statPanel: {fileID: 0}
   experienceWorth: 0
   aggroRange: 0
 --- !u!114 &114613608531378490
@@ -1255,29 +1268,6 @@ MonoBehaviour:
   enemyHealthCanvas: {fileID: 0}
   targetHealthbarText: {fileID: 0}
   currentHealthPoints: 0
---- !u!114 &114672799576058760
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1640595576505452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04aecb7fb3b405143bed3d356e4da005, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  primaryStats:
-  - {fileID: 11400000, guid: c061aa3ad120d9b46bc582ba7e515dca, type: 2}
-  - {fileID: 11400000, guid: a58e4582c6cf97a48ab240e4b3a3058f, type: 2}
-  - {fileID: 11400000, guid: dda956745728464439f8a87ef0526ec1, type: 2}
-  - {fileID: 11400000, guid: ca3d018bfab85fe49a06695667fcb760, type: 2}
-  - {fileID: 11400000, guid: eb3b088bfc73cf4468bb678ccdff8a23, type: 2}
-  statPanel: {fileID: 0}
-  Armour:
-    AssociatedCharacter: {fileID: 114572062619295424}
-    BaseValue: 1
-    statModifiers: []
-    value: 0
 --- !u!114 &114732462454628560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1351,17 +1341,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gearSlotEquipmentType: 7
   baseClips: []
---- !u!114 &114883228615133080
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1640595576505452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0261f62d86074c54e80f85722db7683b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114911383830674398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1530,7 +1509,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

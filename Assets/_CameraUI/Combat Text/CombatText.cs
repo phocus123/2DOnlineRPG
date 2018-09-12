@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public enum CombatTextType
@@ -11,22 +9,48 @@ public enum CombatTextType
 
 }
 
+public enum CombatTextDirection
+{
+    UpperCentre,
+    UpperLeft,
+    UpperRight,
+    None
+}
+
 public class CombatText : MonoBehaviour {
 
-    float speed;
+    const float TEXT_SPEED = .75f;
     Vector2 direction;
     CombatTextType combatTextType;
+    CombatTextDirection combatTextDirection = CombatTextDirection.None;
     
     void Update()
     {
-        float translation = speed * Time.deltaTime;
+        if (combatTextDirection == CombatTextDirection.None)
+        {
+            var randomInt = Random.Range(0, 3);
+            combatTextDirection = (CombatTextDirection)randomInt;
+
+            switch (combatTextDirection)
+            {
+                case CombatTextDirection.UpperCentre:
+                    direction = Vector2.up;
+                    break;
+                case CombatTextDirection.UpperLeft:
+                    direction = (Vector2.left / 2) + Vector2.up;
+                    break;
+                case CombatTextDirection.UpperRight:
+                    direction = (Vector2.right / 2) + Vector2.up;
+                    break;
+            }
+        }
+
+        float translation = TEXT_SPEED * Time.deltaTime;
         transform.Translate(direction * translation);
     }
 
-    public void Initialise(float speed, Vector2 direction, CombatTextType combatTextType)
+    public void Initialise( CombatTextType combatTextType)
     {
-        this.speed = speed;
-        this.direction = direction;
         this.combatTextType = combatTextType;
 
         Animator controller = GetComponent<Animator>();

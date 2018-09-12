@@ -31,7 +31,8 @@ MonoBehaviour:
     statName: Energy
     Value: 10
     statOperator: 1
-  cooldownActive: 0
+  cooldownActive: 1
+  overTimeAbility: 1
   damage:
     statName: Damage
     Value: 4

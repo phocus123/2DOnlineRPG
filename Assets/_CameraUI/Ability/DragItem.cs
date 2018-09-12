@@ -43,15 +43,14 @@ namespace RPG.CameraUI
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            var uiManager = gameManager.uIManager;
             if (draggingIcon != null)
             {
-                for (int i = 0; i < uiManager.ActionButtons.Length; i++)
+                for (int i = 0; i < UIManager.Instance.ActionButtons.Length; i++)
                 {
-                    if (eventData.pointerDrag.name == uiManager.ActionButtons[i].name)
+                    if (eventData.pointerDrag.name == UIManager.Instance.ActionButtons[i].name)
                     {
-                        ActionButton button = uiManager.ActionButtons[i];
-                        int index = Array.FindIndex(uiManager.ActionButtons, x => x.Button.name == button.name);
+                        ActionButton button = UIManager.Instance.ActionButtons[i];
+                        int index = Array.FindIndex(UIManager.Instance.ActionButtons, x => x.Button.name == button.name);
                         gameManager.savegameManager.AbilityDict.Remove(index + 1);
                         button.RemoveAbility();
                     }

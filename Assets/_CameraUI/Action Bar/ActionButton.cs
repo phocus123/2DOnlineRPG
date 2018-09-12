@@ -94,14 +94,13 @@ namespace RPG.CameraUI
         public void OnDrop(PointerEventData eventData)
         {
             DragItem item = eventData.pointerDrag.GetComponent<DragItem>();
-            var uiManager = gameManager.uIManager;
 
             if (item.Moveable != null && item.Moveable is Ability)
             {
                 SetAbility(item.Moveable as Ability, item);
 
                 Ability a = Array.Find(gameManager.MasterAbilityList, x => x.Icon.name == item.Moveable.Icon.name);
-                int index = Array.FindIndex(uiManager.ActionButtons, x => x.Button.name == Button.name);
+                int index = Array.FindIndex(UIManager.Instance.ActionButtons, x => x.Button.name == Button.name);
                 gameManager.savegameManager.AbilityDict.Add(index + 1, a.name);
             }
         }
